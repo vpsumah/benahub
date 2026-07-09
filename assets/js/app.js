@@ -1403,3 +1403,86 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 });
+
+/* ==========================================================
+   WATCH PAGE YOUTUBE PLAYLISTS
+   Met à jour les cartes de playlists automatiquement.
+========================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const playlistCards = document.querySelectorAll(".playlist-card[data-playlist]");
+
+    if (playlistCards.length === 0) {
+        return;
+    }
+
+    const playlistMap = {
+        tdah: ["tdah"],
+        autisme: ["autisme"],
+        relations: ["relation"],
+        sante: ["santé", "sante", "mental"]
+    };
+
+    function normalize(text) {
+        return text
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function findPlaylist(playlists, key) {
+        const keywords = playlistMap[key];
+
+        return playlists.find(playlist => {
+            const title = normalize(playlist.title);
+
+            return keywords.some(keyword => title.includes(normalize(keyword)));
+        });
+    }
+
+    fetch("/playlists")
+        .then(response => response.json())
+        .then(playlists => {
+
+            playlistCards.forEach(card => {
+                const key = card.dataset.playlist;
+                const playlist = findPlaylist(playlists, key);
+
+                if (!playlist) {
+                    return;
+                }
+
+                const countText = `${playlist.count} vidéo${playlist.count > 1 ? "s" : ""}`;
+
+                const badge = card.querySelector(".playlist-badge span");
+                const contentText = card.querySelector(".playlist-content p");
+
+                if (badge) {
+                    badge.textContent = countText;
+                }
+
+                if (contentText) {
+                    contentText.textContent = countText;
+                }
+
+                card.addEventListener("click", () => {
+                    window.open(playlist.url, "_blank", "noopener");
+                });
+
+                card.setAttribute("role", "link");
+                card.setAttribute("tabindex", "0");
+
+                card.addEventListener("keydown", event => {
+                    if (event.key === "Enter") {
+                        window.open(playlist.url, "_blank", "noopener");
+                    }
+                });
+            });
+
+        })
+        .catch(error => {
+            console.error("Erreur playlists YouTube :", error);
+        });
+
+});
