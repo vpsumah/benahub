@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lire | BENA Hub</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@400;700&family=Hi+Melody&family=Inter:wght@300;400;500;600;700&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="background-shapes"></div>
+
+    <svg class="background-blob-left" viewBox="0 0 500 500" preserveAspectRatio="none">
+        <path d="M0,0 H360 C420,80 380,170 320,220 C250,280 180,260 110,320 C40,380 30,450 0,500 Z" />
+    </svg>
+
+    <svg class="background-blob-right" viewBox="0 0 200 200" preserveAspectRatio="none">
+        <path
+            fill="currentColor"
+            d="M9.2,-30.5C10.9,-15,10.6,-10.5,21.8,-7.2C33,-4,55.7,-2,57.3,0.9C58.9,3.8,39.4,7.6,33.7,20.5C28.1,33.5,36.4,55.5,33.1,61C29.8,66.5,14.9,55.5,1.4,53.2C-12.2,50.9,-24.4,57.1,-37.3,57.2C-50.3,57.2,-63.9,51,-62.2,40.4C-60.5,29.8,-43.4,14.9,-43.3,0.1C-43.1,-14.7,-59.7,-29.4,-60.3,-38C-60.9,-46.6,-45.3,-49.1,-32.6,-58.3C-19.9,-67.5,-9.9,-83.4,-3.1,-78C3.8,-72.7,7.5,-46.1,9.2,-30.5Z"
+            transform="translate(100 100)"
+        />
+    </svg>
+
+    <header class="header">
+        <div class="container header-container">
+            <button class="menu-button" aria-label="Ouvrir le menu">
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <nav class="site-menu" aria-label="Menu principal">
+    <a href="index.html">Accueil</a>
+    <a href="regarder.html">Regarder</a>
+    <a href="lire.html">Lire</a>
+    <a href="approfondir.html">Approfondir</a>
+    <a href="services.html">Intervention psychosociale</a>
+    <a href="soutenir.html">Soutenir</a>
+     <a href="faq.html">FAQ</a>
+    </nav>
+
+    <div class="menu-overlay"></div>
+
+    <main>
+
+<!-- ======================================================
+     HERO DE PAGE
+     Présente la section Lire du Hub.
+     Cette page regroupe les contenus écrits :
+     livres, dossiers, Deep Dives, réflexions courtes
+     et futurs magazines.
+======================================================= -->
+
+<section class="page-hero page-hero-read">
+
+    <div class="container page-hero-container">
+
+        <!--
+            Petit logo en haut de la page.
+            Il permet de revenir à l'accueil.
+        -->
+        <a href="index.html" class="page-hero-logo">
+            <img src="assets/images/Logo_top.png" alt="Retour à l'accueil BENA">
+        </a>
+
+        <div class="page-hero-content">
+
+            <!--
+                Fil d'Ariane.
+                Il indique où la personne se trouve dans le Hub.
+            -->
+            <nav class="breadcrumb" aria-label="Fil d'Ariane">
+                <a href="index.html">Accueil</a>
+                <span>/</span>
+                <span>Lire</span>
+            </nav>
+
+            <h1>
+                Lire pour aller plus loin.
+            </h1>
+
+            <p>
+                Articles, dossiers, Deep Dives, livres et réflexions longues pour explorer les relations humaines, le cerveau et la neurodiversité.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#livres" class="button button-primary">
+                    Explorer les textes
+                </a>
+            </div>
+
+        </div>
+
+        <!--
+            Illustration principale de la page Lire.
+            On pourra remplacer l'image quand elle sera prête.
+        -->
+        <div class="page-hero-illustration">
+            <img
+                src="assets/images/lire_hero.png"
+                alt="Illustration de livres, carnet et tasse pour la section Lire">
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+      <!-- ======================================================
+     NAVIGATION DE LA PAGE
+     Permet de sauter rapidement vers les grandes sections.
+======================================================= -->
+
+<nav class="page-tabs" aria-label="Sections de la page Lire">
+
+    <div class="container page-tabs-container">
+
+        <!--
+            Les liens pointent vers les identifiants (id)
+            des différentes sections plus bas dans la page.
+        -->
+
+        <a href="#livres" class="page-tab is-active">
+            Livres
+        </a>
+
+        <a href="#dossiers" class="page-tab">
+            Dossiers
+        </a>
+
+        <a href="#deep-dives" class="page-tab">
+            Deep Dives
+        </a>
+
+        <a href="#reflexions" class="page-tab">
+            Réflexions courtes
+        </a>
+
+        <a href="#magazines" class="page-tab">
+            Magazines
+        </a>
+
+    </div>
+
+</nav>
+
+<!-- ======================================================
+     MES LIVRES
+     Présente les livres principaux de l'univers BENA.
+======================================================= -->
+
+<section class="content-section" id="livres">
+
+    <div class="container">
+
+        <div class="content-panel">
+
+            <!-- En-tête de la section -->
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <div class="section-icon">
+                        <i data-lucide="book-open"></i>
+                    </div>
+
+                    <div>
+                        <h2>Mes livres</h2>
+                        <p>Des livres pour mieux comprendre, réfléchir et grandir.</p>
+                    </div>
+
+                </div>
+<!---
+                <a href="#" class="section-link">
+                    Voir tous les livres →
+                </a>
+----->
+            </div>
+
+            <!-- Grille des livres -->
+            <div class="book-grid">
+
+                <article class="book-card">
+
+                    <img
+                        src="assets/images/books/365jours.jpg"
+                        alt="Couverture du livre Diagnostic: Humaine">
+
+                    <div class="book-content">
+                        <h3>
+                        </h3>
+
+                        <p class="book-subtitle">
+                            Une année d'introspection pour faire du ménage dans notre tête
+                            et dans notre vie.
+                        </p>
+
+                        <p>
+                            13 thèmes, 365 questions différentes pour vous comprendre et avancer.
+                        </p>
+
+                       <button class="small-button book-modal-button" type="button" data-book="365jours">
+    En savoir plus
+</button>
+                    </div>
+
+                </article>
+
+                <article class="book-card">
+
+                    <img
+                        src="assets/images/books/tldrcegep.jpg"
+                        alt="Couverture du livre Le cerveau en mode survie">
+
+                    <div class="book-content">
+                        <h3>Le TLDR du passage du Secondaire au CÉGEP</h3>
+
+                        <p class="book-subtitle">
+                          
+                        </p>
+
+                        <p>
+                            Ce qu'on ne nous dit pas sur le CÉGEP
+                        </p>
+
+                        <button class="small-button book-modal-button" type="button" data-book="tldrcegep">
+    En savoir plus
+</button>
+                    </div>
+
+                </article>
+<!-------
+                <article class="book-card">
+
+                    <img
+                        src="assets/images/books/relations-sans-se-perdre.jpg"
+                        alt="Couverture du livre Relations sans se perdre">
+
+                    <div class="book-content">
+                        <h3>Relations<br>sans se perdre</h3>
+
+                        <p class="book-subtitle">
+                            Comprendre pour mieux coexister.
+                        </p>
+
+                        <p>
+                            Mieux comprendre les dynamiques relationnelles pour créer des liens plus sains et authentiques.
+                        </p>
+
+                        <a href="#" class="small-button">
+                            Découvrir le livre
+                        </a>
+                    </div>
+
+                </article>
+
+                <article class="book-card">
+
+                    <img
+                        src="assets/images/books/autre-nuit.jpg"
+                        alt="Couverture du livre L'autre nuit">
+
+                    <div class="book-content">
+                        <h3>L'autre<br>nuit</h3>
+
+                        <p class="book-subtitle">
+                            Réflexions nocturnes.
+                        </p>
+
+                        <p>
+                            Petites pensées écrites la nuit quand le cerveau ne veut pas s'endormir.
+                        </p>
+
+                        <a href="#" class="small-button">
+                            Découvrir le livre
+                        </a>
+                    </div>
+
+                </article>
+---->
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ======================================================
+     DOSSIERS & DEEP DIVES
+     Présente les contenus longs réservés aux membres.
+     Le Hub présente le contenu, mais Patreon reste la destination.
+======================================================= -->
+
+<section class="content-section" id="dossiers">
+
+    <div class="container">
+
+        <div class="content-panel">
+
+            <!-- En-tête de la section -->
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <div class="section-icon">
+                        <i data-lucide="book-open"></i>
+                    </div>
+
+                    <div>
+                        <h2>Dossiers & Deep Dives</h2>
+                        <p>Des analyses approfondies et des dossiers complets pour aller plus loin.</p>
+                    </div>
+
+                </div>
+
+                <a href="dossiers.html" class="section-link">
+                    Voir tous les dossiers →
+                </a>
+
+            </div>
+
+            <!-- Grille des dossiers -->
+            <div class="reading-grid">
+
+                <article class="reading-card">
+
+                    <div class="reading-image">
+                        <img src="assets/images/read/fusee.png" alt="Illustration du dossier sur le masking">
+                        <span class="reading-badge">Deep Dive</span>
+                    </div>
+
+                   <a href="https://www.patreon.com/BENA_explique/posts/deep-dive-la-160425512" class="reading-card-link"> <div class="reading-content">
+                        <h3>La procrastination</h3>
+
+                        <p>
+                            Ça vient de où? Pourquoi on le vit? Et quoi faire?
+                        </p>
+
+                        <div class="reading-meta">
+                            <span><i data-lucide="circle"></i> Patreon</span>
+                            <i data-lucide="lock"></i>
+                        </div>
+                    </div></a>
+
+                </article>
+
+                <article class="reading-card">
+
+                    <div class="reading-image">
+                        <img src="assets/images/read/pissenlit.png" alt="Illustration du dossier sur l'attachement">
+                        <span class="reading-badge">Deep Dive</span>
+                    </div>
+<a href="https://www.patreon.com/BENA_explique/posts/deep-dive-161444748" class="reading-card-link">
+                    <div class="reading-content">
+                        <h3>L'anxiété</h3>
+
+                        <p>
+                            Ça vient de où? Pourquoi on le vit? Et quoi faire?
+                        </p>
+
+                        <div class="reading-meta">
+                            <span><i data-lucide="circle"></i> Patreon</span>
+                            <i data-lucide="lock"></i>
+                        </div>
+                    </div></a>
+
+                </article>
+
+                <article class="reading-card">
+
+                    <div class="reading-image">
+                        <img src="assets/images/read/shards.png" alt="Illustration du Deep Dive sur l'anxiété">
+                        <span class="reading-badge">Dossier</span>
+                    </div>
+<a href="https://www.patreon.com/BENA_explique/posts/dossier-quand-la-162244974" class="reading-card-link">
+                    <div class="reading-content">
+                        <h3>Quand la douleur devient ton identité</h3>
+
+                        <p>
+                            Quand la douleur n'est plus quelque chose qu'on vit, mais qui devient qui nous sommes..
+                        </p>
+
+                        <div class="reading-meta">
+                            <span><i data-lucide="circle"></i> Patreon</span>
+                            <i data-lucide="lock"></i>
+                        </div>
+                    </div></a>
+
+                </article>
+
+                <article class="reading-card">
+
+                    <div class="reading-image">
+                        <img src="assets/images/read/relation-chaine.png" alt="Illustration du dossier Trouver sa voie">
+                        <span class="reading-badge">Deep Dive</span>
+                    </div>
+<a href="https://www.patreon.com/BENA_explique/posts/deep-dive-la-162429063" class="reading-card-link">
+                    <div class="reading-content">
+                        <h3>La dépendance affective</h3>
+
+                        <p>
+                            Quand on peine à vivre sans l'autre..
+                        </p>
+
+                        <div class="reading-meta">
+                            <span><i data-lucide="circle"></i> Patreon</span>
+                            <i data-lucide="lock"></i>
+                        </div>
+                    </div></a>
+
+                </article>
+<!--------
+                <article class="reading-card">
+
+                    <div class="reading-image">
+                        <img src="assets/images/read/epuisement.jpg" alt="Illustration du Deep Dive sur l'épuisement neuroatypique">
+                        <span class="reading-badge">Deep Dive</span>
+                    </div>
+
+                    <div class="reading-content">
+                        <h3>Épuisement neuroatypique</h3>
+
+                        <p>
+                            Reconnaître les signes, comprendre les causes et se reconstruire.
+                        </p>
+
+                        <div class="reading-meta">
+                            <span><i data-lucide="circle"></i> Patreon</span>
+                            <i data-lucide="lock"></i>
+                        </div>
+                    </div>
+
+                </article>
+---->
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     RÉFLEXIONS COURTES
+     Présente quelques publications courtes.
+     Facebook est la destination, mais le contenu reste le produit.
+======================================================= -->
+
+<section class="content-section" id="reflexions">
+
+    <div class="container">
+
+        <div class="content-panel">
+
+            <!-- En-tête de la section -->
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <div class="section-icon facebook-icon">
+                        <i data-lucide="message-circle-more"></i>
+                    </div>
+
+                    <div>
+                        <h2>Réflexions courtes</h2>
+                        <p>Des réflexions, prises de conscience et partages du quotidien.</p>
+                    </div>
+
+                </div>
+
+                <a href="https://www.facebook.com/BENA.explique" class="section-link">
+                    Lire sur Facebook →
+                </a>
+
+            </div>
+
+            <!-- Grille des publications courtes -->
+            <div class="short-post-grid">
+
+                <article class="short-post-card">
+                    <img src="assets/images/read/facebook1.jpg" alt="Illustration d'une réflexion courte">
+
+                    <div class="short-post-content">
+                        <h3>"Ah toi, t’es sûrement autiste léger, hein?"</h3>
+
+                        <a href="https://www.facebook.com/BENA.explique/posts/pfbid0aFgbZDcYQAExAmqq3R9D63zZ366DbPJKwUuQ9DAfkZNjnpZKmWS41jC7bV6YqVJrl">
+                            Lire la publication →
+                        </a>
+                    </div>
+                </article>
+
+                <article class="short-post-card">
+                    <img src="assets/images/read/facebook2.jpg" alt="Illustration d'une réflexion courte">
+
+                    <div class="short-post-content">
+                        <h3>La motivation TDAH et autistique.</h3>
+
+                        <a href="https://www.facebook.com/BENA.explique/posts/pfbid02nKihJLCqf6xp7PFTP8DrEvtbdmZn8vjkUrJwaz2x9DgEvZWr18fSSCfV1NR2WUhtl?__cft__[0]=AZYUajdUI2gxa2_sSdaOQZfnL9t0HR76A5ZFpduWAbVYRQF8qFEgT13FE6OUqBXUdhiUhNDiZ_tY4edHBIsDfs9Zeu0CbN_JsTgdH8hu3yTE0cU-1h-BtMcZT5TshcDcBmrnhOWvQajJzQGm7zXoxfck&__tn__=%2CO%2CP*x-R">
+                            Lire la publication →
+                        </a>
+                    </div>
+                </article>
+
+                <article class="short-post-card">
+                    <img src="assets/images/read/facebook3.jpg" alt="Illustration d'une réflexion courte">
+
+                    <div class="short-post-content">
+                        <h3>Femme de ménage pour ramasser?</h3>
+
+                        <a href="https://www.facebook.com/BENA.explique/posts/pfbid02xY5KdbtR8kopaBfgH4TA58bmZWS8LTKXaS9jF9pcca6LFchTwzaYEbXGmr7pf1hil?__cft__[0]=AZbQYW0wPdWcHZJ0e-xzR1wvHX9fJ4kwSfhoVP6s3oWtFR6vdSDnaiI5UJw8HgWccobbRr70QyBeZRRplGcLTy5hk07tPyTmfbh0K7u1gYugoE_NMkXmP4lnWzth_wj7RpNA58xai7ST0p7b-AHEYmGC&__tn__=%2CO%2CP*x-R">
+                            Lire la publication →
+                        </a>
+                    </div>
+                </article>
+
+                <article class="short-post-card">
+                    <img src="assets/images/read/facebook4.jpg" alt="Illustration d'une réflexion courte">
+
+                    <div class="short-post-content">
+                        <h3>ne cache pas tes peluches</h3>
+
+                        <a href="https://www.facebook.com/BENA.explique/posts/pfbid02trtxxm1F7obj78mPYezs9gJXBgmiF8YNEURKMzPTSSMrvy2sjFFHti44Mtdi8SXKl?__cft__[0]=AZZ1ODWeY2vyIl5z0C9COzosXbprRmAKotgylXn_Da77XTYyRtV0CKCdxOPT6eESpQCVczW9YOnRhjNU6kZWtOU4HPC2T1M2Ui94VxpoAKxekkd5HxpEC-I-MH6eRMxDfyS7ba0f2mD-P1q3H3fXNolv&__tn__=%2CO%2CP*x-R">
+                            Lire la publication →
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     MAGAZINES
+     Présente les magazines numériques BENA.
+     Pour l'instant, cette section sert d'annonce.
+     Elle pourra être affichée lorsque le premier numéro sera prêt.
+======================================================= -->
+
+<section class="content-section last-section" id="magazines">
+
+    <div class="container">
+
+        <div class="content-panel">
+
+            <!-- En-tête -->
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <div class="section-icon">
+                        <i data-lucide="star"></i>
+                    </div>
+
+                    <div>
+
+                        <h2>Premier numéro en préparation</h2>
+
+                        <p>
+                            Des projets en préparation pour t'offrir encore plus de contenu.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Carte du magazine -->
+
+            <article class="magazine-card">
+
+                <!-- Illustration -->
+
+                <div class="magazine-image">
+
+                    <img
+                        src="assets/images/read/sept26.jpg"
+                        alt="Aperçu du futur magazine BENA">
+
+                </div>
+
+                <!-- Texte -->
+
+                <div class="magazine-content">
+
+                   <h3>
+    BENA : Chronique à voix haute
+</h3>
+
+<p>
+    Un magazine numérique sur le développement personnel, les relations humaines et le bien-être intérieur. Articles, réflexions et un peu d'humour pour apprendre sans se prendre trop au sérieux.
+</p>
+
+<span class="coming-badge">
+    Premier numéro en préparation
+</span>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container footer-container">
+
+            <div class="footer-brand">
+                <img src="assets/images/Logo_top.png" alt="Logo BENA" class="footer-logo">
+
+                <p>
+                    Comprendre le cerveau humain, les relations et la neurodiversité.
+                </p>
+
+                <p>
+                    Basé sur les connaissances actuelles. Accessible à tous.
+                </p>
+            </div>
+
+            <nav class="footer-links" aria-label="Liens du pied de page">
+                <a href="regarder.html">Regarder</a>
+                <a href="lire.html">Lire</a>
+                <a href="approfondir.html">Approfondir</a>
+                <a href="soutenir.html">Soutenir</a>
+                <a href="services.html">Intervention psychosociale</a>
+            </nav>
+
+            <div class="footer-socials">
+                <a href="https://www.youtube.com/@BENA.explique">YouTube</a>
+                <a href="https://patreon.com/BENA_explique?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink">Patreon</a>
+                <a href="https://www.facebook.com/BENA.explique">Facebook</a>
+                <a href="https://www.instagram.com/bena.explique/">Instagram</a>
+            </div>
+
+        </div>
+
+        <div class="container footer-bottom">
+            <p>© 2026 BENA. Tous droits réservés.</p>
+        </div>
+
+    </footer>
+
+<div class="modal-overlay" id="bookModal">
+
+    <div class="modal book-modal">
+
+        <button class="modal-close" id="closeBookModal" aria-label="Fermer">
+            <i data-lucide="x"></i>
+        </button>
+
+        <div class="modal-content" id="bookModalContent">
+            <!-- Le contenu du livre sera ajouté ici en JavaScript -->
+        </div>
+
+    </div>
+
+</div>
+
+<div class="modal-overlay" id="previewModal">
+
+    <div class="preview-modal">
+
+        <button class="modal-close" id="closePreviewModal" aria-label="Fermer">
+            <i data-lucide="x"></i>
+        </button>
+
+        <button class="preview-arrow preview-prev" id="previewPrev" type="button" aria-label="Page précédente">
+            <i data-lucide="chevron-left"></i>
+        </button>
+
+        <img id="previewImage" src="" alt="Page d'extrait agrandie">
+
+        <button class="preview-arrow preview-next" id="previewNext" type="button" aria-label="Page suivante">
+            <i data-lucide="chevron-right"></i>
+        </button>
+
+        <p id="previewCounter" class="preview-counter"></p>
+
+    </div>
+
+</div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="assets/js/app.js"></script>
+
+</body>
+</html>

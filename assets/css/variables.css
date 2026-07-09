@@ -1,0 +1,104 @@
+:root {
+
+    /* ==========================================
+       COLORS
+       Toutes les couleurs principales du site.
+       On utilise des variables pour éviter de
+       réécrire les codes hex partout.
+    ========================================== */
+
+    /* Couleur principale BENA.
+       Utilisée pour les accents, boutons et éléments importants. */
+    --blue: #42999d;
+
+    /* Version plus claire du bleu.
+       Utile pour les fonds doux ou les éléments secondaires. */
+    --blue-light: #80c5c8;
+
+    /* Version très claire/turquoise.
+       Utile pour les blobs décoratifs et les fonds subtils. */
+    --blue-lighter: #94d0ce;
+
+    /* Vert principal.
+       Utilisé pour certains thèmes comme les relations ou l'approfondissement. */
+    --green: #41795c;
+
+    /* Vert plus doux.
+       Peut servir pour les accents ou fonds secondaires. */
+    --green-light: #7f9c75;
+
+    /* Mauve BENA.
+       Utilisé pour la neurodiversité ou certains éléments visuels. */
+    --purple: #83699b;
+
+    /* Orange BENA.
+       Couleur d'accent forte. À utiliser avec parcimonie. */
+    --orange: #fa7e4c;
+
+    /* Couleur claire optionnelle.
+       Sert pour certaines cartes ou icônes. */
+    --cyan: #80c5c8;
+
+
+    /* ==========================================
+       NEUTRALS
+       Couleurs de base du site.
+    ========================================== */
+
+    /* Fond général du site.
+       Plus chaleureux qu'un blanc pur. */
+    --background: #f2eee7;
+
+    /* Surface des cartes, boutons clairs, blocs et sections. */
+    --surface: #ffffff;
+
+    /* Texte principal.
+       Ce n'est pas du noir pur, mais le bleu nuit BENA. */
+    --text: #092339;
+
+
+    /* ==========================================
+       TYPOGRAPHY
+       Variables de polices.
+       Comme ça, si on change une police plus tard,
+       on la change seulement ici.
+    ========================================== */
+
+    /* Titres principaux.
+       Klee One rappelle le style doux du logo BENA. */
+    --font-title: "Klee One", cursive;
+
+    /* Texte courant.
+       Inter est lisible et neutre pour les paragraphes. */
+    --font-body: "Inter", sans-serif;
+
+    /* Menus, boutons et petits titres.
+       Alegreya Sans SC donne un effet plus éditorial/bibliothèque. */
+    --font-menu: "Alegreya Sans SC", sans-serif;
+
+    /* Police plus fun.
+       À utiliser rarement pour des petites notes ou éléments décoratifs. */
+    --font-handwriting: "Hi Melody", sans-serif;
+
+
+    /* ==========================================
+       SPACING
+       Espacements réutilisables.
+       On les ajoutera au fur et à mesure.
+    ========================================== */
+
+
+    /* ==========================================
+       BORDER RADIUS
+       Coins arrondis réutilisables.
+       On les ajoutera au fur et à mesure.
+    ========================================== */
+
+
+    /* ==========================================
+       SHADOWS
+       Ombres réutilisables.
+       On les ajoutera au fur et à mesure.
+    ========================================== */
+
+}

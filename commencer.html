@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commencer ici | BENA Hub</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@400;700&family=Hi+Melody&family=Inter:wght@300;400;500;600;700&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="background-shapes"></div>
+
+    <svg class="background-blob-left" viewBox="0 0 500 500" preserveAspectRatio="none">
+        <path d="M0,0 H360 C420,80 380,170 320,220 C250,280 180,260 110,320 C40,380 30,450 0,500 Z" />
+    </svg>
+
+    <svg class="background-blob-right" viewBox="0 0 200 200" preserveAspectRatio="none">
+        <path
+            fill="currentColor"
+            d="M9.2,-30.5C10.9,-15,10.6,-10.5,21.8,-7.2C33,-4,55.7,-2,57.3,0.9C58.9,3.8,39.4,7.6,33.7,20.5C28.1,33.5,36.4,55.5,33.1,61C29.8,66.5,14.9,55.5,1.4,53.2C-12.2,50.9,-24.4,57.1,-37.3,57.2C-50.3,57.2,-63.9,51,-62.2,40.4C-60.5,29.8,-43.4,14.9,-43.3,0.1C-43.1,-14.7,-59.7,-29.4,-60.3,-38C-60.9,-46.6,-45.3,-49.1,-32.6,-58.3C-19.9,-67.5,-9.9,-83.4,-3.1,-78C3.8,-72.7,7.5,-46.1,9.2,-30.5Z"
+            transform="translate(100 100)"
+        />
+    </svg>
+
+    <header class="header">
+        <div class="container header-container">
+            <button class="menu-button" aria-label="Ouvrir le menu">
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <nav class="site-menu" aria-label="Menu principal">
+    <a href="index.html">Accueil</a>
+    <a href="regarder.html">Regarder</a>
+    <a href="lire.html">Lire</a>
+    <a href="approfondir.html">Approfondir</a>
+    <a href="services.html">Intervention psychosociale</a>
+    <a href="soutenir.html">Soutenir</a>
+     <a href="faq.html">FAQ</a>
+    </nav>
+
+    <div class="menu-overlay"></div>
+
+    <main>
+
+<!-- ======================================================
+     HERO DE PAGE
+     Présente la page Commencer ici.
+     Cette page aide les visiteurs à choisir un point de départ.
+======================================================= -->
+
+<section class="page-hero page-hero-start">
+
+    <div class="container page-hero-container">
+
+        <a href="index.html" class="page-hero-logo">
+            <img src="assets/images/Logo_top.png" alt="Retour à l'accueil BENA">
+        </a>
+
+        <div class="page-hero-content">
+
+            <nav class="breadcrumb" aria-label="Fil d'Ariane">
+                <a href="index.html">Accueil</a>
+                <span>/</span>
+                <span>Commencer ici</span>
+            </nav>
+
+            <p class="page-eyebrow">
+                Bienvenue sur BENA Hub
+            </p>
+
+            <h1>
+                Où aimerais-tu commencer aujourd'hui?
+            </h1>
+
+            <p>
+                Tu n'as pas besoin de tout comprendre tout de suite. Choisis simplement ce qui ressemble le plus à ce que tu cherches en ce moment.
+            </p>
+
+            <div class="start-note">
+                <i data-lucide="sprout"></i>
+                <span>Peu importe où tu en es, il y a un point de départ.</span>
+            </div>
+
+        </div>
+
+        <div class="page-hero-illustration">
+            <img
+                src="assets/images/index_img.png"
+                alt="Illustration d'un panneau indiquant plusieurs chemins possibles">
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     CHEMINS DE DÉPART
+     Aide le visiteur à choisir par besoin plutôt que par format.
+======================================================= -->
+
+<section class="content-section last-section">
+
+    <div class="container">
+
+        <div class="start-path-grid">
+
+            <a href="#" class="start-path-card blue-path">
+                <div class="path-icon">
+                    <i data-lucide="brain"></i>
+                </div>
+
+                <h2>Je veux comprendre...</h2>
+
+                <p>
+                    Des explications claires sur les comportements, les émotions et les réalités qui te questionnent.
+                </p>
+
+                <div class="path-tags">
+                     <button class="path-tag-button" type="button" data-tree="procrastination">Procrastination</button>
+                     <button class="path-tag-button" type="button" data-tree="motivation">Motivation</button>
+                     <button class="path-tag-button" type="button" data-tree="anxiete">Anxiété</button>
+                    <button class="path-tag-button" type="button" data-tree="tdah">TDAH</button>
+                    <button class="path-tag-button" type="button" data-tree="autisme">Autisme</button>
+                    <button class="path-tag-button" type="button" data-tree="societe">Société</button>
+                    <button class="path-tag-button" type="button" data-tree="communication">Communication</button>
+                </div>
+            </a>
+
+            <a href="#" class="start-path-card purple-path">
+                <div class="path-icon">
+                    <i data-lucide="users"></i>
+                </div>
+
+                <h2>J'ai de la difficulté avec...</h2>
+
+                        <p>
+                            Les relations peuvent parfois être compliquées. Explore les sujets qui ressemblent le plus à ce que tu vis en ce moment.
+                        </p>
+
+                    <div class="path-tags">
+
+                        <button class="path-tag-button" type="button" data-tree="rejet">
+                            Je me sens rejeté
+                        </button>
+
+                        <button class="path-tag-button" type="button" data-tree="communication">
+                            Je ne me sens pas compris
+                        </button>
+
+                        <button class="path-tag-button" type="button" data-tree="attachement">
+                            J'ai peur de perdre les autres
+                        </button>
+
+                        <button class="path-tag-button" type="button" data-tree="conflits">
+                            Je vis beaucoup de conflits
+                        </button>
+
+                        <button class="path-tag-button" type="button" data-tree="limites">
+                            J'ai du mal à dire non
+                        </button>
+
+                        <button class="path-tag-button" type="button" data-tree="relations">
+                            Je veux mieux comprendre mes relations
+                        </button>
+
+                    </div>
+            </a>
+
+            <a href="#" class="start-path-card green-path">
+                <div class="path-icon">
+                    <i data-lucide="sprout"></i>
+                </div>
+
+                <h2>J'aimerais mieux me connaître</h2>
+
+                <p>
+                    Pour mettre des mots sur ce que tu ressens, clarifier tes besoins et mieux comprendre ton fonctionnement.
+                </p>
+
+                <div class="path-tags">
+                    <button class="path-tag-button" type="button" data-tree="emotions">Émotions</button>
+                    <button class="path-tag-button" type="button" data-tree="besoins">Besoins</button>
+                    <button class="path-tag-button" type="button" data-tree="valeurs">Valeurs</button>
+                    <button class="path-tag-button" type="button" data-tree="limites">Limites</button>
+                    <button class="path-tag-button" type="button" data-tree="estime">Estime de soi</button>
+                </div>
+            </a>
+
+            <a href="services.html" class="start-path-card orange-path">
+                <div class="path-icon">
+                    <i data-lucide="heart-handshake"></i>
+                </div>
+
+                <h2>Je cherche de l'accompagnement</h2>
+
+                <p>
+                    Pour découvrir les rencontres, le soutien et l'intervention psychosociale.
+                </p>
+
+                <div class="path-tags">
+                    <span>Consultation</span>
+                    <span>Soutien</span>
+                    <span>Intervention</span>
+                </div>
+
+                <strong>Voir les services →</strong>
+            </a>
+            <!------------
+            <a href="index.html" class="start-path-card wide-path teal-path">
+                <div class="path-icon">
+                    <i data-lucide="book-open"></i>
+                </div>
+
+                <div>
+                    <h2>Je veux simplement explorer</h2>
+
+                    <p>
+                        Tu peux aussi parcourir librement le Hub, sans choisir de parcours précis.
+                    </p>
+
+                    <div class="path-tags">
+                        <span>Vidéos</span>
+                        <span>Articles</span>
+                        <span>Livres</span>
+                        <span>Outils</span>
+                    </div>
+
+                    <strong>Explorer le Hub →</strong>
+                </div>
+            </a>
+--------------------->
+        </div>
+
+
+<section class="concept-tree">
+
+    <div id="treeBreadcrumb"></div>
+
+    <div id="treeContainer"></div>
+
+</section>
+
+
+
+
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container footer-container">
+
+            <div class="footer-brand">
+                <img src="assets/images/Logo_top.png" alt="Logo BENA" class="footer-logo">
+
+                <p>
+                    Comprendre le cerveau humain, les relations et la neurodiversité.
+                </p>
+
+                <p>
+                    Basé sur les connaissances actuelles. Accessible à tous.
+                </p>
+            </div>
+
+            <nav class="footer-links" aria-label="Liens du pied de page">
+                <a href="regarder.html">Regarder</a>
+                <a href="lire.html">Lire</a>
+                <a href="approfondir.html">Approfondir</a>
+                <a href="soutenir.html">Soutenir</a>
+                <a href="services.html">Intervention psychosociale</a>
+            </nav>
+
+            <div class="footer-socials">
+                <a href="https://www.youtube.com/@BENA.explique">YouTube</a>
+                <a href="https://patreon.com/BENA_explique?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink">Patreon</a>
+                <a href="https://www.facebook.com/BENA.explique">Facebook</a>
+                <a href="https://www.instagram.com/bena.explique/">Instagram</a>
+            </div>
+
+        </div>
+
+        <div class="container footer-bottom">
+            <p>© 2026 BENA. Tous droits réservés.</p>
+        </div>
+
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="assets/js/app.js"></script>
+
+</body>
+</html>

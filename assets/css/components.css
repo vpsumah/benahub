@@ -1,0 +1,4580 @@
+/* ==========================================================
+   LOGO
+   Image principale du logo BENA sur la page d'accueil.
+========================================================== */
+
+.logo {
+  width: 500px; /* Définit la largeur du logo. La hauteur s'ajuste automatiquement. */
+}
+
+.hero-logo {
+  display: block; /* Évite les petits espaces blancs sous l'image. */
+  margin-bottom: 2rem; /* Espace entre le logo et le contenu du Hero. */
+}
+
+
+/* ==========================================================
+   MENU BUTTON
+   Bouton hamburger en haut à droite.
+========================================================== */
+
+.menu-button {
+  display: flex; /* Permet de centrer la ligne du burger. */
+  justify-content: center; /* Centre horizontalement. */
+  align-items: center; /* Centre verticalement. */
+
+  width: 48px; /* Largeur de la zone cliquable. */
+  height: 48px; /* Hauteur de la zone cliquable. */
+
+  background: transparent; /* Aucun fond visible. */
+  border: none; /* Enlève la bordure par défaut du bouton. */
+
+  cursor: pointer; /* Affiche la main au survol. */
+position: relative; /* Permet au bouton de passer au-dessus du menu. */
+z-index: 30; /* Le bouton reste cliquable même quand le menu est ouvert. */
+}
+
+.menu-button span {
+  position: relative; /* Sert de point de référence aux lignes ::before et ::after. */
+
+  width: 28px; /* Longueur de la ligne du milieu. */
+  height: 3px; /* Épaisseur de la ligne. */
+
+  background: var(--text); /* Couleur bleu nuit BENA. */
+  border-radius: 999px; /* Arrondit complètement les extrémités. */
+}
+
+.menu-button span::before,
+.menu-button span::after {
+  content: ""; /* Obligatoire pour afficher un pseudo-élément. */
+
+  position: absolute; /* Place ces lignes par rapport au span parent. */
+
+  width: 28px; /* Même longueur que la ligne du milieu. */
+  height: 3px; /* Même épaisseur que la ligne du milieu. */
+
+  background: var(--text); /* Même couleur que la ligne du milieu. */
+  border-radius: 999px; /* Extrémités arrondies. */
+
+  left: 0; /* Aligne les lignes avec celle du milieu. */
+  transition: top .25s ease, transform .25s ease, background .25s ease;
+}
+
+.menu-button span::before {
+  top: -8px; /* Place la ligne du haut au-dessus de la ligne centrale. */
+}
+
+.menu-button span::after {
+  top: 8px; /* Place la ligne du bas sous la ligne centrale. */
+}
+
+/* ==========================================================
+   BURGER OUVERT
+   Transforme le burger en X.
+========================================================== */
+
+.menu-button.is-open span {
+  background: transparent; /* Cache la ligne du milieu. */
+}
+
+.menu-button.is-open span::before {
+  top: 0; /* Ramène la ligne du haut au centre. */
+  transform: rotate(45deg); /* Tourne pour former la première branche du X. */
+}
+
+.menu-button.is-open span::after {
+  top: 0; /* Ramène la ligne du bas au centre. */
+  transform: rotate(-45deg); /* Tourne pour former la deuxième branche du X. */
+}
+
+
+/* ==========================================================
+   BUTTONS
+   Styles communs pour les boutons du site.
+========================================================== */
+
+.button {
+  display: inline-flex; /* Permet de centrer le texte dans le bouton. */
+  align-items: center; /* Centre verticalement le texte. */
+  justify-content: center; /* Centre horizontalement le texte. */
+
+  padding: 0.9rem 1.4rem; /* Espace intérieur du bouton. */
+
+  border-radius: 16px; /* Coins arrondis. */
+
+  font-family: var(--font-menu); /* Police utilisée pour les boutons. */
+  font-weight: 700; /* Texte plus affirmé. */
+  font-size: 1rem; /* Taille du texte. */
+
+  text-decoration: none; /* Enlève le soulignement des liens. */
+
+  transition: 0.2s ease; /* Rend les animations plus douces. */
+}
+
+.button-primary {
+  background: var(--blue); /* Bouton principal turquoise. */
+  color: var(--surface); /* Texte blanc. */
+}
+
+.button-secondary {
+  border: 2px solid var(--text); /* Contour bleu nuit. */
+  color: var(--text); /* Texte bleu nuit. */
+  background: transparent; /* Aucun fond. */
+}
+
+.button:hover {
+  transform: translateY(-2px); /* Soulève légèrement le bouton au survol. */
+}
+
+
+/* ==========================================================
+   EXPLORE CARDS
+   Cartes de la section Explore BENA.
+========================================================== */
+
+.explore-card {
+        /* Couleur par défaut de l'icône.
+       Les cartes pourront remplacer cette valeur. */
+    --icon-color: var(--blue);
+  background: var(--surface); /* Fond blanc de la carte. */
+
+  border-radius: 20px; /* Coins arrondis. */
+
+   padding: 1.8rem 1.5rem 1.5rem; /* Espace intérieur de la carte. */
+
+  display: flex; /* Permet d'organiser le contenu verticalement. */
+  flex-direction: column; /* Place les éléments un sous l'autre. */
+
+  min-height: 280px; /* Donne une hauteur minimale cohérente aux cartes. */
+
+  transition: .25s ease; /* Animation douce au survol. */
+
+  box-shadow: 0 15px 45px rgba(66,153,157,.08); /* Ombre turquoise très subtile. */
+}
+
+.explore-card:hover {
+  transform: translateY(-6px); /* Soulève la carte de 6px au survol. */
+
+  box-shadow: 0 20px 55px rgba(66,153,157,.15); /* Rend l'ombre plus visible au survol. */
+}
+
+/* ==========================================================
+   EXPLORE ICON
+   Cercle coloré qui contient l'icône de chaque carte.
+========================================================== */
+
+.explore-icon {
+
+    /* Le flex permet de centrer parfaitement l'icône. */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Taille du cercle. */
+    width: 64px;
+    height: 64px;
+
+    /* Transforme le carré en cercle. */
+    border-radius: 50%;
+    /* Utilise la couleur donnée par la carte. */
+    background: var(--icon-color);
+
+    box-shadow: 0 8px 20px rgba(66,153,157,.20);
+
+    position: relative;
+
+    overflow: hidden;
+
+    /* Les icônes Lucide seront blanches. */
+    color: white;
+
+    /* Taille des emojis (temporaire). */
+    font-size: 1.6rem;
+
+    /* Empêche Flexbox de réduire le cercle. */
+    flex-shrink: 0;
+
+    /* Ombre commune à toutes les icônes. */
+    box-shadow: 0 8px 20px rgba(66,153,157,.25);
+
+}
+
+.explore-icon::before {
+
+    /* Obligatoire pour créer un pseudo-élément */
+    content: "";
+
+    position: absolute;
+
+    /* Petite lumière dans le coin supérieur gauche */
+    top: 8px;
+    left: 10px;
+
+    width: 24px;
+    height: 12px;
+
+    background: rgba(255,255,255,.25);
+
+    border-radius: 999px;
+
+    transform: rotate(-25deg);
+
+}
+
+/* Icônes SVG de Lucide */
+.explore-icon svg {
+
+    width: 28px;
+
+    height: 28px;
+
+    stroke-width: 2.2;
+
+}
+
+.explore-card h3 {
+  margin: 1.25rem 0 .5rem; /* Espace autour du titre de la carte. */
+
+  font-size: 1.6rem; /* Taille du titre de carte. */
+}
+
+.explore-card p {
+  flex: 1; /* Pousse le lien vers le bas de la carte. */
+
+  line-height: 1.5; /* Rend le paragraphe plus lisible. */
+}
+
+.explore-card a {
+  text-decoration: none; /* Enlève le soulignement du lien. */
+
+  font-weight: 700; /* Rend le lien plus visible. */
+  color: var(--icon-color);
+}
+
+/* ==========================================================
+   SITE MENU
+   Menu ouvert par le bouton hamburger.
+========================================================== */
+
+.site-menu {
+  position: fixed; /* Sort le menu du flux normal et le place par rapport à la fenêtre. */
+  top: 0; /* Colle le menu en haut. */
+  right: 0; /* Colle le menu à droite. */
+
+  width: 320px; /* Largeur du panneau menu. */
+  height: 100vh; /* Prend toute la hauteur de l'écran. */
+
+  background: var(--surface); /* Fond blanc. */
+
+  padding: 6rem 2rem 2rem; /* Espace intérieur, avec plus de place en haut. */
+
+  display: flex; /* Permet de placer les liens verticalement. */
+  flex-direction: column; /* Les liens vont un sous l'autre. */
+  gap: 1.25rem; /* Espace entre les liens. */
+
+  box-shadow: -20px 0 50px rgba(9,35,57,.12); /* Ombre à gauche du panneau. */
+
+  transform: translateX(100%); /* Cache le menu hors de l'écran à droite. */
+  transition: transform .25s ease; /* Anime l'ouverture/fermeture. */
+
+  z-index: 20; /* Place le menu au-dessus du contenu. */
+}
+
+.site-menu a {
+  color: var(--text); /* Couleur des liens. */
+  text-decoration: none; /* Enlève le soulignement. */
+  font-family: var(--font-menu); /* Police de menu. */
+  font-weight: 700; /* Texte plus visible. */
+  font-size: 1.2rem; /* Taille des liens. */
+}
+
+.site-menu.is-open {
+  transform: translateX(0); /* Ramène le menu dans l'écran. */
+}
+
+/* ==========================================================
+   MENU OVERLAY
+   Fond sombre affiché derrière le menu lorsqu'il est ouvert.
+========================================================== */
+
+.menu-overlay {
+
+    /* Positionne l'overlay par rapport à la fenêtre. */
+    position: fixed;
+
+    /* Prend toute la largeur et toute la hauteur de l'écran. */
+    inset: 0;
+
+    /* Fond noir semi-transparent. */
+    background: rgba(9, 35, 57, .35);
+
+    /* Invisible par défaut. */
+    opacity: 0;
+
+    /* Empêche de cliquer dessus lorsqu'il est caché. */
+    pointer-events: none;
+
+    /* Animation douce. */
+    transition: opacity .25s ease;
+
+    /* Derrière le menu, mais devant le site. */
+    z-index: 15;
+
+}
+
+/* État affiché */
+.menu-overlay.is-open {
+
+    opacity: 1;
+
+    pointer-events: auto;
+
+}
+
+/* ==========================================================
+   LATEST VIDEO CARD
+   Carte de mise en avant de la dernière vidéo.
+========================================================== */
+
+.latest-video-card {
+  background: var(--surface); /* Fond blanc comme les cartes Explore. */
+  border-radius: 24px; /* Coins arrondis. */
+  padding: 1.5rem; /* Espace intérieur. */
+  box-shadow: 0 15px 45px rgba(66,153,157,.08); /* Ombre turquoise subtile. */
+}
+
+.latest-video-thumbnail {
+
+    /* Permet de positionner la durée sur la miniature. */
+    position: relative;
+
+    /* La miniature occupe environ la moitié de la carte. */
+    flex: 1;
+
+    /* Empêche la miniature de devenir trop petite. */
+    min-height: 260px;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+}
+
+.latest-video-thumbnail img {
+
+    /* L'image remplit entièrement la miniature. */
+    width: 100%;
+
+    height: 100%;
+
+    /* Coupe proprement l'image si nécessaire. */
+    object-fit: cover;
+
+    /* Évite les petits espaces sous les images. */
+    display: block;
+
+}
+
+.video-duration {
+  position: absolute; /* Place la durée par-dessus la miniature. */
+  right: .75rem; /* Distance du bord droit. */
+  bottom: .75rem; /* Distance du bas. */
+
+  padding: .35rem .6rem; /* Espace intérieur du badge. */
+
+  border-radius: 8px; /* Coins arrondis du badge. */
+
+  background: rgba(9,35,57,.85); /* Fond sombre semi-transparent. */
+  color: var(--surface); /* Texte blanc. */
+
+  font-family: var(--font-menu); /* Police cohérente avec les boutons. */
+  font-weight: 700; /* Texte plus visible. */
+  font-size: .9rem; /* Taille compacte. */
+}
+
+.latest-video-content {
+  flex: 1; /* Le contenu prend l'autre moitié de la carte. */
+}
+
+.latest-video-content h3 {
+  margin: 0 0 1rem; /* Enlève la marge du haut et ajoute espace en bas. */
+  font-size: 2rem; /* Titre assez visible. */
+  line-height: 1.2; /* Ligne plus compacte pour un titre. */
+}
+
+.latest-video-content p {
+  margin: 0 0 1.5rem; /* Espace avant le bouton. */
+  line-height: 1.6; /* Lecture plus confortable. */
+}
+
+/* ==========================================================
+   LEARN LIST
+   Grandes portes d'entrée vers les sujets du Hub.
+========================================================== */
+
+.learn-grid {
+
+    background: var(--surface);
+    border-radius: 24px;
+    padding: 0 2rem;
+
+    box-shadow: 0 15px 45px rgba(66,153,157,.08);
+
+}
+
+.learn-card {
+
+    display: grid;
+
+    grid-template-columns: 60px 1fr 40px;
+
+    align-items: center;
+
+    gap: 1.5rem;
+
+    padding: 0.5rem 0;
+
+    border-bottom: 1px solid rgba(9,35,57,.10);
+
+    text-decoration: none;
+
+    color: inherit;
+
+    transition: .25s ease;
+
+}
+
+.learn-card:last-child {
+
+    border-bottom: none;
+
+}
+
+.learn-card:hover {
+
+    transform: translateX(6px);
+
+}
+
+.learn-icon svg {
+
+    width: 34px;
+    height: 34px;
+
+    color: var(--blue);
+
+}
+
+.learn-content h3 {
+
+    margin-bottom: .35rem;
+
+}
+
+.learn-content p {
+
+    margin: 0;
+
+    color: var(--text-light);
+
+    line-height: 1.5;
+
+}
+
+.learn-arrow {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+}
+
+.learn-arrow svg {
+
+    width: 26px;
+
+    height: 26px;
+
+    color: var(--blue);
+
+}
+
+/* ==========================================================
+   SUPPORT BANNER
+   Bandeau qui explique pourquoi soutenir BENA.
+========================================================== */
+
+.support-container {
+  background: rgba(250,126,76,.10);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 15px 45px rgba(66,153,157,.08);
+}
+
+.support-content h2 {
+  margin: 0 0 .5rem;
+}
+
+.support-content p {
+  margin: 0 0 1.25rem;
+  line-height: 1.5;
+}
+
+.support-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .75rem 1.5rem;
+}
+
+.support-list li {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+
+.support-list svg {
+  width: 20px;
+  height: 20px;
+  color: var(--blue);
+  stroke-width: 3;
+}
+
+.support-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.button-orange {
+  background: var(--orange);
+  color: var(--surface);
+}
+
+/* ==========================================================
+   SHOP SECTION
+   Utilisée sur soutenir.html (anciennement sur index.html)
+========================================================== */
+
+.shop-card {
+
+    background: var(--surface);
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    box-shadow: 0 15px 45px rgba(66,153,157,.08);
+
+    transition: .25s ease;
+
+}
+
+.shop-card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow: 0 20px 55px rgba(66,153,157,.15);
+
+}
+
+.shop-card img {
+
+    display: block;
+
+    width: 100%;
+
+    height: 180px;
+
+    object-fit: cover;
+
+}
+
+.shop-card h3 {
+
+    text-align: center;
+
+    padding: .75rem;
+
+    font-size: 1.15rem;
+
+}
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.site-footer {
+  background: rgba(255,255,255,.55);
+  border-top: 1px solid rgba(9,35,57,.08);
+}
+
+.footer-logo {
+  width: 170px;
+}
+
+.footer-brand p,
+.footer-bottom p {
+  line-height: 1.5;
+  margin: .75rem 0 0;
+}
+
+.footer-links,
+.footer-socials {
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+}
+
+.footer-links a,
+.footer-socials a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-links a:hover,
+.footer-socials a:hover {
+  color: var(--blue);
+}
+
+/* ==========================================================
+   PAGE HERO
+   Composants communs des pages internes.
+========================================================== */
+
+.page-eyebrow {
+
+    display: inline-block;
+
+    margin: 0;
+
+    font-size: .9rem;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .08em;
+
+    color: var(--blue);
+
+}
+
+.page-hero-content h1 {
+
+    font-size: clamp(2.5rem, 3.6vw, 4rem);
+
+    line-height: 1.1;
+
+}
+
+.page-hero-content p {
+
+    font-size: 1.15rem;
+
+    line-height: 1.7;
+
+    color: var(--text-light);
+
+}
+
+/* ==========================================================
+   PAGE TABS
+========================================================== */
+
+.page-tab {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: .8rem 1.3rem;
+
+    border-radius: 999px;
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: .2s ease;
+
+    box-shadow: 0 8px 20px rgba(66,153,157,.08);
+
+}
+
+.page-tab:hover {
+
+    transform: translateY(-2px);
+
+}
+
+.page-tab.is-active {
+
+    background: var(--blue);
+
+    color: white;
+
+}
+
+/* ==========================================================
+   SECTION HEADER
+========================================================== */
+
+.section-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: end;
+
+    gap: 2rem;
+
+    margin-bottom: 2rem;
+
+}
+
+.section-eyebrow {
+
+    margin: 0 0 .35rem;
+
+    color: var(--blue);
+
+    text-transform: uppercase;
+
+    font-size: .85rem;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-family: var(--font-menu);
+}
+
+.section-link {
+
+    color: var(--blue);
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    transition: .2s ease;
+
+}
+
+.section-link:hover {
+
+    color: var(--text);
+
+}
+
+/* ==========================================================
+   VIDEO CARD
+   Carte vidéo légère utilisée dans les grilles de vidéos.
+========================================================== */
+
+.video-card-link {
+
+    display: block;
+
+    color: inherit;
+
+    text-decoration: none;
+
+}
+
+.video-thumbnail {
+
+    position: relative;
+
+    aspect-ratio: 16 / 9;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    background: var(--blue-lighter);
+
+}
+
+.video-thumbnail img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform .25s ease;
+
+}
+
+.video-info {
+
+    padding-top: .85rem;
+
+}
+
+.video-info h3 {
+
+    margin: 0 0 .4rem;
+
+    font-size: 1rem;
+
+    line-height: 1.35;
+
+}
+
+.video-info p {
+
+    margin: 0;
+
+    color: var(--text-light);
+
+    font-size: .95rem;
+
+    line-height: 1.45;
+
+}
+
+.video-card:hover .video-thumbnail img {
+
+    transform: scale(1.04);
+
+}
+
+/* ==========================================================
+   PAGE HERO LOGO
+   Petit logo utilisé sur les pages internes.
+========================================================== */
+
+.page-hero-logo {
+
+    display: inline-block;
+
+    margin-bottom: 0;
+
+    transform: translateX(-75px);
+
+}
+
+.page-hero-logo img {
+
+    display: block;
+
+    width: 270px;
+
+    height: auto;
+
+}
+
+/* ==========================================================
+   WATCH HERO ILLUSTRATION
+   Illustration simple pour la page Regarder.
+========================================================== */
+
+.page-hero-illustration img {
+
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+
+}
+
+.watch-illustration {
+
+    width: 320px;
+
+    height: 220px;
+
+    border-radius: 28px;
+
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: white;
+
+    box-shadow: 0 24px 60px rgba(66,153,157,.22);
+
+    position: relative;
+
+}
+
+.watch-illustration::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 36px;
+
+    right: 36px;
+
+    bottom: 34px;
+
+    height: 8px;
+
+    border-radius: 999px;
+
+    background: rgba(255,255,255,.75);
+
+}
+
+.watch-illustration::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 70px;
+
+    bottom: 29px;
+
+    width: 18px;
+
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: var(--orange);
+
+}
+
+.watch-illustration svg {
+
+    width: 78px;
+
+    height: 78px;
+
+    fill: currentColor;
+
+    stroke-width: 1.5;
+
+}
+
+/* ==========================================================
+   BREADCRUMB
+========================================================== */
+
+.breadcrumb {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .6rem;
+
+    margin-bottom: 2rem;
+
+    font-size: .9rem;
+
+    color: var(--text-light);
+
+}
+
+.breadcrumb a {
+
+    color: var(--blue);
+
+    text-decoration: none;
+
+}
+
+.breadcrumb span {
+
+    color: var(--text-light);
+
+}
+
+/* ==========================================================
+   SECTION TITLE
+   Petit bloc icône + titre de section.
+========================================================== */
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.section-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 52px;
+    height: 52px;
+
+    border-radius: 16px;
+
+    background: rgba(66,153,157,.12);
+    color: var(--blue);
+}
+
+.section-icon svg {
+    width: 26px;
+    height: 26px;
+}
+
+/* ==========================================================
+   CONTENT PANEL
+   Bloc pâle qui regroupe une section de contenu.
+========================================================== */
+
+.content-panel {
+    background: rgba(255,255,255,.45);
+    border: 1px solid rgba(9,35,57,.06);
+    border-radius: 28px;
+    padding: 2rem;
+    box-shadow: 0 18px 50px rgba(66,153,157,.08);
+}
+
+/* ==========================================================
+   SERIES CARD
+========================================================== */
+
+.series-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 2rem;
+
+}
+
+.series-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    min-height: 210px;
+
+    padding: 1rem;
+
+    color: white;
+
+    display: flex;
+
+    align-items: flex-start;
+    cursor: pointer;
+
+transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    filter .25s ease;
+
+}
+
+.series-card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow: 0 18px 40px rgba(9,35,57,.18);
+
+    filter: brightness(1.05);
+
+}
+
+.series-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    height: 100%;
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+.series-content h3 {
+
+    margin: 0;
+
+    font-family: var(--font-menu);
+
+    font-size: 1.5rem;
+
+    font-weight: 700;
+
+    line-height: 1.15;
+
+}
+
+.series-content p {
+
+    margin: 1rem 0 2rem;
+
+    opacity: .95;
+
+    line-height: 1.5;
+
+}
+
+.series-button {
+
+    margin-top: auto;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .5rem;
+
+    padding: .8rem 1.2rem;
+
+    border-radius: 999px;
+
+    background: rgba(0,0,0,.22);
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: background .2s ease,
+    transform .2s ease;
+
+}
+
+.series-card:hover .series-button {
+
+    background: rgba(0,0,0,.35);
+
+}
+
+.series-icon {
+
+    position: absolute;
+
+    top: 1.25rem;
+
+    right: 1rem;
+
+    width: 82px;
+
+    height: 82px;
+
+    opacity: .20;
+    transition:     transform .3s ease,
+    opacity .3s ease;
+
+}
+
+.series-card:hover .series-icon {
+
+    transform: scale(1.08);
+
+    opacity: .30;
+
+}
+
+
+/* ==========================================================
+   SERIES COLORS
+========================================================== */
+
+.series-card.purple {
+
+    background: linear-gradient(
+        135deg,
+        #7560a8,
+        #5f4d8c
+    );
+
+}
+
+.series-card.green {
+
+    background: linear-gradient(
+        135deg,
+        #6e9b82,
+        #5b846d
+    );
+
+}
+
+.series-card.orange {
+
+    background: linear-gradient(
+        135deg,
+        #f27a45,
+        #df6631
+    );
+
+}
+
+.series-card.blue {
+
+    background: linear-gradient(
+        135deg,
+        #3fa3b5,
+        #2f8698
+    );
+
+}
+
+/* ==========================================================
+   PLAYLIST CARD
+========================================================== */
+
+.playlist-card {
+    position: relative;
+    overflow: hidden;
+
+    min-height: 160px;
+    border-radius: 20px;
+
+    background: var(--text);
+    color: white;
+
+    box-shadow: 0 14px 35px rgba(9,35,57,.12);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.playlist-card img {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform .25s ease;
+}
+
+.playlist-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(9,35,57,.45);
+}
+
+.playlist-badge {
+    position: absolute;
+  top: 1rem;
+right: 1rem;
+
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+
+    padding: .4rem .55rem;
+
+    border-radius: 10px;
+
+    background: rgba(9,35,57,.82);
+    color: white;
+
+    font-family: var(--font-menu);
+    font-size: .8rem;
+    font-weight: 700;
+
+    z-index: 2;
+}
+
+.playlist-badge svg {
+    width: 16px;
+    height: 16px;
+}
+
+.playlist-content {
+    position: relative;
+    z-index: 2;
+
+    min-height: 160px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    padding: 1rem;
+}
+
+.playlist-content h3 {
+    margin: 0 0 .25rem;
+
+    max-width: 85%;
+
+    font-family: var(--font-menu);
+  font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.playlist-content p {
+    margin: 0;
+
+    font-family: var(--font-menu);
+    font-size: .95rem;
+    font-weight: 600;
+}
+
+.playlist-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(9,35,57,.18);
+}
+
+.playlist-card:hover img {
+    transform: scale(1.05);
+}
+
+
+
+
+/* ==========================================================
+   REEL CARD
+========================================================== */
+
+.reel-card {
+
+    transition: transform .25s ease;
+
+}
+
+.reel-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.reel-thumbnail {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--text);
+    box-shadow: 0 14px 35px rgba(9,35,57,.14);
+    transition:
+    box-shadow .25s ease;
+}
+
+.reel-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .25s ease;
+}
+
+.reel-duration {
+    position: absolute;
+    right: .5rem;
+    bottom: .5rem;
+
+    padding: .25rem .45rem;
+    border-radius: 7px;
+
+    background: rgba(9,35,57,.85);
+    color: white;
+
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.reel-card:hover {
+
+    transform: translateY(-5px);
+
+}
+
+.reel-card h3 {
+    margin: .75rem 0 0;
+    font-family: var(--font-menu);
+    font-size: .95rem;
+    line-height: 1.25;
+    font-weight:600;
+    display:-webkit-box;
+-webkit-line-clamp:3;
+-webkit-box-orient:vertical;
+overflow:hidden;
+}
+
+.reel-card:hover {
+
+    transform: translateY(-5px);
+
+}
+
+.reel-card:hover .reel-thumbnail {
+
+    box-shadow: 0 20px 45px rgba(9,35,57,.18);
+
+}
+
+.reel-card:hover .reel-thumbnail img {
+    transform: scale(1.05);
+}
+
+.reel-card:hover .reel-thumbnail {
+
+    box-shadow: 0 20px 45px rgba(9,35,57,.18);
+
+}
+
+
+
+/* ==========================================================
+   MORE BANNER
+========================================================== */
+
+.more-banner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    padding: 2rem;
+    border-radius: 28px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(66,153,157,.22),
+        rgba(255,255,255,.72)
+    );
+
+    box-shadow: 0 18px 50px rgba(66,153,157,.10);
+    margin-bottom: 2rem;
+}
+
+.more-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 76px;
+    height: 76px;
+
+    border-radius: 50%;
+
+    background: var(--blue);
+    color: white;
+
+    flex-shrink: 0;
+}
+
+.more-icon svg {
+    width: 38px;
+    height: 38px;
+}
+
+.more-content {
+    flex: 1;
+}
+
+.more-content h2 {
+    margin: 0 0 .35rem;
+    font-family: var(--font-menu);
+    font-size: 1.8rem;
+}
+
+.more-content p {
+    margin: 0;
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+.more-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.button-light {
+    background: white;
+    color: var(--text);
+}
+
+/* ==========================================================
+   BOOK GRID
+   Grille utilisée sur lire.html pour présenter les livres.
+========================================================== */
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+/* ==========================================================
+   BOOK CARD
+   Carte horizontale avec couverture à gauche et texte à droite.
+========================================================== */
+
+.book-card {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.25rem;
+
+    background: white;
+    border-radius: 22px;
+    padding:1.5rem;
+min-height: 340px;
+    box-shadow: 0 12px 35px rgba(66,153,157,.08);
+
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 45px rgba(66,153,157,.14);
+}
+
+.book-card img {
+    width: 120px;
+    flex-shrink:0;
+    height: 180px;
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    box-shadow: 0 10px 25px rgba(9,35,57,.16);
+}
+
+.book-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.book-content h3 {
+    margin: 0 0 .6rem;
+
+    font-family: var(--font-menu);
+    font-size: 1.25rem;
+    line-height: 1.2;
+}
+
+.book-content p {
+    margin: 0 0 .75rem;
+
+    font-size: .95rem;
+    line-height: 1.5;
+    color: var(--text-light);
+}
+
+.book-subtitle {
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* ==========================================================
+   SMALL BUTTON
+   Petit bouton utilisé dans les cartes de livres.
+========================================================== */
+
+.small-button {
+    margin-top: auto;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: .55rem 1rem;
+
+    border-radius: 999px;
+
+    background: rgba(66,153,157,.12);
+    color: var(--text);
+
+    border: 2px solid rgba(66,153,157,.22);
+
+    font-family: var(--font-menu);
+    font-size: .85rem;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: .2s ease;
+}
+
+.small-button:hover {
+    background: var(--blue);
+    color: white;
+}
+
+/* ==========================================================
+   READING GRID
+   Grille utilisée pour les dossiers et Deep Dives.
+========================================================== */
+
+.reading-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+}
+
+/* ==========================================================
+   READING CARD
+   Carte verticale avec image, badge, titre, description et méta.
+========================================================== */
+
+.reading-card {
+    overflow: hidden;
+
+    background: white;
+    border-radius: 18px;
+
+    box-shadow: 0 12px 35px rgba(66,153,157,.08);
+
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.reading-card a {
+    color: var(--text) !important;
+    text-decoration: none !important;
+}
+
+.reading-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 45px rgba(66,153,157,.14);
+}
+
+/* Image du haut de la carte */
+.reading-image {
+    position: relative;
+
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+
+    background: var(--blue-lighter);
+}
+
+.reading-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    display: block;
+
+    transition: transform .25s ease;
+}
+
+.reading-card:hover .reading-image img {
+    transform: scale(1.04);
+}
+
+/* Badge bleu placé sur l'image */
+.reading-badge {
+    position: absolute;
+    top: .6rem;
+    left: .6rem;
+
+    padding: .25rem .55rem;
+
+    border-radius: 999px;
+
+    background: var(--text);
+    color: white;
+
+    font-family: var(--font-menu);
+    font-size: .72rem;
+    font-weight: 700;
+}
+
+/* Texte dans la carte */
+.reading-content {
+    min-height: 220px;
+
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.reading-content a {
+    color: inherit;
+    text-decoration: none;
+
+    display: block;
+}
+
+.reading-content h3 {
+    margin: 0 0 .9rem;
+
+    font-family: var(--font-menu);
+    font-size: 1.15rem;
+    line-height: 1.25;
+}
+
+.reading-content p {
+    margin: 0;
+
+    color: var(--text-light);
+    font-size: .9rem;
+    line-height: 1.5;
+}
+
+.reading-button {
+    margin-top: 1rem;
+}
+
+/* Ligne du bas : Patreon + cadenas */
+.reading-meta {
+    margin-top: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: var(--text-light);
+
+    font-size: .82rem;
+}
+
+.reading-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+}
+
+.reading-meta svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.4;
+}
+
+/* ==========================================================
+   SHORT POST GRID
+   Grille des réflexions courtes sur lire.html.
+========================================================== */
+
+.short-post-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+}
+
+/* ==========================================================
+   SHORT POST CARD
+   Petite carte horizontale avec image et titre.
+========================================================== */
+
+.short-post-card {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 1rem;
+
+    align-items: center;
+
+    background: white;
+    border-radius: 18px;
+    padding: .85rem;
+
+    box-shadow: 0 12px 35px rgba(66,153,157,.08);
+
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.short-post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 45px rgba(66,153,157,.14);
+}
+
+.short-post-card img {
+    width: 110px;
+    height: 90px;
+
+    object-fit: cover;
+    display: block;
+
+    border-radius: 14px;
+    background: var(--blue-lighter);
+}
+
+.short-post-content {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.short-post-content h3 {
+    margin: 0;
+
+    font-family: var(--font-menu);
+    font-size: .98rem;
+    line-height: 1.25;
+}
+
+.short-post-content a {
+    color: var(--text);
+    text-decoration: none;
+
+    font-family: var(--font-menu);
+    font-size: .9rem;
+    font-weight: 700;
+}
+
+.short-post-content a:hover {
+    color: var(--blue);
+}
+
+/* Icône bleue pour la section Facebook */
+.facebook-icon {
+    background: rgba(80,145,220,.14);
+    color: #5091dc;
+}
+
+/* ==========================================================
+   MAGAZINE CARD
+   Grande carte de présentation des futurs magazines.
+========================================================== */
+
+.magazine-card {
+
+    display: grid;
+
+    grid-template-columns: 420px 1fr;
+
+    gap: 2rem;
+
+    align-items: center;
+
+}
+
+.magazine-image img {
+
+    display: block;
+
+    width: 60%;
+
+    border-radius: 22px;
+
+    object-fit: cover;
+
+    box-shadow: 0 14px 35px rgba(66,153,157,.10);
+
+}
+
+.magazine-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1rem;
+
+}
+
+.magazine-content h3 {
+
+    margin: 0;
+
+    font-family: var(--font-menu);
+
+    font-size: 1.8rem;
+
+}
+
+.magazine-content p {
+
+    margin: 0;
+
+    line-height: 1.7;
+
+    color: var(--text-light);
+
+    max-width: 540px;
+
+}
+
+/* ==========================================================
+   BADGE "À VENIR"
+========================================================== */
+
+.coming-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    align-self: flex-start;
+
+    padding: .45rem .9rem;
+
+    border-radius: 999px;
+
+    background: rgba(66,153,157,.08);
+
+    border: 2px solid rgba(66,153,157,.30);
+
+    color: var(--text);
+
+    font-family: var(--font-menu);
+
+    font-size: .9rem;
+
+    font-weight: 700;
+
+}
+
+/* ==========================================================
+   LAST SECTION
+   Ajoute un espace avant le footer.
+   Utilisée uniquement lorsqu'une page se termine directement
+   après une section de contenu.
+========================================================== */
+
+.last-section {
+
+    margin-bottom: 4rem;
+
+}
+
+
+/* ==========================================================
+   COMING TOOLBOX
+   Bloc temporaire utilisé sur approfondir.html pendant que
+   la boîte à outils BENA est en construction.
+========================================================== */
+
+.coming-toolbox {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 2rem;
+
+    align-items: start;
+
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.coming-toolbox-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 90px;
+    height: 90px;
+
+    border-radius: 28px;
+
+    background: rgba(66,153,157,.12);
+    color: var(--blue);
+}
+
+.coming-toolbox-icon svg {
+    width: 44px;
+    height: 44px;
+}
+
+.coming-toolbox-content h2 {
+    margin: 0 0 1rem;
+
+    font-family: var(--font-menu);
+    font-size: 2rem;
+}
+
+.coming-toolbox-content p {
+    margin: 0 0 1rem;
+
+    color: var(--text-light);
+    line-height: 1.7;
+    max-width: 720px;
+}
+
+.coming-toolbox-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+
+    margin: 1.5rem 0;
+}
+
+.coming-toolbox-list span {
+    display: inline-flex;
+
+    padding: .55rem .85rem;
+
+    border-radius: 999px;
+
+    background: rgba(66,153,157,.08);
+    color: var(--text);
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+    font-size: .9rem;
+}
+
+/* ==========================================================
+   SUPPORT INTRO
+========================================================== */
+
+.support-intro{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:1.5rem;
+
+    margin-bottom:3rem;
+
+}
+
+.support-intro h2{
+
+    margin:0;
+
+    font-size:2rem;
+
+    text-align:center;
+
+}
+
+.support-dots{
+
+    display:flex;
+
+    gap:.55rem;
+
+}
+
+.support-dots span{
+
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+}
+
+.support-dots span:nth-child(1){
+    background:#80c5c8;
+}
+
+.support-dots span:nth-child(2){
+    background:#7f9c75;
+}
+
+.support-dots span:nth-child(3){
+    background:#fa7e4c;
+}
+
+/* ==========================================================
+   SUPPORT GRID
+   Grille des grandes cartes de soutien.
+========================================================== */
+
+.support-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+/* ==========================================================
+   SUPPORT CARD
+   Grande carte pour Patreon, Ko-fi et Boutique.
+========================================================== */
+
+.support-card {
+    padding: 2rem;
+    border-radius: 24px;
+
+    background: white;
+
+    box-shadow: 0 18px 50px rgba(66,153,157,.10);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    min-height: 520px;
+}
+
+/* Variation Patreon */
+.patreon-card {
+    background: linear-gradient(
+        135deg,
+        rgba(131,105,155,.16),
+        rgba(255,255,255,.86)
+    );
+}
+
+.support-card-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 76px;
+    height: 76px;
+
+    border-radius: 50%;
+
+    background: var(--purple);
+    color: white;
+}
+
+.support-card-icon svg {
+    width: 38px;
+    height: 38px;
+}
+
+.support-card h3 {
+    margin: 0;
+
+    font-size: 2rem;
+}
+
+.support-card h4 {
+    margin: 0;
+
+    color: var(--purple);
+    font-family: var(--font-menu);
+    font-size: 1.2rem;
+}
+
+.support-card p {
+    margin: 0;
+
+    line-height: 1.6;
+    color: var(--text);
+}
+
+.support-card-list {
+    list-style: none;
+    padding: 0;
+    margin: .5rem 0 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: .65rem;
+}
+
+.support-card-list li::before {
+    content: "✓";
+    margin-right: .55rem;
+
+    color: var(--purple);
+    font-weight: 700;
+}
+
+.support-card .button {
+    margin-top: auto;
+}
+
+/* ==========================================================
+   VARIATIONS DES CARTES DE SOUTIEN
+   Chaque façon de soutenir possède sa couleur principale.
+========================================================== */
+
+.kofi-card {
+    background: linear-gradient(
+        135deg,
+        rgba(66,153,157,.16),
+        rgba(255,255,255,.86)
+    );
+}
+
+.shop-support-card {
+    background: linear-gradient(
+        135deg,
+        rgba(250,126,76,.18),
+        rgba(255,255,255,.88)
+    );
+}
+
+.kofi-card .support-card-icon {
+    background: var(--blue);
+}
+
+.shop-support-card .support-card-icon {
+    background: var(--orange);
+}
+
+.kofi-card h4,
+.kofi-card .support-card-list li::before {
+    color: var(--blue);
+}
+
+.shop-support-card h4,
+.shop-support-card .support-card-list li::before {
+    color: var(--orange);
+}
+
+/* ==========================================================
+   SHARE BANNER
+   Bandeau pour les façons gratuites de soutenir BENA.
+========================================================== */
+
+.share-banner {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2rem;
+
+    align-items: center;
+
+    padding: 2rem;
+
+    border-radius: 26px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(127,156,117,.16),
+        rgba(255,255,255,.88)
+    );
+
+    box-shadow: 0 18px 50px rgba(66,153,157,.10);
+}
+
+.share-intro {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.share-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 76px;
+    height: 76px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+    color: white;
+
+    flex-shrink: 0;
+}
+
+.share-icon svg {
+    width: 38px;
+    height: 38px;
+}
+
+.share-intro h2 {
+    margin: 0;
+
+    font-size: 2rem;
+}
+
+.share-intro h3 {
+    margin: .35rem 0 1rem;
+
+    color: var(--green);
+    font-family: var(--font-menu);
+    font-size: 1.2rem;
+}
+
+.share-intro p {
+    margin: 0;
+
+    line-height: 1.6;
+    max-width: 560px;
+}
+
+.share-actions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.share-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .75rem;
+
+    text-align: center;
+
+    padding: 1rem .75rem;
+
+    border-left: 1px solid rgba(9,35,57,.10);
+}
+
+.share-action:first-child {
+    border-left: none;
+}
+
+.share-action svg {
+    width: 34px;
+    height: 34px;
+
+    color: var(--green);
+    stroke-width: 1.8;
+}
+
+.share-action span {
+    font-family: var(--font-menu);
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+/* ==========================================================
+   THANK YOU PANEL
+   Dernière section de soutenir.html.
+========================================================== */
+
+.thank-you-panel{
+
+    max-width:820px;
+
+    margin:0 auto;
+
+    text-align:center;
+
+}
+
+.thank-you-icon{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    width:90px;
+    height:90px;
+
+    margin:0 auto 1.5rem;
+
+    border-radius:50%;
+
+    background:rgba(66,153,157,.10);
+
+    color:var(--blue);
+
+}
+
+.thank-you-icon svg{
+
+    width:44px;
+    height:44px;
+
+}
+
+.thank-you-panel h2{
+
+    margin:0 0 1rem;
+
+    font-size:2.2rem;
+
+}
+
+.thank-you-panel p{
+
+    max-width:720px;
+
+    margin:0 auto 1rem;
+
+    line-height:1.8;
+
+    color:var(--text-light);
+
+}
+
+.thank-you-signature{
+
+    margin-top:2rem;
+
+    font-family:var(--font-title);
+
+    font-size:1.4rem;
+
+    color:var(--text);
+
+}
+
+/* ==========================================================
+   SERVICE CARD
+   Présentation de l'accompagnement.
+========================================================== */
+
+.service-card{
+
+    display:grid;
+
+    grid-template-columns:120px 1fr;
+
+    gap:2rem;
+
+    align-items:center;
+
+    padding:2.5rem;
+
+    border-radius:28px;
+
+    background:white;
+
+    box-shadow:0 18px 50px rgba(66,153,157,.10);
+
+}
+
+.service-icon{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    width:120px;
+    height:120px;
+
+    border-radius:50%;
+
+    background:rgba(66,153,157,.10);
+
+    color:var(--blue);
+
+}
+
+.service-icon svg{
+
+    width:56px;
+    height:56px;
+
+}
+
+.service-content h2{
+
+    margin:0 0 1rem;
+
+    font-size:2.1rem;
+
+}
+
+.service-content p{
+
+    margin:0;
+
+    max-width:700px;
+
+    line-height:1.7;
+
+}
+
+.service-tags{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:.85rem;
+
+    margin:2rem 0;
+
+}
+
+.service-tags span{
+
+    padding:.55rem 1rem;
+
+    border-radius:999px;
+
+    background:rgba(66,153,157,.08);
+
+    font-family:var(--font-menu);
+
+    font-weight:700;
+
+}
+
+/* ==========================================================
+   APPROACH PANEL
+   Section "Mon approche" sur la page Être accompagné.
+========================================================== */
+
+.approach-panel {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 2rem;
+
+    padding: 2.5rem;
+
+    border-radius: 28px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(127,156,117,.14),
+        rgba(255,255,255,.88)
+    );
+
+    box-shadow: 0 18px 50px rgba(66,153,157,.10);
+}
+
+.approach-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 90px;
+    height: 90px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+    color: white;
+}
+
+.approach-icon svg {
+    width: 42px;
+    height: 42px;
+}
+
+.approach-content h2 {
+    margin: 0 0 1rem;
+
+    font-size: 2.1rem;
+}
+
+.approach-content p {
+    margin: 0 0 1rem;
+
+    max-width: 820px;
+
+    line-height: 1.8;
+    color: var(--text-light);
+}
+
+/* ==========================================================
+   SECTION HEADING
+   Titre d'introduction d'une section.
+========================================================== */
+
+.section-heading{
+
+    max-width:760px;
+
+    margin:0 auto 3rem;
+
+    text-align:center;
+
+}
+
+.section-heading h2{
+
+    margin:0 0 1rem;
+
+    font-size:2.3rem;
+
+}
+
+.section-heading p{
+
+    margin:0;
+
+    line-height:1.7;
+
+    color:var(--text-light);
+
+}
+
+/* ==========================================================
+   SITUATIONS GRID
+========================================================== */
+
+.situations-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:1.75rem;
+
+}
+
+.situation-card{
+
+    padding:2rem;
+
+    border-radius:24px;
+
+    background:white;
+
+    box-shadow:0 18px 45px rgba(66,153,157,.08);
+
+    transition:.25s;
+
+}
+
+.situation-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.situation-card svg{
+
+    width:42px;
+    height:42px;
+
+    color:var(--blue);
+
+    margin-bottom:1rem;
+
+}
+
+.situation-card h3{
+
+    margin:0 0 .75rem;
+
+    font-size:1.45rem;
+
+}
+
+.situation-card p{
+
+    margin:0;
+
+    line-height:1.65;
+
+    color:var(--text-light);
+
+}
+
+/* ==========================================================
+   SERVICE GRID
+========================================================== */
+
+.service-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:2rem;
+
+}
+
+/* ==========================================================
+   SERVICE TYPE CARD
+========================================================== */
+
+.service-type-card{
+
+    position:relative;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:1rem;
+
+    padding:2rem;
+
+    background:white;
+
+    border-radius:24px;
+
+    box-shadow:0 18px 45px rgba(66,153,157,.08);
+
+    transition:.25s;
+
+}
+
+.service-type-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.service-top-border{
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:8px;
+
+    border-radius:24px 24px 0 0;
+
+}
+
+.consultation .service-top-border{
+
+    background:var(--blue);
+
+}
+
+.coaching .service-top-border{
+
+    background:var(--green);
+
+}
+
+.intervention .service-top-border{
+
+    background:var(--orange);
+
+}
+
+.service-card-icon{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    background:rgba(66,153,157,.10);
+
+    color:var(--blue);
+
+}
+
+.coaching .service-card-icon{
+
+    background:rgba(127,156,117,.12);
+
+    color:var(--green);
+
+}
+
+.intervention .service-card-icon{
+
+    background:rgba(250,126,76,.14);
+
+    color:var(--orange);
+
+}
+
+.service-card-icon svg{
+
+    width:34px;
+    height:34px;
+
+}
+
+.service-type-card h3{
+
+    margin:0;
+
+    font-size:1.6rem;
+
+}
+
+.service-type-card p{
+
+    margin:0;
+
+    line-height:1.7;
+
+    color:var(--text-light);
+
+}
+
+.service-price{
+
+    margin-top:auto;
+
+    font-family:var(--font-menu);
+
+    font-weight:700;
+
+    color:var(--text);
+
+}
+
+/* ==========================================================
+   SERVICE GRID
+   Grille des cartes de services.
+========================================================== */
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+/* ==========================================================
+   SERVICE TYPE CARD
+   Carte d'un service offert.
+========================================================== */
+
+.service-type-card {
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    padding: 2rem;
+
+    background: white;
+    border-radius: 24px;
+
+    box-shadow: 0 18px 45px rgba(66,153,157,.08);
+
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.service-type-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 55px rgba(66,153,157,.14);
+}
+
+/* Bande colorée en haut de chaque carte */
+.service-top-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 8px;
+
+    border-radius: 24px 24px 0 0;
+}
+
+.consultation .service-top-border {
+    background: var(--blue);
+}
+
+.coaching .service-top-border {
+    background: var(--green);
+}
+
+.intervention .service-top-border {
+    background: var(--orange);
+}
+
+/* Icône ronde dans la carte */
+.service-card-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    background: rgba(66,153,157,.10);
+    color: var(--blue);
+}
+
+.coaching .service-card-icon {
+    background: rgba(127,156,117,.12);
+    color: var(--green);
+}
+
+.intervention .service-card-icon {
+    background: rgba(250,126,76,.14);
+    color: var(--orange);
+}
+
+.service-card-icon svg {
+    width: 34px;
+    height: 34px;
+}
+
+.service-type-card h3 {
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.service-type-card p {
+    margin: 0;
+    line-height: 1.7;
+    color: var(--text-light);
+}
+
+.service-price {
+    margin-top: auto;
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+    color: var(--text);
+}
+
+/* Bouton dans une carte de service */
+.service-more-button {
+    width: fit-content;
+}
+
+
+/* ==========================================================
+   START NOTE
+   Petite note rassurante dans le hero de commencer.html.
+========================================================== */
+
+.start-note {
+    display: inline-flex;
+    align-items: center;
+    gap: .8rem;
+
+    width: fit-content;
+
+    margin-top: 1rem;
+    padding: .85rem 1.1rem;
+
+    border-radius: 999px;
+
+    background: rgba(66,153,157,.10);
+    color: var(--text);
+
+    font-weight: 600;
+}
+
+.start-note svg {
+    width: 22px;
+    height: 22px;
+
+    color: var(--green);
+}
+
+/* ==========================================================
+   START PATH GRID
+   Grille de chemins sur commencer.html.
+========================================================== */
+
+.start-path-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.start-path-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    padding: 2rem;
+
+    background: white;
+    border-radius: 26px;
+
+    color: var(--text);
+    text-decoration: none;
+
+    box-shadow: 0 18px 45px rgba(66,153,157,.08);
+
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.start-path-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 55px rgba(66,153,157,.14);
+}
+
+.start-path-card h2 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.start-path-card p {
+    margin: 0;
+    line-height: 1.7;
+    color: var(--text-light);
+}
+
+.start-path-card strong {
+    margin-top: auto;
+
+    font-family: var(--font-menu);
+    color: var(--blue);
+}
+
+/* Carte large du bas */
+.wide-path {
+    grid-column: 1 / -1;
+
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    align-items: center;
+}
+
+/* Icône */
+.start-path-card .path-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 76px;
+    height: 76px;
+
+    border-radius: 50%;
+
+    background: rgba(66,153,157,.12);
+    color: var(--blue);
+}
+
+.start-path-card .path-icon svg {
+    width: 38px;
+    height: 38px;
+}
+
+/* Petites étiquettes */
+.path-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+
+    margin-top: .5rem;
+}
+
+.path-tags span {
+    padding: .45rem .75rem;
+
+    border-radius: 999px;
+
+    background: rgba(66,153,157,.08);
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+    font-size: .9rem;
+}
+
+/* Couleurs par chemin */
+.blue-path .path-icon {
+    background: rgba(66,153,157,.14);
+    color: var(--blue);
+}
+
+.purple-path .path-icon {
+    background: rgba(131,105,155,.14);
+    color: var(--purple);
+}
+
+.green-path .path-icon {
+    background: rgba(127,156,117,.14);
+    color: var(--green);
+}
+
+.orange-path .path-icon {
+    background: rgba(250,126,76,.14);
+    color: var(--orange);
+}
+
+.teal-path {
+    background: linear-gradient(
+        135deg,
+        rgba(66,153,157,.12),
+        rgba(255,255,255,.88)
+    );
+}
+
+
+
+
+
+
+/* ==========================================================
+   MODAL
+   Fenêtre utilisée pour les services, livres,
+   Deep Dives et autres contenus.
+========================================================== */
+
+.modal-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+
+   align-items:flex-start;
+
+padding-top:8vh;
+
+    background:rgba(9,35,57,.45);
+
+    backdrop-filter:blur(8px);
+
+    z-index:9999;
+
+}
+
+.modal-overlay.active{
+
+    display:flex;
+
+}
+
+.modal{
+
+    position:relative;
+
+    width:min(850px,100%);
+
+    max-height:85vh;
+
+    overflow-y:auto;
+
+    background:white;
+
+    border-radius:28px;
+
+    padding:3.5rem;
+
+    box-shadow:0 30px 70px rgba(9,35,57,.25);
+
+}
+
+.modal-close{
+
+    position:absolute;
+
+    top:1.25rem;
+    right:1.25rem;
+   background:#dcebeb;
+
+    color:var(--text);
+    width:46px;
+    height:46px;
+
+    border:none;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    color:var(--blue);
+
+}
+
+.modal-close:hover{
+
+    background:var(--blue);
+    color:white;
+    transform:rotate(90deg);
+
+}
+
+.modal-close svg{
+
+    width:22px;
+    height:22px;
+
+}
+
+.modal-content h2{
+
+    margin-top:0;
+
+}
+
+/* ==========================================================
+   MODAL CONTENT
+   Mise en page interne de la modale.
+========================================================== */
+
+.modal-eyebrow {
+    margin: 0 0 .5rem;
+
+    color: var(--blue);
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+.modal-intro {
+    margin: 0 0 2rem;
+
+    max-width: 720px;
+
+    line-height: 1.7;
+    color: var(--text-light);
+}
+
+.modal-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    margin: 2rem 0;
+
+}
+
+.modal-info-grid div {
+    padding: 1rem;
+
+    border-radius: 16px;
+
+    background: rgba(66,153,157,.08);
+}
+
+.modal-info-grid strong {
+    display: block;
+
+    margin-bottom: .35rem;
+
+    font-family: var(--font-menu);
+}
+
+.modal-info-grid span {
+    color: var(--text-light);
+}
+
+.modal-content h3 {
+    margin: 2rem 0 1rem;
+
+    font-size: 1.4rem;
+}
+
+.modal-list {
+    margin: 0 0 2rem;
+    padding-left: 1.25rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
+.modal-list li {
+    line-height: 1.6;
+    color: var(--text-light);
+}
+
+.modal-button {
+    width: fit-content;
+}
+
+/* ==========================================================
+   BOOK MODAL
+   Fiche détaillée d'un livre dans lire.html.
+========================================================== */
+
+.book-modal {
+    width: min(1050px, 100%);
+}
+
+.book-modal-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.book-modal-cover img {
+    width: 220px;
+    border-radius: 14px;
+    box-shadow: 0 18px 45px rgba(9,35,57,.18);
+}
+
+.book-modal-subtitle {
+    margin: 0 0 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-light);
+}
+
+.book-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1rem 0 2rem;
+}
+
+.book-preview-grid img {
+    width: 100%;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(9,35,57,.12);
+}
+
+.book-buy-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* ==========================================================
+   PREVIEW MODAL
+   Agrandit les pages d'extrait des livres.
+========================================================== */
+
+.preview-modal {
+    position: relative;
+
+    width: min(760px, 94vw);
+    max-height: 92vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 2rem;
+
+    border-radius: 28px;
+
+    background: rgba(255,255,255,.96);
+
+    box-shadow: 0 30px 80px rgba(9,35,57,.35);
+}
+
+.preview-modal img {
+    display: block;
+
+    max-width: 100%;
+    max-height: 78vh;
+
+    border-radius: 14px;
+
+    box-shadow: 0 18px 45px rgba(9,35,57,.18);
+}
+
+.preview-arrow {
+    position: absolute;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: var(--blue);
+    color: white;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-arrow svg {
+    width: 26px;
+    height: 26px;
+}
+
+.preview-prev {
+    left: -24px;
+}
+
+.preview-next {
+    right: -24px;
+}
+
+.preview-arrow:hover {
+    background: var(--text);
+}
+
+.preview-counter {
+    position: absolute;
+    bottom: .75rem;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    margin: 0;
+
+    padding: .35rem .75rem;
+
+    border-radius: 999px;
+
+    background: rgba(9,35,57,.82);
+    color: white;
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+    font-size: .85rem;
+}
+
+.book-preview-grid img {
+    cursor: zoom-in;
+}
+
+.book-modal-footer {
+    margin-top: 2rem;
+    padding: 1.5rem;
+
+    border-radius: 20px;
+
+    background: rgba(66,153,157,.08);
+}
+
+.book-modal-footer p {
+    margin: 0;
+
+    max-width: 680px;
+
+    line-height: 1.6;
+    color: var(--text-light);
+}
+
+
+
+
+
+/* ==========================================================
+   SEARCH PANEL
+   Panneau principal de recherche.
+========================================================== */
+
+.search-panel {
+    padding: 2.5rem;
+    border-radius: 28px;
+    background: rgba(255,255,255,.62);
+    box-shadow: 0 18px 50px rgba(66,153,157,.10);
+}
+
+.search-panel label {
+    display: block;
+    margin-bottom: 1rem;
+    font-family: var(--font-menu);
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 1rem 1.25rem;
+    border-radius: 20px;
+
+    background: white;
+    box-shadow: 0 12px 35px rgba(66,153,157,.08);
+}
+
+.search-box svg {
+    width: 28px;
+    height: 28px;
+    color: var(--blue);
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+
+    font-size: 1.1rem;
+    color: var(--text);
+}
+
+.search-results-info {
+    margin: 1.5rem 0;
+    color: var(--text-light);
+}
+
+.search-results {
+    display: grid;
+    gap: 1rem;
+}
+
+.search-result-card {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 1.25rem;
+
+    padding: 1.25rem;
+
+    border-radius: 20px;
+    background: white;
+
+    color: var(--text);
+    text-decoration: none;
+
+    box-shadow: 0 12px 35px rgba(66,153,157,.08);
+    transition: .25s ease;
+}
+
+.search-result-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 45px rgba(66,153,157,.14);
+}
+
+.search-result-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 64px;
+    height: 64px;
+
+    border-radius: 50%;
+
+    background: rgba(66,153,157,.10);
+    color: var(--blue);
+}
+
+.search-result-icon svg {
+    width: 30px;
+    height: 30px;
+}
+
+.search-result-content h3 {
+    margin: 0 0 .35rem;
+    font-size: 1.35rem;
+}
+
+.search-result-meta {
+    margin: 0 0 .6rem;
+    font-family: var(--font-menu);
+    font-weight: 700;
+    color: var(--blue);
+}
+
+.search-result-content p {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--text-light);
+}
+
+.related-results {
+    margin-top: 2rem;
+}
+
+.related-results h3 {
+    margin-bottom: 1rem;
+}
+
+.related-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+}
+
+.related-tags button {
+    padding: .55rem .85rem;
+    border: none;
+    border-radius: 999px;
+
+    background: rgba(66,153,157,.10);
+    color: var(--text);
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+/* ==========================================================
+   HOME SEARCH
+   Recherche rapide dans le hero de l'accueil.
+========================================================== */
+
+.home-search {
+    margin-top: 2rem;
+    max-width: 620px;
+}
+
+.home-search label {
+    display: block;
+    margin-bottom: .75rem;
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+    font-size: 1.15rem;
+}
+
+.home-search-box {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+
+    padding: 1rem 1.2rem;
+
+    border-radius: 20px;
+
+    background: white;
+
+    box-shadow: 0 14px 35px rgba(66,153,157,.10);
+}
+
+.home-search-box svg {
+    width: 24px;
+    height: 24px;
+    color: var(--blue);
+}
+
+.home-search-box input {
+    width: 100%;
+
+    border: none;
+    outline: none;
+    background: transparent;
+
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.home-search-results {
+    margin-top: 1rem;
+
+    display: grid;
+    gap: .75rem;
+}
+
+.home-search-result {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: .85rem;
+
+    align-items: center;
+
+    padding: .85rem;
+
+    border-radius: 16px;
+
+    background: white;
+
+    color: var(--text);
+    text-decoration: none;
+
+    box-shadow: 0 10px 28px rgba(66,153,157,.08);
+}
+
+.home-search-result-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 44px;
+    height: 44px;
+
+    border-radius: 50%;
+
+    background: rgba(66,153,157,.10);
+    color: var(--blue);
+}
+
+.home-search-result h3 {
+    margin: 0 0 .2rem;
+    font-size: 1rem;
+}
+
+.home-search-result p {
+    margin: 0;
+    font-size: .9rem;
+    color: var(--text-light);
+}
+
+.home-search-more {
+    margin-top: .25rem;
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+
+    color: var(--blue);
+    text-decoration: none;
+}
+
+/* ==========================================================
+   PATH TAG BUTTON
+   Rend certains mots-clés cliquables dans commencer.html.
+========================================================== */
+
+.path-tag-button {
+    padding: .45rem .75rem;
+
+    border: none;
+    border-radius: 999px;
+
+    background: rgba(66,153,157,.08);
+    color: var(--text);
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+    font-size: .9rem;
+
+    cursor: pointer;
+}
+
+.path-tag-button:hover {
+    background: rgba(66,153,157,.18);
+}
+
+/* ==========================================================
+   CONCEPT TREE
+   Arborescence interactive de commencer.html.
+========================================================== */
+
+.concept-tree {
+    max-width: 1000px;
+    margin: 0 auto 4rem;
+    padding: 0 2rem;
+}
+
+#treeBreadcrumb {
+    margin-bottom: 1rem;
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+    color: var(--blue);
+}
+
+#treeBreadcrumb span {
+    color: var(--text-light);
+}
+
+.tree-panel {
+    padding: 2rem;
+
+    border-radius: 28px;
+
+    background: rgba(255,255,255,.72);
+
+    box-shadow: 0 18px 50px rgba(66,153,157,.10);
+}
+
+.tree-panel h2 {
+    margin: 0 0 1.5rem;
+
+    text-align: center;
+}
+
+.tree-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.tree-option {
+    padding: .8rem 1.2rem;
+
+    border: none;
+    border-radius: 999px;
+
+    background: white;
+    color: var(--text);
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 10px 25px rgba(66,153,157,.08);
+}
+
+.tree-option:hover {
+    transform: translateY(-3px);
+    background: rgba(66,153,157,.12);
+}
+
+.tree-breadcrumb-button {
+    border: none;
+    background: transparent;
+    padding: 0;
+
+    color: var(--blue);
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.tree-breadcrumb-button:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================
+   LIBRARY PAGE
+   Page de tous les Deep Dives et dossiers.
+========================================================== */
+
+.library-tools {
+    margin-bottom: 2rem;
+}
+
+.library-search {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.2rem;
+
+    border-radius: 20px;
+
+    background: white;
+
+    box-shadow: 0 12px 35px rgba(66,153,157,.08);
+}
+
+.library-search svg {
+    width: 24px;
+    height: 24px;
+    color: var(--blue);
+}
+
+.library-search input {
+    width: 100%;
+
+    border: none;
+    outline: none;
+    background: transparent;
+
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.library-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+}
+
+.library-filter {
+    padding: .65rem 1rem;
+
+    border: none;
+    border-radius: 999px;
+
+    background: white;
+    color: var(--text);
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 20px rgba(66,153,157,.08);
+
+    transition: .2s ease;
+}
+
+.library-filter:hover {
+    transform: translateY(-2px);
+    background: rgba(66,153,157,.12);
+}
+
+.library-filter.is-active {
+    background: var(--blue);
+    color: white;
+}
+
+.library-count {
+    margin: 1.25rem 0 0;
+
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.library-grid {
+    margin-top: 1.5rem;
+}
+
+.library-card-link {
+    display: block;
+
+    color: inherit;
+    text-decoration: none;
+}
+
+.library-card-link:visited,
+.library-card-link:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ==========================================================
+   AVAILABILITY CARD
+   Carte des disponibilités sur services.html.
+========================================================== */
+
+.availability-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 2rem;
+
+    align-items: start;
+
+    padding: 2.5rem;
+
+    border-radius: 28px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(66,153,157,.14),
+        rgba(255,255,255,.92)
+    );
+
+    box-shadow: 0 18px 50px rgba(66,153,157,.10);
+}
+
+.availability-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 90px;
+    height: 90px;
+
+    border-radius: 50%;
+
+    background: var(--blue);
+    color: white;
+
+    flex-shrink: 0;
+}
+
+.availability-icon svg {
+    width: 42px;
+    height: 42px;
+}
+
+.availability-content h2 {
+    margin: 0 0 1rem;
+
+    font-size: 2rem;
+}
+
+.availability-content p {
+    max-width: 760px;
+
+    margin: 0 0 1.25rem;
+
+    line-height: 1.7;
+    color: var(--text-light);
+}
+
+.availability-note {
+    margin-top: 1rem !important;
+
+    font-size: .95rem;
+}
+
+/* Variante liste d'attente */
+.availability-card.waitlist {
+    background: linear-gradient(
+        135deg,
+        rgba(250,126,76,.14),
+        rgba(255,255,255,.92)
+    );
+}
+
+.availability-card.waitlist .availability-icon {
+    background: var(--orange);
+}
+
+/* ==========================================================
+   FAQ
+   Accordéons simples pour faq.html.
+========================================================== */
+
+.faq-group {
+    margin-bottom: 2.5rem;
+}
+
+.faq-group h3 {
+    margin: 0 0 1rem;
+
+    font-family: var(--font-menu);
+    font-size: 1.5rem;
+    color: var(--text);
+}
+
+.faq-item {
+    margin-bottom: .85rem;
+
+    border-radius: 18px;
+
+    background: white;
+
+    box-shadow: 0 12px 35px rgba(66,153,157,.08);
+
+    overflow: hidden;
+}
+
+.faq-item summary {
+    padding: 1.1rem 1.25rem;
+
+    cursor: pointer;
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+    font-size: 1.05rem;
+
+    color: var(--text);
+
+    list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: "+";
+
+    float: right;
+
+    color: var(--blue);
+
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.faq-item[open] summary::after {
+    content: "–";
+}
+
+.faq-item p {
+    margin: 0;
+    padding: 0 1.25rem 1.25rem;
+
+    line-height: 1.7;
+    color: var(--text-light);
+}
+
+.faq-contact-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+
+    margin-top: 3rem;
+    padding: 2rem;
+
+    border-radius: 24px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(66,153,157,.14),
+        rgba(255,255,255,.92)
+    );
+
+    box-shadow: 0 18px 50px rgba(66,153,157,.10);
+}
+
+.faq-contact-box h3 {
+    margin: 0 0 .5rem;
+
+    font-size: 1.6rem;
+}
+
+.faq-contact-box p {
+    margin: 0;
+
+    line-height: 1.6;
+    color: var(--text-light);
+}
+
+
+
+/* ==========================================================
+   RESPONSIVE
+   Tablettes et petits laptops
+========================================================== */
+
+@media (max-width: 900px) {
+
+    .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .hero-main,
+    .latest-video-card,
+    .support-container,
+    .more-banner,
+    .faq-contact-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero-image {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .hero-image img {
+        max-width: 360px;
+    }
+
+    .explore-grid,
+    .video-grid,
+    .playlist-grid,
+    .reading-grid,
+    .book-grid,
+    .short-post-grid,
+    .support-grid,
+    .situations-grid,
+    .service-grid,
+    .start-path-grid,
+    .shop-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .reels-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .page-hero-container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "logo"
+            "content";
+    }
+
+    .page-hero-illustration {
+        display: none;
+    }
+
+    .page-hero-logo {
+        transform: none;
+    }
+
+    .section-header,
+    .service-card,
+    .approach-panel,
+    .availability-card,
+    .book-modal-layout,
+    .magazine-card,
+    .share-banner,
+    .coming-toolbox,
+    .wide-path {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+
+    .modal {
+        width: calc(100% - 3rem);
+        padding: 2rem;
+    }
+}
+
+/* ==========================================================
+   RESPONSIVE
+   Téléphones
+========================================================== */
+
+@media (max-width: 650px) {
+
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .header {
+        padding-top: 1rem;
+    }
+
+    .logo {
+        width: min(320px, 100%);
+    }
+
+    .hero {
+        padding-top: 0;
+    }
+
+    .hero-logo {
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-main {
+        gap: 2rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2.25rem;
+        line-height: 1.15;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .home-search {
+        max-width: 100%;
+    }
+
+    .home-search-box {
+        padding: .85rem 1rem;
+    }
+
+    .hero-buttons,
+    .support-actions,
+    .more-actions,
+    .book-buy-grid {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .button,
+    .small-button {
+        width: 100%;
+    }
+
+    .hero-image {
+        display: none;
+    }
+
+    .explore-grid,
+    .video-grid,
+    .playlist-grid,
+    .reading-grid,
+    .book-grid,
+    .short-post-grid,
+    .support-grid,
+    .situations-grid,
+    .service-grid,
+    .start-path-grid,
+    .shop-grid,
+    .reels-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .explore-card {
+        min-height: auto;
+    }
+
+    .latest-video-card {
+        padding: 1rem;
+    }
+
+    .latest-video-thumbnail {
+        width: 100%;
+        min-height: auto;
+        aspect-ratio: 16 / 9;
+    }
+
+    .latest-video-content h3 {
+        font-size: 1.45rem;
+    }
+
+    .support-list {
+        grid-template-columns: 1fr;
+    }
+
+    .content-panel {
+        padding: 1.25rem;
+        border-radius: 22px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .section-title {
+        align-items: flex-start;
+    }
+
+    .page-hero-content h1 {
+        font-size: 2.35rem;
+    }
+
+    .page-hero-content p {
+        font-size: 1rem;
+    }
+
+    .page-tabs-container {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        padding-bottom: .5rem;
+    }
+
+    .page-tab {
+        white-space: nowrap;
+        flex: 0 0 auto;
+    }
+
+    .book-card,
+    .short-post-card,
+    .learn-card,
+    .search-result-card,
+    .home-search-result {
+        grid-template-columns: 1fr;
+    }
+
+    .book-card img,
+    .short-post-card img {
+        width: 100%;
+        height: auto;
+    }
+
+    .reading-content {
+        min-height: auto;
+    }
+
+    .magazine-image img {
+        width: 100%;
+    }
+
+    .service-card,
+    .approach-panel,
+    .availability-card,
+    .coming-toolbox {
+        padding: 1.5rem;
+    }
+
+    .service-icon,
+    .approach-icon,
+    .availability-icon,
+    .coming-toolbox-icon {
+        width: 76px;
+        height: 76px;
+    }
+
+    .share-intro {
+        flex-direction: column;
+    }
+
+    .share-actions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .share-action {
+        border-left: none;
+        border-top: 1px solid rgba(9,35,57,.10);
+    }
+
+    .modal-overlay {
+        padding-top: 1rem;
+    }
+
+    .modal {
+        width: calc(100% - 2rem);
+        max-height: 92vh;
+        padding: 1.5rem;
+        border-radius: 22px;
+    }
+
+    .modal-info-grid,
+    .book-preview-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .book-modal-cover img {
+        width: 100%;
+        max-width: 240px;
+    }
+
+    .preview-modal {
+        width: calc(100% - 2rem);
+        padding: 1rem;
+    }
+
+    .preview-prev {
+        left: .5rem;
+    }
+
+    .preview-next {
+        right: .5rem;
+    }
+
+    .site-menu {
+        width: 85vw;
+    }
+
+    .footer-container {
+        gap: 2.5rem;
+    }
+}
+
+/* ==========================================================
+   RESPONSIVE FIX - OVERFLOW MOBILE
+========================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+@media (max-width: 650px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .logo {
+        width: 260px;
+        max-width: 100%;
+    }
+
+    .hero-main {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2rem;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: 2.05rem;
+        line-height: 1.15;
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+
+    .hero-content p,
+    .home-search,
+    .home-search-box,
+    .hero-buttons,
+    .button {
+        max-width: 100%;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .button {
+        width: 100%;
+    }
+
+    .hero-image {
+        display: none;
+    }
+
+    .explore-grid,
+    .video-grid,
+    .playlist-grid,
+    .reading-grid,
+    .book-grid,
+    .short-post-grid,
+    .support-grid,
+    .situations-grid,
+    .service-grid,
+    .start-path-grid,
+    .shop-grid,
+    .reels-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .latest-video-card,
+    .support-container {
+        flex-direction: column;
+        align-items: stretch;
+        overflow: hidden;
+    }
+
+    .latest-video-thumbnail {
+        width: 100%;
+        min-height: auto;
+        aspect-ratio: 16 / 9;
+        flex: none;
+    }
+
+    .latest-video-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .support-list {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* ==========================================================
+   RESPONSIVE FIX - PETITS TÉLÉPHONES
+========================================================== */
+
+@media (max-width: 430px) {
+
+    .hero-content h1 {
+        font-size: 1.65rem;
+        line-height: 1.18;
+        letter-spacing: 0;
+    }
+
+    .home-search label {
+        font-size: .95rem;
+        line-height: 1.3;
+    }
+
+    .home-search-box input {
+        font-size: .95rem;
+        min-width: 0;
+    }
+
+    .hero-content p,
+    .home-search small {
+        font-size: .9rem;
+    }
+
+    .hero-buttons .button {
+        font-size: .9rem;
+        padding: .85rem 1rem;
+    }
+
+    .logo {
+        width: 230px;
+    }
+}
+
+/* ==========================================================
+   RESPONSIVE FIX - SERIES CARDS
+========================================================== */
+
+@media (max-width: 900px) {
+
+    .series-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .series-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .series-card {
+        min-height: 220px;
+        width: 100%;
+    }
+
+    .series-content h3 {
+        font-size: 1.35rem;
+    }
+
+}

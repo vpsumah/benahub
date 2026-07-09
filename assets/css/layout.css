@@ -1,0 +1,579 @@
+body {
+  background: var(--background); /* Applique le fond crème général du site. */
+  color: var(--text); /* Définit la couleur de texte par défaut. */
+  margin: 0; /* Enlève la marge automatique du navigateur. */
+  position: relative; /* Permet aux éléments décoratifs positionnés de se référer au body si besoin. */
+  overflow-x: hidden; /* Empêche les blobs qui dépassent sur les côtés de créer un scroll horizontal. */
+}
+
+.container {
+  width: 100%; /* Le conteneur prend toute la largeur disponible. */
+  max-width: 1200px; /* Empêche le contenu de devenir trop large sur les grands écrans. */
+  margin: 0 auto; /* Centre le conteneur horizontalement. */
+  padding: 0 2rem; /* Ajoute de l'espace à gauche et à droite sur petits écrans. */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ==========================================================
+   HEADER
+   Contient seulement le bouton menu sur la page d'accueil.
+========================================================== */
+
+.header {
+  padding: 1.5rem 0 0; /* Ajoute un espace en haut, mais pas en bas. */
+}
+
+.header-container {
+  display: flex; /* Place les enfants sur une même ligne. */
+  justify-content: flex-end; /* Pousse le burger complètement à droite. */
+  align-items: center; /* Aligne verticalement les éléments au centre. */
+}
+
+/* ==========================================================
+   HERO
+   Première section du site.
+   Elle présente la marque, la mission et les boutons principaux.
+========================================================== */
+
+.hero {
+  padding: 0 0 1rem; /* Pas d'espace en haut, gros espace en bas. */
+}
+
+.hero-container {
+  display: block; /* Annule le flex possible du container pour garder le logo au-dessus. */
+}
+
+.hero-logo {
+  display: block; /* Évite les petits espaces bizarres sous l'image. */
+  margin-bottom: 2rem; /* Espace entre le logo et le bloc titre/illustration. */
+}
+
+.hero-main {
+  display: flex; /* Place le texte et l'image sur une même ligne. */
+  justify-content: space-between; /* Sépare le texte à gauche et l'image à droite. */
+  align-items: center; /* Centre verticalement les deux colonnes. */
+  gap: 4rem; /* Ajoute un espace entre le texte et l'illustration. */
+}
+
+.hero-content {
+  flex: 1; /* Permet au texte de prendre une part flexible de l'espace. */
+}
+
+.hero-image {
+  min-height: 230px; /* Donne une hauteur minimale au placeholder. */
+  border-radius: 40px; /* Coins très arrondis pour un look doux. */
+      /* Prend l'espace disponible à droite du Hero. */
+    flex: 1;
+    /* Centre l'image dans son conteneur. */
+    display: flex;
+    /* Place l'illustration vers la droite du Hero
+   pour mieux équilibrer la composition. */
+justify-content: flex-end;
+    align-items: center;
+}
+
+.hero-image img {
+
+    /* L'image ne dépassera jamais son conteneur. */
+    width: 100%;
+    /* Taille maximale souhaitée. */
+    max-width: 560px;
+    /* Garde les proportions de l'image. */
+    height: auto;
+    /* Petite ombre très discrète. */
+    filter: drop-shadow(0 18px 40px rgba(66,153,157,.12));
+
+}
+
+.hero-buttons {
+  display: flex; /* Place les deux boutons sur une même ligne. */
+  gap: 1rem; /* Espace entre les deux boutons. */
+  margin-top: 2rem; /* Espace entre le sous-titre et les boutons. */
+}
+
+/* ==========================================================
+   BACKGROUND DECORATION
+   Formes décoratives en arrière-plan.
+========================================================== */
+
+.background-shapes {
+  position: fixed; /* Reste fixe par rapport à l'écran. */
+  inset: 0; /* Prend toute la fenêtre. */
+  overflow: hidden; /* Cache ce qui dépasse. */
+  pointer-events: none; /* Les décorations ne bloquent jamais les clics. */
+  z-index: -1; /* Place la couche décorative derrière le contenu. */
+}
+
+.background-blob-left {
+  position: fixed; /* Reste fixé dans le coin de l'écran. */
+  left: 0; /* Colle au côté gauche. */
+  top: 0; /* Colle au haut. */
+  width: 380px; /* Largeur du SVG. */
+  height: 520px; /* Hauteur du SVG. */
+  fill: var(--blue-lighter); /* Couleur de la forme SVG. */
+  opacity: .35; /* Rend la forme douce et discrète. */
+  z-index: -2; /* Passe derrière le reste du contenu. */
+}
+
+.background-blob-right {
+  position: fixed; /* Reste fixé dans le coin de l'écran. */
+
+  right: -370px; /* Fait dépasser le blob du viewport pour ne voir qu'une courbe. */
+  bottom: -140px; /* Fait descendre le blob pour créer une forme décorative subtile. */
+
+  width: 700px; /* Grande taille pour que la courbe soit douce. */
+  height: 700px; /* Même hauteur pour garder la forme proportionnelle. */
+
+  color: var(--blue-lighter); /* Contrôle le fill="currentColor" du SVG. */
+  opacity: .35; /* Rend le blob discret. */
+  z-index: -2; /* Le place derrière le contenu. */
+}
+
+/* ==========================================================
+   EXPLORE
+   Section qui présente les principales portes d'entrée du site.
+========================================================== */
+
+.explore {
+  padding-top: 1rem; /* Espace au-dessus de la section Explore. */
+}
+
+.explore-container {
+  max-width: 1100px; /* Réduit légèrement la largeur pour des cartes plus élégantes. */
+}
+
+.explore-grid {
+  display: grid; /* Active CSS Grid pour créer une vraie grille de cartes. */
+  grid-template-columns: repeat(5, 1fr); /* Crée 5 colonnes égales. */
+  gap: 1.5rem; /* Espace entre les cartes. */
+}
+
+/* Couleurs des icônes selon le type de carte. */
+
+.explore-card.blue .explore-icon {
+    background: var(--blue);
+}
+
+.explore-card.purple .explore-icon {
+    background: var(--purple);
+}
+
+.explore-card.green .explore-icon {
+    background: var(--green);
+}
+
+.explore-card.orange .explore-icon {
+    background: var(--orange);
+}
+
+.explore-card.cyan .explore-icon {
+    background: var(--cyan);
+}
+
+/* ==========================================================
+   LATEST VIDEO
+   Section qui met en valeur la dernière vidéo YouTube.
+========================================================== */
+
+.latest-video-section {
+  padding: 3rem 0 4rem; /* Espace au-dessus et en dessous de la section. */
+}
+
+.latest-video-container {
+  display: block; /* Le titre reste au-dessus de la carte. */
+}
+
+.latest-video-card {
+  display: flex; /* Place la miniature et le texte côte à côte. */
+  align-items: center; /* Centre verticalement le texte avec la miniature. */
+  gap: 2rem; /* Espace entre la miniature et le contenu. */
+}
+
+/* ==========================================================
+   LEARN SECTION
+   Section d'orientation vers les grands sujets du Hub.
+========================================================== */
+
+.learn-section {
+  padding: 0rem 0 4rem; /* On laisse la section précédente créer l'espace. */
+}
+
+.learn-container {
+  display: block; /* Garde le titre, l'intro et la grille en colonne. */
+}
+
+.learn-intro {
+  max-width: 720px; /* Empêche le texte de devenir trop large. */
+  margin-bottom: 2rem; /* Espace avant les cartes. */
+}
+
+.learn-grid {
+  display: flex; /* Place les sujets en colonne. */
+  flex-direction: column; /* Un sujet par ligne. */
+}
+
+/* ==========================================================
+   SUPPORT SECTION
+   Bandeau de soutien pour Patreon, Ko-fi et boutique.
+========================================================== */
+
+.support-section {
+  padding: 0 0 4rem;
+}
+
+.support-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* ==========================================================
+   SHOP SECTION
+   Utilisée sur soutenir.html (anciennement sur index.html)
+========================================================== */
+
+.shop-section {
+
+    padding: 0 0 4rem;
+
+}
+
+.shop-intro {
+
+    max-width: 700px;
+
+    margin-bottom: 2rem;
+
+}
+
+.shop-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, minmax(0, 220px));
+
+    justify-content: center;
+
+    gap: 1.25rem;
+
+}
+
+.shop-button {
+
+    margin-top: 2rem;
+
+    text-align: center;
+
+}
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.site-footer {
+  padding: 3rem 0 2rem;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.footer-bottom {
+  margin-top: 2rem;
+}
+
+/* ==========================================================
+   PAGE HERO
+   Hero utilisé sur les pages internes du Hub.
+========================================================== */
+
+.page-hero {
+
+     padding: 0 0 1.5rem;
+
+}
+
+.page-hero-container {
+
+    max-width: 1200px;
+
+    display: grid;
+
+    grid-template-columns: 1.1fr .9fr;
+
+    grid-template-areas:
+        "logo logo"
+        "content illustration";
+
+    align-items: center;
+
+    gap: 1rem 4rem;
+
+}
+
+.page-hero-logo {
+    grid-area: logo;
+    justify-self: start;
+}
+
+.page-hero-content {
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:.65rem;
+
+}
+
+.page-hero-illustration {
+    grid-area: illustration;
+}
+
+.page-hero-visual {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+.page-hero-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1rem;
+
+}
+
+.page-hero-content h1 {
+
+    margin: 0;
+
+}
+
+.page-hero-content p {
+
+    max-width: 700px;
+
+}
+
+/* ==========================================================
+   PAGE TABS
+========================================================== */
+
+.page-tabs {
+
+    padding-bottom: 1.5rem;
+
+}
+
+.page-tabs-container {
+
+    display: flex;
+
+    gap: 1rem;
+
+    flex-wrap: wrap;
+
+}
+
+/* ==========================================================
+   CONTENT SECTION
+========================================================== */
+
+.content-section {
+
+    padding: 0 0 0rem;
+
+}
+
+/* ==========================================================
+   CONTENT SECTIONS
+========================================================== */
+
+.content-section {
+
+    margin-top: 3rem;
+
+}
+
+/* ==========================================================
+   VIDEO GRID
+========================================================== */
+
+.video-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 2rem 1.5rem;
+
+}
+
+/* ==========================================================
+   SERIES GRID
+========================================================== */
+
+.series-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+    gap: 2rem;
+
+}
+
+/* ==========================================================
+   PLAYLIST GRID
+========================================================== */
+
+.playlist-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 1.5rem;
+
+    margin-top: 2rem;
+
+}
+
+/* ==========================================================
+   REELS GRID
+========================================================== */
+
+.reels-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1.25rem;
+}
+
+/* ==========================================================
+   RESPONSIVE FIX - ACCUEIL
+========================================================== */
+
+@media (max-width: 900px) {
+
+    .hero-main,
+    .latest-video-card,
+    .support-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-image {
+        display: none;
+    }
+
+    .explore-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .latest-video-thumbnail {
+        width: 100%;
+        min-height: auto;
+        aspect-ratio: 16 / 9;
+    }
+
+    .support-actions {
+        width: 100%;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .logo {
+        width: 260px;
+        max-width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: 2.1rem;
+        line-height: 1.15;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-buttons .button {
+        width: 100%;
+    }
+
+    .explore-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .explore-card {
+        min-height: auto;
+    }
+
+    .latest-video-card {
+        flex-direction: column;
+        align-items: stretch;
+        overflow: hidden;
+    }
+
+    .latest-video-thumbnail {
+        width: 100%;
+        min-height: auto;
+        aspect-ratio: 16 / 9;
+        flex: none;
+    }
+
+    .latest-video-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .latest-video-content .button {
+        width: 100%;
+    }
+
+    .support-container {
+        flex-direction: column;
+        align-items: stretch;
+        overflow: hidden;
+    }
+
+    .support-list {
+        grid-template-columns: 1fr;
+    }
+
+    .support-actions {
+        width: 100%;
+    }
+
+    .support-actions .button {
+        width: 100%;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}

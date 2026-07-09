@@ -1,0 +1,51 @@
+body {
+    font-family: "Inter", sans-serif;
+    color: var(--text);
+}
+
+h1,
+h2,
+h3 {
+    font-family: "Klee One", cursive;
+}
+
+nav,
+.menu-button {
+    font-family: "Alegreya Sans SC", sans-serif;
+}
+
+.brain {
+    color: var(--blue);
+}
+
+.relationships {
+    color: var(--green);
+}
+
+.neurodiversity {
+    color: var(--purple);
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-title);
+    font-weight: 400;
+}
+
+p {
+    font-family: var(--font-body);
+}
+
+nav,
+.menu-button {
+    font-family: var(--font-menu);
+}

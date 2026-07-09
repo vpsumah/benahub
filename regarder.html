@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regarder | BENA Hub</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@400;700&family=Hi+Melody&family=Inter:wght@300;400;500;600;700&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="background-shapes"></div>
+
+    <svg class="background-blob-left" viewBox="0 0 500 500" preserveAspectRatio="none">
+        <path d="M0,0 H360 C420,80 380,170 320,220 C250,280 180,260 110,320 C40,380 30,450 0,500 Z" />
+    </svg>
+
+    <svg class="background-blob-right" viewBox="0 0 200 200" preserveAspectRatio="none">
+        <path
+            fill="currentColor"
+            d="M9.2,-30.5C10.9,-15,10.6,-10.5,21.8,-7.2C33,-4,55.7,-2,57.3,0.9C58.9,3.8,39.4,7.6,33.7,20.5C28.1,33.5,36.4,55.5,33.1,61C29.8,66.5,14.9,55.5,1.4,53.2C-12.2,50.9,-24.4,57.1,-37.3,57.2C-50.3,57.2,-63.9,51,-62.2,40.4C-60.5,29.8,-43.4,14.9,-43.3,0.1C-43.1,-14.7,-59.7,-29.4,-60.3,-38C-60.9,-46.6,-45.3,-49.1,-32.6,-58.3C-19.9,-67.5,-9.9,-83.4,-3.1,-78C3.8,-72.7,7.5,-46.1,9.2,-30.5Z"
+            transform="translate(100 100)"
+        />
+    </svg>
+
+    <header class="header">
+        <div class="container header-container">
+            <button class="menu-button" aria-label="Ouvrir le menu">
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <nav class="site-menu" aria-label="Menu principal">
+        <a href="index.html">Accueil</a>
+        <a href="regarder.html">Regarder</a>
+        <a href="#">Lire</a>
+        <a href="#">Approfondir</a>
+        <a href="#">Soutenir</a>
+        <a href="#">Quiz BENA</a>
+    </nav>
+
+    <div class="menu-overlay"></div>
+
+    <main>
+
+        <!-- ======================================================
+             HERO DE PAGE
+        ======================================================= -->
+
+        <section class="page-hero page-hero-watch">
+
+            <div class="container page-hero-container">
+
+                <a href="index.html" class="page-hero-logo">
+                    <img src="assets/images/Logo_top.png" alt="Retour à l'accueil BENA">
+                </a>
+
+                <div class="page-hero-content">
+
+                    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+                        <a href="index.html">Accueil</a>
+                        <span>/</span>
+                        <span>Regarder</span>
+                    </nav>
+
+                    <h1>
+                        Comprendre, une vidéo à la fois.
+                    </h1>
+
+                    <p>
+                        Des vidéos longues, des séries, des playlists et des formats courts pour explorer la psychologie, les relations humaines, le cerveau et la neurodiversité.
+                    </p>
+
+                </div>
+
+                <div class="page-hero-illustration">
+                    <img
+                        src="assets/images/regarder_hero.png"
+                        alt="Illustration de la section Regarder">
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ======================================================
+             ONGLETS DE PAGE
+        ======================================================= -->
+
+        <nav class="page-tabs" aria-label="Sections de la page Regarder">
+
+            <div class="container page-tabs-container">
+                <a href="#dernieres" class="page-tab is-active">Dernières vidéos</a>
+                <a href="#series" class="page-tab">Séries</a>
+                <a href="#playlists" class="page-tab">Playlists</a>
+                <a href="#shorts" class="page-tab">Shorts</a>
+            </div>
+
+        </nav>
+
+        <!-- ======================================================
+             DERNIÈRES VIDÉOS
+        ======================================================= -->
+
+        <section class="content-section" id="dernieres">
+
+            <div class="container">
+    <div class="content-panel">
+
+                <div class="section-header">
+
+                    <div class="section-title">
+
+    <div class="section-icon">
+        <i data-lucide="play"></i>
+    </div>
+
+    <div>
+        <h2>Dernières vidéos</h2>
+    </div>
+
+</div>
+
+                    <a href="#" class="section-link">
+                        Voir sur YouTube →
+                    </a>
+
+                </div>
+
+                <div class="video-grid">
+
+                    <article class="video-card">
+                        <a href="#" class="video-card-link">
+                            <div class="video-thumbnail">
+                                <img src="assets/images/latest_video.jpg" alt="Miniature de la vidéo">
+                                <span class="video-duration">36:42</span>
+                            </div>
+
+                            <div class="video-info">
+                                <h3>Pourquoi les gens ont besoin d'autant de réassurance?</h3>
+                                <p>Comprendre ce que le besoin de réassurance peut cacher.</p>
+                            </div>
+                        </a>
+                    </article>
+
+                    <article class="video-card">
+                        <a href="#" class="video-card-link">
+                            <div class="video-thumbnail">
+                                <img src="assets/images/latest_video.jpg" alt="Miniature de la vidéo">
+                                <span class="video-duration">32:18</span>
+                            </div>
+
+                            <div class="video-info">
+                                <h3>Pourquoi demander de l'aide est si difficile?</h3>
+                                <p>Comprendre pourquoi avoir besoin des autres peut feeler dangereux.</p>
+                            </div>
+                        </a>
+                    </article>
+
+                    <article class="video-card">
+                        <a href="#" class="video-card-link">
+                            <div class="video-thumbnail">
+                                <img src="assets/images/latest_video.jpg" alt="Miniature de la vidéo">
+                                <span class="video-duration">28:57</span>
+                            </div>
+
+                            <div class="video-info">
+                                <h3>Pourquoi certaines personnes doutent de leur diagnostic?</h3>
+                                <p>Le syndrome de l'imposteur après un diagnostic tardif.</p>
+                            </div>
+                        </a>
+                    </article>
+
+                    <article class="video-card">
+                        <a href="#" class="video-card-link">
+                            <div class="video-thumbnail">
+                                <img src="assets/images/latest_video.jpg" alt="Miniature de la vidéo">
+                                <span class="video-duration">29:33</span>
+                            </div>
+
+                            <div class="video-info">
+                                <h3>Pourquoi les conflits nous font-ils si peur?</h3>
+                                <p>Quand le cerveau confond désaccord et danger relationnel.</p>
+                            </div>
+                        </a>
+                    </article>
+
+                </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ======================================================
+             SÉRIES
+        ======================================================= -->
+
+<section class="content-section" id="series">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="section-title">
+
+                <div class="section-icon">
+                    <i data-lucide="film"></i>
+                </div>
+
+                <h2>Séries à suivre</h2>
+
+            </div>
+
+            <a href="#" class="section-link">
+                Voir toutes les séries →
+            </a>
+
+        </div>
+
+        <div class="series-grid">
+
+            <article class="series-card purple">
+
+                <div class="series-content">
+
+                    <h3>On t'a mal expliqué ça!</h3>
+
+                    <p>Série psycho-socio</p>
+
+                    <a href="https://www.patreon.com/collection/2124171" class="series-button">
+                        Voir la série →
+                    </a>
+
+                </div>
+
+                <i data-lucide="brain" class="series-icon"></i>
+
+            </article>
+            <!---------
+
+            <article class="series-card green">
+
+                <div class="series-content">
+
+                    <h3>Relations sans se perdre</h3>
+
+                    <p>Mieux communiquer, se comprendre et se respecter.</p>
+
+                    <a href="#" class="series-button">
+                        Voir la série →
+                    </a>
+
+                </div>
+
+                <i data-lucide="users" class="series-icon"></i>
+
+            </article>
+
+            <article class="series-card orange">
+
+                <div class="series-content">
+
+                    <h3>Même comportement,<br>pas la même cause</h3>
+
+                    <p>Explorer les comportements humains.</p>
+
+                    <a href="#" class="series-button">
+                        Voir la série →
+                    </a>
+
+                </div>
+
+                <i data-lucide="search" class="series-icon"></i>
+
+            </article>
+
+            <article class="series-card blue">
+
+                <div class="series-content">
+
+                    <h3>Comprendre le cerveau humain</h3>
+
+                    <p>Fonctionnement, émotions et neurodiversité.</p>
+
+                    <a href="#" class="series-button">
+                        Voir la série →
+                    </a>
+
+                </div>
+
+                <i data-lucide="brain" class="series-icon"></i>
+
+            </article>---->
+
+        </div>
+
+    </div>
+
+</section>
+
+        <!-- ======================================================
+             PLAYLIST
+        ======================================================= -->
+
+<section class="content-section" id="playlists">
+
+    <div class="container">
+
+        <div class="content-panel">
+
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <div class="section-icon">
+                        <i data-lucide="list-video"></i>
+                    </div>
+
+                    <h2>Playlists populaires</h2>
+
+                </div>
+
+                <a href="#" class="section-link">
+                    Voir toutes les playlists →
+                </a>
+
+            </div>
+
+            <div class="playlist-grid">
+
+                <article class="playlist-card">
+                    <img src="assets/images/playlist-tdah.jpg" alt="Playlist TDAH">
+
+                    <div class="playlist-overlay"></div>
+
+                    <div class="playlist-badge">
+                        <i data-lucide="list-video"></i>
+                        <span>28 vidéos</span>
+                    </div>
+
+                    <div class="playlist-content">
+                        <h3>TDAH</h3>
+                        <p>28 vidéos</p>
+                    </div>
+                </article>
+
+                <article class="playlist-card">
+                    <img src="assets/images/playlist-autisme.jpg" alt="Playlist Autisme">
+
+                    <div class="playlist-overlay"></div>
+
+                    <div class="playlist-badge">
+                        <i data-lucide="list-video"></i>
+                        <span>35 vidéos</span>
+                    </div>
+
+                    <div class="playlist-content">
+                        <h3>Autisme</h3>
+                        <p>35 vidéos</p>
+                    </div>
+                </article>
+
+                <article class="playlist-card">
+                    <img src="assets/images/playlist-relations.jpg" alt="Playlist Relations humaines">
+
+                    <div class="playlist-overlay"></div>
+
+                    <div class="playlist-badge">
+                        <i data-lucide="list-video"></i>
+                        <span>19 vidéos</span>
+                    </div>
+
+                    <div class="playlist-content">
+                        <h3>Relations humaines</h3>
+                        <p>19 vidéos</p>
+                    </div>
+                </article>
+
+                <article class="playlist-card">
+                    <img src="assets/images/playlist-sante.jpg" alt="Playlist santé mentale">
+
+                    <div class="playlist-overlay"></div>
+
+                    <div class="playlist-badge">
+                        <i data-lucide="list-video"></i>
+                        <span>27 vidéos</span>
+                    </div>
+
+                    <div class="playlist-content">
+                        <h3>Santé mentale</h3>
+                        <p>27 vidéos</p>
+                    </div>
+                </article>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+        <!-- ======================================================
+            REELS
+        ======================================================= -->
+
+
+<section class="content-section" id="reels">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="section-title">
+
+                <div class="section-icon">
+                    <i data-lucide="clapperboard"></i>
+                </div>
+
+                <h2>Shorts / Reels</h2>
+
+            </div>
+
+            <a href="#" class="section-link">
+                Voir tous les shorts →
+            </a>
+
+        </div>
+
+        <div class="reels-grid">
+
+            <article class="reel-card">
+
+                <a href="#" class="reel-link">
+
+                    <div class="reel-thumbnail">
+
+                        <img src="assets/images/reels/reel-01.jpg"
+                             alt="Miniature du reel">
+
+                        <span class="reel-duration">
+                            0:46
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        3 signes que tu es en surcharge mentale
+                    </h3>
+
+                </a>
+
+            </article>
+
+            <article class="reel-card">
+
+                <a href="#" class="reel-link">
+
+                    <div class="reel-thumbnail">
+
+                        <img src="assets/images/reels/reel-02.jpg"
+                             alt="Miniature du reel">
+
+                        <span class="reel-duration">
+                            0:53
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        Ce que ton anxiété essaie de te dire
+                    </h3>
+
+                </a>
+
+            </article>
+
+            <article class="reel-card">
+
+                <a href="#" class="reel-link">
+
+                    <div class="reel-thumbnail">
+
+                        <img src="assets/images/reels/reel-03.jpg"
+                             alt="Miniature du reel">
+
+                        <span class="reel-duration">
+                            0:45
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        Arrête de te dire que tu exagères
+                    </h3>
+
+                </a>
+
+            </article>
+
+            <article class="reel-card">
+
+                <a href="#" class="reel-link">
+
+                    <div class="reel-thumbnail">
+
+                        <img src="assets/images/reels/reel-04.jpg"
+                             alt="Miniature du reel">
+
+                        <span class="reel-duration">
+                            0:58
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        Le cerveau autiste et les changements
+                    </h3>
+
+                </a>
+
+            </article>
+
+             <article class="reel-card">
+
+                <a href="#" class="reel-link">
+
+                    <div class="reel-thumbnail">
+
+                        <img src="assets/images/reels/reel-02.jpg"
+                             alt="Miniature du reel">
+
+                        <span class="reel-duration">
+                            0:53
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        Ce que ton anxiété essaie de te dire
+                    </h3>
+
+                </a>
+
+            </article>
+
+             <article class="reel-card">
+
+                <a href="#" class="reel-link">
+
+                    <div class="reel-thumbnail">
+
+                        <img src="assets/images/reels/reel-02.jpg"
+                             alt="Miniature du reel">
+
+                        <span class="reel-duration">
+                            0:53
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        Ce que ton anxiété essaie de te dire
+                    </h3>
+
+                </a>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+        <!-- ======================================================
+            T'EN VEUX PLUS?
+        ======================================================= -->
+
+<section class="content-section" id="more">
+
+    <div class="container">
+
+        <div class="more-banner">
+
+            <div class="more-icon">
+                <i data-lucide="heart"></i>
+            </div>
+
+            <div class="more-content">
+                <h2>Tu veux aller plus loin?</h2>
+                <p>
+                    Contenu exclusif, Deep Dives, dossiers et communauté bienveillante sur Patreon.
+                </p>
+            </div>
+
+            <div class="more-actions">
+                <a href="https://patreon.com/BENA_explique?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink" class="button button-orange">
+                    Découvrir Patreon
+                </a>
+
+                <a href="https://www.youtube.com/@BENA.explique" class="button button-light">
+                    Voir sur YouTube
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container footer-container">
+
+            <div class="footer-brand">
+                <img src="assets/images/Logo_top.png" alt="Logo BENA" class="footer-logo">
+
+                <p>
+                    Comprendre le cerveau humain, les relations et la neurodiversité.
+                </p>
+
+                <p>
+                    Basé sur les connaissances actuelles. Accessible à tous.
+                </p>
+            </div>
+
+            <nav class="footer-links" aria-label="Liens du pied de page">
+                <a href="regarder.html">Regarder</a>
+                <a href="lire.html">Lire</a>
+                <a href="approfondir.html">Approfondir</a>
+                <a href="soutenir.html">Soutenir</a>
+                <a href="services.html">Intervention psychosociale</a>
+            </nav>
+
+            <div class="footer-socials">
+                <a href="https://www.youtube.com/@BENA.explique">YouTube</a>
+                <a href="https://patreon.com/BENA_explique?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink">Patreon</a>
+                <a href="https://www.facebook.com/BENA.explique">Facebook</a>
+                <a href="https://www.instagram.com/bena.explique/">Instagram</a>
+            </div>
+
+        </div>
+
+        <div class="container footer-bottom">
+            <p>© 2026 BENA. Tous droits réservés.</p>
+        </div>
+
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="assets/js/app.js"></script>
+
+</body>
+</html>
