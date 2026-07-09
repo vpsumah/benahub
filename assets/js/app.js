@@ -309,7 +309,7 @@ function renderRelated(query, results) {
 
     const keywordCounts = {};
 
-    results.slice(0, 8).forEach(item => {
+    results.slice(0, 4).forEach(item => {
 
         const uniqueKeywords = [...new Set(item.keywords)];
 

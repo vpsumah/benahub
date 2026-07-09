@@ -1,6 +1,7 @@
-export async function onRequest() {
+export async function onRequest({ env }) {
 
     const channelId = "UCdjYIs3r5-dZJpgdp2DkdOA";
+    const apiKey = env.YOUTUBE_API_KEY;
 
     const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
 
