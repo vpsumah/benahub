@@ -1281,3 +1281,58 @@ document.addEventListener("DOMContentLoaded", () => {
     renderLibrary();
 
 });
+
+/* ==========================================================
+   LATEST YOUTUBE VIDEO
+   Affiche automatiquement la dernière vidéo YouTube.
+========================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const latestVideoCard = document.getElementById("latestVideoCard");
+    const latestVideoThumbnail = document.getElementById("latestVideoThumbnail");
+    const latestVideoTitle = document.getElementById("latestVideoTitle");
+    const latestVideoDate = document.getElementById("latestVideoDate");
+    const latestVideoLink = document.getElementById("latestVideoLink");
+
+    if (!latestVideoCard || !latestVideoThumbnail || !latestVideoTitle || !latestVideoDate || !latestVideoLink) {
+        return;
+    }
+
+    fetch("/youtube")
+        .then(response => response.json())
+        .then(videos => {
+
+            const latestVideo = videos[0];
+
+            if (!latestVideo) {
+                return;
+            }
+
+            latestVideoThumbnail.src = latestVideo.thumbnail;
+            latestVideoThumbnail.alt = `Miniature de la vidéo ${latestVideo.title}`;
+
+            latestVideoTitle.textContent = latestVideo.title;
+
+            latestVideoLink.href = latestVideo.url;
+            latestVideoLink.target = "_blank";
+            latestVideoLink.rel = "noopener";
+
+            const publishedDate = new Date(latestVideo.published);
+
+            latestVideoDate.textContent = `Publiée le ${publishedDate.toLocaleDateString("fr-CA", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            })}.`;
+
+        })
+        .catch(error => {
+            console.error("Erreur YouTube :", error);
+
+            latestVideoTitle.textContent = "Impossible de charger la dernière vidéo.";
+            latestVideoDate.textContent = "Tu peux quand même visiter la chaîne YouTube de BENA.";
+            latestVideoLink.href = "https://www.youtube.com/@BENA.explique";
+        });
+
+});
