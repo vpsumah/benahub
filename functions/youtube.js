@@ -1,8 +1,7 @@
 export async function onRequest() {
-
     return new Response(
         JSON.stringify({
-            message: "Ça fonctionne !"
+            message: "YouTube function OK"
         }),
         {
             headers: {
@@ -10,5 +9,4 @@ export async function onRequest() {
             }
         }
     );
-
 }
