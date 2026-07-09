@@ -309,7 +309,7 @@ function renderRelated(query, results) {
 
     const keywordCounts = {};
 
-    results.slice(0, 4).forEach(item => {
+    results.slice(0, 8).forEach(item => {
 
         const uniqueKeywords = [...new Set(item.keywords)];
 
@@ -452,8 +452,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
 
                     <div>
-                        <h3>Aucun résultat pour l'instant</h3>
-                        <p>Essaie un mot proche ou va vers la recherche complète.</p>
+                        <h3>Aucun résultat pour l'instant. Du contenu s'ajoute régulièrement</h3>
+                        <p>Essaie un mot proche?</p>
                     </div>
                 </div>
             `;
@@ -1354,7 +1354,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(videos => {
 
-            const normalVideos = videos.filter(video => !video.isShort).slice(0, 8);
+            const normalVideos = videos.filter(video => !video.isShort).slice(0, 4);
 
             youtubeVideoGrid.innerHTML = "";
 
@@ -1442,8 +1442,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     fetch("/playlists")
-        .then(response => response.json())
-        .then(playlists => {
+
+fetch("/playlists")
+    .then(response => response.json())
+    .then(playlists => {
+
+        console.log("Playlists reçues :", playlists);
 
             playlistCards.forEach(card => {
                 const key = card.dataset.playlist;
