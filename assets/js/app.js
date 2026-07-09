@@ -1496,12 +1496,15 @@ fetch("/playlists")
 ========================================================== */
 
 const reelCards = document.querySelectorAll(".reel-card");
+console.log("Reel cards trouvées :", reelCards.length);
 
 if (reelCards.length > 0) {
 
     fetch("/reels")
         .then(response => response.json())
         .then(reels => {
+
+            console.log("Reels reçus :", reels);
 
             reelCards.forEach((card, index) => {
 
