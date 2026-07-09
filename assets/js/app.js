@@ -1336,3 +1336,70 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 });
+
+/* ==========================================================
+   WATCH PAGE YOUTUBE VIDEOS
+   Remplit automatiquement la page Regarder.
+========================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const youtubeVideoGrid = document.getElementById("youtubeVideoGrid");
+
+    if (!youtubeVideoGrid) {
+        return;
+    }
+
+    fetch("/youtube")
+        .then(response => response.json())
+        .then(videos => {
+
+            const normalVideos = videos.filter(video => !video.isShort).slice(0, 8);
+
+            youtubeVideoGrid.innerHTML = "";
+
+            normalVideos.forEach(video => {
+
+                const card = document.createElement("article");
+                card.className = "video-card";
+
+                card.innerHTML = `
+                    <a href="${video.url}" class="video-card-link" target="_blank" rel="noopener">
+
+                        <div class="video-thumbnail">
+                            <img src="${video.thumbnail}" alt="Miniature de la vidéo ${video.title}">
+                        </div>
+
+                        <div class="video-info">
+                            <h3>${video.title}</h3>
+                            <p>Vidéo publiée sur la chaîne YouTube BENA.</p>
+                        </div>
+
+                    </a>
+                `;
+
+                youtubeVideoGrid.appendChild(card);
+
+            });
+
+        })
+        .catch(error => {
+            console.error("Erreur YouTube page Regarder :", error);
+
+            youtubeVideoGrid.innerHTML = `
+                <div class="search-result-card">
+                    <div class="search-result-icon">
+                        <i data-lucide="search-x"></i>
+                    </div>
+
+                    <div class="search-result-content">
+                        <h3>Impossible de charger les vidéos.</h3>
+                        <p>Tu peux quand même visiter la chaîne YouTube de BENA.</p>
+                    </div>
+                </div>
+            `;
+
+            lucide.createIcons();
+        });
+
+});
