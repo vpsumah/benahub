@@ -1490,3 +1490,97 @@ fetch("/playlists")
         });
 
 });
+
+/* ==========================================================
+   WATCH PAGE REELS
+========================================================== */
+
+const reelCards = document.querySelectorAll(".reel-card");
+
+if (reelCards.length > 0) {
+
+    fetch("/reels")
+        .then(response => response.json())
+        .then(reels => {
+
+            reelCards.forEach((card, index) => {
+
+                const reel = reels[index];
+
+                if (!reel) return;
+
+                card.querySelector("a").href = reel.url;
+                card.querySelector("a").target = "_blank";
+                card.querySelector("a").rel = "noopener";
+
+                card.querySelector("img").src = reel.thumbnail;
+                card.querySelector("img").alt = reel.title;
+
+                card.querySelector("h3").textContent = reel.title;
+
+            });
+
+        })
+        .catch(error => {
+            console.error("Erreur Reels :", error);
+        });
+
+}
+
+/* ==========================================================
+   WATCH PAGE REELS
+   Remplit automatiquement les Shorts / Reels.
+========================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const reelCards = document.querySelectorAll(".reel-card");
+
+    if (reelCards.length === 0) {
+        return;
+    }
+
+    fetch("/reels")
+        .then(response => response.json())
+        .then(reels => {
+
+            reelCards.forEach((card, index) => {
+
+                const reel = reels[index];
+
+                if (!reel) {
+                    return;
+                }
+
+                const link = card.querySelector(".reel-link");
+                const image = card.querySelector(".reel-thumbnail img");
+                const title = card.querySelector("h3");
+                const duration = card.querySelector(".reel-duration");
+
+                if (link) {
+                    link.href = reel.url;
+                    link.target = "_blank";
+                    link.rel = "noopener";
+                }
+
+                if (image) {
+                    image.src = reel.thumbnail;
+                    image.alt = `Miniature du short ${reel.title}`;
+                }
+
+                if (title) {
+                    title.textContent = reel.title;
+                }
+
+                if (duration) {
+                    duration.textContent = "Short";
+                }
+
+            });
+
+        })
+        .catch(error => {
+            console.error("Erreur Reels :", error);
+        });
+
+});
