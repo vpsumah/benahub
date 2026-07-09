@@ -15,14 +15,19 @@ export async function onRequest() {
         const id = item.match(/<yt:videoId>(.*?)<\/yt:videoId>/)?.[1] || "";
         const title = item.match(/<title>(.*?)<\/title>/)?.[1] || "";
         const published = item.match(/<published>(.*?)<\/published>/)?.[1] || "";
+        const description = item.match(/<media:description>([\s\S]*?)<\/media:description>/)?.[1] || "";
 
         return {
             id,
             title,
             published,
             url: `https://www.youtube.com/watch?v=${id}`,
-            thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
-        };
+            thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+            embed: `https://www.youtube.com/embed/${id}`,
+            isShort:
+                title.toLowerCase().includes("#shorts") ||
+                description.toLowerCase().includes("#shorts")
+             };
     });
 
     return new Response(
