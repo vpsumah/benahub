@@ -1290,14 +1290,14 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
 
     const latestVideoCard = document.getElementById("latestVideoCard");
-    const latestVideoThumbnail = document.getElementById("latestVideoThumbnail");
+    const latestVideoEmbed = document.getElementById("latestVideoEmbed");
     const latestVideoTitle = document.getElementById("latestVideoTitle");
     const latestVideoDate = document.getElementById("latestVideoDate");
     const latestVideoLink = document.getElementById("latestVideoLink");
 
-    if (!latestVideoCard || !latestVideoThumbnail || !latestVideoTitle || !latestVideoDate || !latestVideoLink) {
-        return;
-    }
+   if (!latestVideoCard || !latestVideoEmbed || !latestVideoTitle || !latestVideoDate || !latestVideoLink) {
+    return;
+}
 
     fetch("/youtube")
         .then(response => response.json())
@@ -1309,8 +1309,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            latestVideoThumbnail.src = latestVideo.thumbnail;
-            latestVideoThumbnail.alt = `Miniature de la vidéo ${latestVideo.title}`;
+            latestVideoEmbed.src = latestVideo.embed;
+latestVideoEmbed.title = latestVideo.title;
 
             latestVideoTitle.textContent = latestVideo.title;
 

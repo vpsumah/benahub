@@ -360,6 +360,17 @@ z-index: 30; /* Le bouton reste cliquable même quand le menu est ouvert. */
 
 }
 
+.latest-video-thumbnail iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: inherit;
+}
+
+.latest-video-thumbnail {
+    aspect-ratio: 16 / 9;
+}
+
 .latest-video-thumbnail img {
 
     /* L'image remplit entièrement la miniature. */
