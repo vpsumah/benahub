@@ -1493,45 +1493,6 @@ fetch("/playlists")
 
 /* ==========================================================
    WATCH PAGE REELS
-========================================================== */
-
-const reelCards = document.querySelectorAll(".reel-card");
-console.log("Reel cards trouvées :", reelCards.length);
-
-if (reelCards.length > 0) {
-
-    fetch("/reels")
-        .then(response => response.json())
-        .then(reels => {
-
-            console.log("Reels reçus :", reels);
-
-            reelCards.forEach((card, index) => {
-
-                const reel = reels[index];
-
-                if (!reel) return;
-
-                card.querySelector("a").href = reel.url;
-                card.querySelector("a").target = "_blank";
-                card.querySelector("a").rel = "noopener";
-
-                card.querySelector("img").src = reel.thumbnail;
-                card.querySelector("img").alt = reel.title;
-
-                card.querySelector("h3").textContent = reel.title;
-
-            });
-
-        })
-        .catch(error => {
-            console.error("Erreur Reels :", error);
-        });
-
-}
-
-/* ==========================================================
-   WATCH PAGE REELS
    Remplit automatiquement les Shorts / Reels.
 ========================================================== */
 
@@ -1544,7 +1505,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     fetch("/reels")
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP ${response.status}`);
+            }
+
+            return response.json();
+        })
         .then(reels => {
 
             reelCards.forEach((card, index) => {
@@ -1552,31 +1519,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 const reel = reels[index];
 
                 if (!reel) {
+                    card.hidden = true;
                     return;
                 }
 
                 const link = card.querySelector(".reel-link");
-                const image = card.querySelector(".reel-thumbnail img");
+                const thumbnail = card.querySelector(".reel-thumbnail");
                 const title = card.querySelector("h3");
-                const duration = card.querySelector(".reel-duration");
 
                 if (link) {
-                    link.href = reel.url;
-                    link.target = "_blank";
-                    link.rel = "noopener";
+                    link.removeAttribute("href");
+                    link.removeAttribute("target");
+                    link.removeAttribute("rel");
                 }
 
-                if (image) {
-                    iframe.src = reel.embed;
-                    image.alt = `Miniature du short ${reel.title}`;
+                if (thumbnail) {
+                    thumbnail.innerHTML = `
+                        <iframe
+                            class="reel-embed"
+                            src="${reel.embed}"
+                            title="${reel.title}"
+                            loading="lazy"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+                    `;
                 }
 
                 if (title) {
                     title.textContent = reel.title;
-                }
-
-                if (duration) {
-                    duration.textContent = "Short";
                 }
 
             });
