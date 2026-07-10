@@ -1567,7 +1567,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 if (image) {
-                    image.src = reel.thumbnail;
+                    iframe.src = reel.embed;
                     image.alt = `Miniature du short ${reel.title}`;
                 }
 
