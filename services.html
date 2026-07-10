@@ -167,6 +167,41 @@
 
 </section>
 
+<section class="content-section last-section" id="disponibilites">
+
+    <div class="container">
+
+        <div class="availability-card waitlist">
+
+            <div class="availability-icon">
+                <i data-lucide="clock-3"></i>
+            </div>
+
+            <div class="availability-content">
+
+                <p class="section-eyebrow">Disponibilités actuelles</p>
+
+                <h2>Les accompagnements sont actuellement complets.</h2>
+
+                <p>
+                    Les nouvelles demandes sont présentement sur liste d'attente.
+                    Si tu souhaites être informé lorsqu'une place se libère, tu peux m'écrire et je t'ajouterai à la liste.
+                </p>
+                <a
+    href="#contact-accompagnement"
+    class="button button-primary availability-button"
+>
+    M'ajouter à la liste d'attente
+</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
 
 <!-- ======================================================
      SERVICES
@@ -422,48 +457,122 @@
 
 </section>
 
+<!-- ======================================================
+     FORMULAIRE DE CONTACT
+======================================================= -->
 
-
-<section class="content-section last-section" id="disponibilites">
+<section
+    class="content-section last-section"
+    id="contact-accompagnement"
+>
 
     <div class="container">
 
-        <div class="availability-card waitlist">
+        <div class="content-panel contact-panel">
 
-            <div class="availability-icon">
-                <i data-lucide="clock-3"></i>
-            </div>
+            <div class="section-heading contact-heading">
 
-            <div class="availability-content">
+                <p class="section-eyebrow">
+                    Me contacter
+                </p>
 
-                <p class="section-eyebrow">Disponibilités actuelles</p>
-
-                <h2>Les accompagnements sont actuellement complets.</h2>
+                <h2>
+                    Faire une demande d'accompagnement
+                </h2>
 
                 <p>
-                    Les nouvelles demandes sont présentement sur liste d'attente.
-                    Si tu souhaites être informé lorsqu'une place se libère, tu peux m'écrire et je t'ajouterai à la liste.
-                </p>
-
-                <a
-                    href="mailto:beatypick@gmail.com?subject=Liste%20d'attente%20-%20Intervention%20psychosociale"
-                    class="button button-primary"
-                >
-                    M'ajouter à la liste d'attente
-                </a>
-
-                <p class="availability-note">
-                    Tu peux aussi m'écrire si tu as une question avant de faire une demande.
+                    Tu peux demander à être ajouté à la liste d'attente
+                    ou simplement m'écrire si tu as une question.
                 </p>
 
             </div>
+
+            <form
+                class="contact-form"
+                action="https://formspree.io/f/mnjkezek"
+                method="POST"
+            >
+
+                <div class="form-field">
+
+                    <label for="email">
+                        Adresse courriel
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="requestType">
+                        Pourquoi souhaites-tu m'écrire?
+                    </label>
+
+                    <select
+                        id="requestType"
+                        name="type_de_demande"
+                        required
+                    >
+
+                        <option value="">
+                            Choisir une option
+                        </option>
+
+                        <option value="Liste d'attente">
+                            Je veux être ajouté à la liste d'attente
+                        </option>
+
+                        <option value="Question ou commentaire">
+                            J'ai une question ou un commentaire
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="message">
+                        Voici mon besoin ou mon commentaire
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="7"
+                        placeholder="Tu peux m'expliquer brièvement ce qui t'amène ou tes besoins."
+                        required
+                    ></textarea>
+
+                </div>
+
+                <input
+                    type="hidden"
+                    name="_subject"
+                    value="Nouveau message via BENA Hub"
+                >
+
+                <button
+                    type="submit"
+                    class="button button-primary contact-submit"
+                >
+                    Envoyer
+                </button>
+
+            </form>
 
         </div>
 
     </div>
 
 </section>
-
 
 
     </main>
