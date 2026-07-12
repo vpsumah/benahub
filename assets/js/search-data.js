@@ -10,6 +10,61 @@
        VIDÉOS
     ====================================================== */
 
+  {
+        id: "YT-pourquoi-pourquoi",
+        title: "Pourquoi les personnes autistes demandent autant pourquoi?",
+        type: "video",
+        formatLabel: "Vidéo YouTube",
+        category: "Neurodivergence",
+        description: "Pour une personne autiste, comprendre pourquoi est nécessaire.",
+keywords: [
+
+      "autisme",
+    "autiste",
+    "TSA",
+    "pourquoi",
+    "demander pourquoi",
+    "poser des questions",
+    "curiosité",
+    "besoin de comprendre",
+    "comprendre",
+    "explications",
+    "logique",
+    "raison",
+    "sens",
+    "cohérence",
+    "fonctionnement",
+    "communication",
+    "communication autiste",
+    "malentendus",
+    "incompréhension",
+    "apprentissage",
+    "traitement de l'information",
+    "prévisibilité",
+    "incertitude",
+    "anxiété",
+    "fonctionnement autistique",
+    "neurodiversité",
+    "pensée analytique",
+    "pensée logique",
+    "questionnement",
+    "raisonnement",
+    "vulgarisation"
+    "pourquoi je pose autant de questions",
+"pourquoi les autistes posent autant de questions",
+"pourquoi toujours demander pourquoi",
+"besoin de tout comprendre",
+"besoin d'explications",
+"j'ai besoin de comprendre",
+"ça n'a pas de sens",
+"ça doit avoir du sens"
+
+],
+        url: "https://youtu.be/2sCKFq8idPc"
+    },
+
+
+
       {
         id: "YT-reassurance",
         title: "Pourquoi les gens ont besoin d'autant de réassurance?",
