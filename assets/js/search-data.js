@@ -49,7 +49,7 @@ keywords: [
     "pensée logique",
     "questionnement",
     "raisonnement",
-    "vulgarisation"
+    "vulgarisation",
     "pourquoi je pose autant de questions",
 "pourquoi les autistes posent autant de questions",
 "pourquoi toujours demander pourquoi",
@@ -654,7 +654,7 @@ keywords: [
 "Je n'ai jamais dit ça",
 "Tu te souviens mal",
 "Tu es trop sensible"
-]
+],
 
     url: "https://www.patreon.com/BENA_explique/posts/on-ta-mal-la-162159116"
 },
