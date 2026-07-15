@@ -587,7 +587,7 @@ keywords: [
 
 {
     id: "P-gentillesse",
-    title: "On t'as mal expliqué ça : La genstillesse",
+    title: "On t'as mal expliqué ça : La gentillesse",
     type: "seriesp",
     formatLabel: "Vidéo - Patreon",
     category: "Développement personnel",
@@ -613,6 +613,48 @@ keywords: [
     "relations"
 
 ],
+
+    url: "https://www.patreon.com/BENA_explique/posts/on-ta-mal-la-162159116"
+},
+
+{
+    id: "P-gaslight",
+    title: "On t'as mal expliqué ça : Le Gaslighting",
+    type: "seriesp",
+    formatLabel: "Vidéo - Patreon",
+    category: "Relations humaines",
+    description:
+        "Le gaslight n'est pas qu'un simple désaccord sur ce qui s'est réellement passé.",
+
+keywords: [
+    "Gaslighting",
+    "Manipulation",
+    "Manipulation psychologique",
+    "Violence psychologique",
+    "Abus émotionnel",
+    "Contrôle",
+    "Invalidation",
+    "Faire douter",
+    "Doute de soi",
+    "Confusion",
+    "Distorsion de la réalité",
+    "Mémoire",
+    "Mensonge",
+    "Culpabilisation",
+    "Responsabilisation",
+    "Conflit",
+    "Relations toxiques",
+    "Communication",
+    "Perception",
+    "Réalité",
+    "Psychologie",
+    "Tu inventes",
+"Tu exagères",
+"C'est dans ta tête",
+"Je n'ai jamais dit ça",
+"Tu te souviens mal",
+"Tu es trop sensible"
+]
 
     url: "https://www.patreon.com/BENA_explique/posts/on-ta-mal-la-162159116"
 },
