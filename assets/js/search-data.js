@@ -419,6 +419,50 @@ keywords: [
     url: "https://youtu.be/3EEWrFkHWaA"
 },
 
+{
+    id: "YT-demander-aide",
+    title: "Pourquoi certaines personnes REFUSENT de demander de l'aide?",
+    type: "video",
+    formatLabel: "Vidéo - Youtube",
+    category: "Relations humaines",
+    description:"Demander de l'aide vient impacté plusieurs croyances sur soi et sur les autres..",
+
+keywords: [
+    "Demander de l'aide",
+    "Recevoir de l'aide",
+    "Autonomie",
+    "Indépendance",
+    "Hyperindépendance",
+    "Vulnérabilité",
+    "Confiance",
+    "Relations",
+    "Isolement",
+    "Solitude",
+    "Soutien social",
+    "Besoin d'aide",
+    "Demander du soutien",
+    "Charge mentale",
+    "Épuisement",
+    "Burnout",
+    "Masquage",
+    "Perfectionnisme",
+    "Culpabilité",
+    "Honte",
+    "Peur du jugement",
+    "Peur de déranger",
+    "Peur d'être un fardeau",
+    "Rejet",
+    "Validation",
+    "Estime de soi",
+    "Trauma",
+    "Attachement",
+    "Psychologie",
+    "Santé mentale"
+],
+
+    url: "https://youtu.be/asAJXchRzRc"
+},
+
 
 /*===================== PATREON ===================*/
 
@@ -807,6 +851,62 @@ keywords: [
     ],
 
     url: "https://www.patreon.com/BENA_explique/posts/deep-dive-161444748"
+},
+
+{
+    id: "DD-RSD",
+    title: "Deep Dive : LE RSD",
+    type: "deepdive",
+    formatLabel: "Deep Dive - Patreon",
+    category: "Neurodiversité",
+    description:
+        "Le Rejection Sensitivy Dysphoria. C'est quoi et comment ça impacte nos relations?",
+
+keywords: [
+    "RSD",
+    "Rejection Sensitive Dysphoria",
+    "Dysphorie sensible au rejet",
+    "Sensibilité au rejet",
+    "Rejet",
+    "Critique",
+    "Peur du rejet",
+    "Peur de décevoir",
+    "Validation",
+    "Validation externe",
+    "Approbation",
+    "Estime de soi",
+    "Anxiété sociale",
+    "Hypersensibilité émotionnelle",
+    "Réactivité émotionnelle",
+    "Blessure émotionnelle",
+    "Humiliation",
+    "Honte",
+    "Embarras",
+    "Perfectionnisme",
+    "Masquage",
+    "TDAH",
+    "Autisme",
+    "Neurodivergence",
+    "Relations",
+    "Attachement",
+    "Conflits",
+    "Communication",
+    "Rumination",
+    "Surinterprétation",
+    "Pensées automatiques",
+    "Trauma",
+    "Hypervigilance",
+    "Pourquoi le rejet me fait si mal",
+"Je prends tout personnel",
+"J'ai peur de décevoir",
+"Je supporte mal les critiques",
+"Je suranalyse tout",
+"Pourquoi je me sens rejeté facilement",
+"Pourquoi les critiques me détruisent",
+"Pourquoi je rumine après une conversation"
+],
+
+    url: "https://www.patreon.com/BENA_explique/posts/deep-dive-le-rsd-163918293"
 },
 
 
