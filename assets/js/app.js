@@ -1130,6 +1130,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const libraryItems = [
+  {
+            title: "Le RSD",
+            description: "Ça vient de où? Pourquoi on le vit? Et quoi faire?",
+            type: "Deep Dive",
+            filterType: "deepdive",
+            category: "RSD",
+            image: "assets/images/read/amour_sad.png",
+            url: "https://www.patreon.com/BENA_explique/posts/deep-dive-le-rsd-163918293",
+            keywords: "RSD tdah relation rejet critiques trauma"
+        },
+
+
         {
             title: "La procrastination",
             description: "Ça vient de où? Pourquoi on le vit? Et quoi faire?",
