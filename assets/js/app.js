@@ -1130,6 +1130,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const libraryItems = [
+        {
+            title: "Les fonctions exécutives",
+            description: "Pour comprendre tout ce qui vient en jeux dans l'exécution de tâches.",
+            type: "Dossier",
+            filterType: "dossier",
+            category: "tdah",
+            image: "assets/images/read/brain.png",
+            url: "https://www.patreon.com/BENA_explique/posts/dossier-les-165540133?source=storefront",
+            keywords: "fonctions exécutive tdah tâches fonctionnement"
+        },
+
   {
             title: "Le RSD",
             description: "Ça vient de où? Pourquoi on le vit? Et quoi faire?",
@@ -1568,5 +1579,229 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => {
             console.error("Erreur Reels :", error);
         });
+
+});
+
+/* ==========================================================
+   SERIES MODAL
+   Ouvre et ferme la fenêtre de la série Patreon.
+========================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const openSeriesModalButton =
+        document.getElementById("openSeriesModal");
+
+    const seriesModal =
+        document.getElementById("seriesModal");
+
+    const closeSeriesModalButton =
+        document.getElementById("closeSeriesModal");
+
+    if (
+        !openSeriesModalButton ||
+        !seriesModal ||
+        !closeSeriesModalButton
+    ) {
+        return;
+    }
+
+    function openSeriesModal() {
+        seriesModal.classList.add("active");
+        seriesModal.setAttribute("aria-hidden", "false");
+
+        document.body.classList.add("modal-open");
+
+        closeSeriesModalButton.focus();
+    }
+
+    function closeSeriesModal() {
+        seriesModal.classList.remove("active");
+        seriesModal.setAttribute("aria-hidden", "true");
+
+        document.body.classList.remove("modal-open");
+
+        openSeriesModalButton.focus();
+    }
+
+    openSeriesModalButton.addEventListener("click", openSeriesModal);
+
+    closeSeriesModalButton.addEventListener("click", closeSeriesModal);
+
+    seriesModal.addEventListener("click", event => {
+
+        if (event.target === seriesModal) {
+            closeSeriesModal();
+        }
+
+    });
+
+    document.addEventListener("keydown", event => {
+
+        if (
+            event.key === "Escape" &&
+            seriesModal.classList.contains("active")
+        ) {
+            closeSeriesModal();
+        }
+
+    });
+
+});
+
+const readingContent = {
+    rsd: {
+        type: "Deep Dive",
+        title: "Le RSD",
+        description: "Ça vient de où? Pourquoi on le vit? Et quoi faire?",
+        readingTime: "Environ 16 minutes",
+        tier: "COMPRENDRE",
+        excerpt: "Le RSD signifie Rejection Sensitive Dysphoria, qu'on pourrait traduire par dysphorie sensible au rejet. En psychologie et en psychiatrie, une dysphorie désigne un état émotionnel extrêmement désagréable, marqué par une souffrance intense, de la détresse, parfois de l'irritabilité, du désespoir ou un profond mal-être. Il est aussi important de mentionner que ce n'est pas un diagnostic officiel, mais un terme utilisé pour décrire une réaction émotionnelle extrêmement intense face au rejet, à la critique ou au sentiment d'avoir déçu quelqu'un. Le mot dysphorie est important ici, parce qu'il ne parle pas seulement d'être plus sensible. Il parle d'une véritable détresse émotionnelle qui peut être très difficile à vivre.",
+        patreonUrl: "https://www.patreon.com/BENA_explique/posts/deep-dive-le-rsd-163918293?source=storefront"
+    },
+
+    procrastination: {
+        type: "Deep Dive",
+        title: "La procrastination",
+        description: "Comprendre ce qui bloque réellement le passage à l'action.",
+        readingTime: "Environ 14 minutes",
+        tier: "COMPRENDRE",
+        excerpt: "Avant toute chose, définir la procrastination. On pense que c’est juste remettre une tâche à plus tard, mais c’est un peu plus spécifique que ça en vrai. Parce que remettre des tâches à plus tard, on le fait tous. Pour plein de raison. Pas l’énergie, pas prioritaire, pas important pour le moment, just because…...",
+        patreonUrl: "https://www.patreon.com/BENA_explique/posts/deep-dive-la-160425512?source=storefront"
+    },
+
+    anxiete: {
+        type: "Deep Dive",
+        title: "L'anxiété",
+        description: "Comprendre cette alarme interne pour moins la laisser nous contrôler.",
+        readingTime: "Environ 18 minutes",
+        tier: "COMPRENDRE",
+        excerpt: "L'anxiété est souvent décrite comme une émotion, mais elle n’en est pas vraiment une. Tout ce qui se passe en dedans n’est pas une émotions. Certaines choses, comme le stress ou l’anxiété, sont plus un méchanisme de protection mis en place par le cerveau lorsqu’il se sent face à une menace. Ainsi, il est plus utile de voir l’anxiété comme un système d'anticipation.",
+        patreonUrl: "https://www.patreon.com/BENA_explique/posts/deep-dive-161444748?source=storefront"
+    },
+
+    dossier1: {
+        type: "Dossier",
+        title: "Quand la douleur devient ton identité",
+        description: "Ta douleur est valide. Mais qu'est-ce qui se passe lorsqu'elle devient une partie de toi?",
+        readingTime: "Environ 54 minutes",
+        tier: "APPRRENDRE",
+        excerpt: "Ce que tu vis, c’est vrai. Tu le ressens. Ce n’est pas imaginaire et ce n’est pas de “l’overreact”. Quand on dit que ta douleur est valide, c’est qu’elle mérite d’être reconnue, et non minimiser ou faire comme si elle n’avait pas lieu d’être. Elle est là et elle veut dire quelque chose. Par contre.. Cette phrase ne signifie pas que ta souffrance doit exister plus longtemps que nécessaire -- à un certain moment, il faut travailler avec la souffrance, comme l’écouter, la comprendre, avancer.., sinon elle se crystalise en nous) ou qu’elle fait partie de toi. Il y a une différence entre parler de ta souffrance et te définir par elle.",
+        patreonUrl: "https://www.patreon.com/BENA_explique/posts/dossier-quand-la-162244974?source=storefront"
+    },
+
+    dependanceaffective: {
+        type: "Deep Dive",
+        title: "La dépendance affective",
+        description: "Comprendre ce qu'est la dépendance affective, comment ça se manifeste.",
+        readingTime: "Environ 18 minutes",
+        tier: "COMPRENDRE",
+        excerpt: "Le terme de dépendance affective est parfois lancer d’un côté et de l’autre mais sans jamais vraiment savoir de quoi il s’agit spécifiquement. Comme dans beaucoup d’aspects, on dirait qu’il n’y a que deux camps : être indépendant, ou dépendant affectif. La dépendance affective n’est pas aimer quelqu’un très très fort. Ce n’est pas non plus avoir un grand attachement à son ou sa partenaire, ni d’avoir besoin de l’autre.. Il est tout à fait normal que lorsqu’on bâti une vie avec quelqu’un, sa présence est nécessaire au bon fonctionnement du quotidien et donc, son départ peut créer un grand déséquilibre.",
+        patreonUrl: "https://www.patreon.com/BENA_explique/posts/deep-dive-la-162429063?source=storefront"
+    },
+
+    dossier2: {
+        type: "Dossier",
+        title: "Les fonctions exécutives",
+        description: "Comprendre ce qui entre dans l'exécution de tâches, TDAH ou pas!",
+        readingTime: "Environ 2 heures",
+        tier: "APPRENDRE",
+        excerpt: "Je sais quoi faire. Pourquoi je le fais pas? On pense que de se mettre en action c’est aussi simple que ça. Je sais quoi faire, donc le corps et la tête se mettent en mouvement et la tâche se fait. Mais ça, c’est ce qu’on voit de l’extérieur. De l’intérieur, c’est beaucoup plus complexe. Si on image le corps et le cerveau comme une machine biologique (dans le sens que y’a le cerveau qui contrôle pas mal tout, qui envoie des informations à d’autres organes qui a leur tour font leur job selon les directives envoyées), comme un ordinateur, on ne sais pas comment il fonctionne. On ne voit que le résultat. Tu tappe sur une touche de clavier, et ça s’affiche sur l’écran. Tu pèses sur “sauvegarder” et ça sauvegarde, mais tout le processus derrière, les lignes de code qui fait en sorte que ton fichier est sauvegarder, ça on ne le voit pas. Ça ne signifie pas qu’il n’existe pas.",
+        patreonUrl: "https://www.patreon.com/BENA_explique/posts/dossier-les-165540133?source=storefront"
+    }
+};
+
+/* ==========================================================
+   READING MODAL
+   Ouvre la fenêtre des Deep Dives et dossiers.
+========================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const readingModal = document.getElementById("readingModal");
+    const closeReadingModal = document.getElementById("closeReadingModal");
+
+    const readingModalType = document.getElementById("readingModalType");
+    const readingModalTitle = document.getElementById("readingModalTitle");
+    const readingModalDescription = document.getElementById("readingModalDescription");
+    const readingModalTime = document.getElementById("readingModalTime");
+    const readingModalTier = document.getElementById("readingModalTier");
+    const readingModalExcerpt = document.getElementById("readingModalExcerpt");
+    const readingModalButton = document.getElementById("readingModalButton");
+
+    const readingButtons = document.querySelectorAll(".reading-modal-button");
+
+    if (
+        !readingModal ||
+        !closeReadingModal ||
+        readingButtons.length === 0
+    ) {
+        return;
+    }
+
+    function openReadingModal(readingKey) {
+
+        const content = readingContent[readingKey];
+
+        if (!content) {
+            return;
+        }
+
+        readingModalType.textContent = content.type;
+        readingModalTitle.textContent = content.title;
+        readingModalDescription.textContent = content.description;
+        readingModalTime.textContent = content.readingTime;
+        readingModalTier.textContent = `Palier ${content.tier}`;
+        readingModalExcerpt.textContent = content.excerpt;
+        readingModalButton.href = content.patreonUrl;
+
+        readingModal.classList.add("active");
+        readingModal.setAttribute("aria-hidden", "false");
+
+        document.body.classList.add("modal-open");
+    }
+
+    function closeModal() {
+
+        readingModal.classList.remove("active");
+        readingModal.setAttribute("aria-hidden", "true");
+
+        document.body.classList.remove("modal-open");
+    }
+
+    readingButtons.forEach(button => {
+
+        button.addEventListener("click", event => {
+
+            event.preventDefault();
+
+            const readingKey = button.dataset.reading;
+
+            openReadingModal(readingKey);
+
+        });
+
+    });
+
+    closeReadingModal.addEventListener("click", closeModal);
+
+    readingModal.addEventListener("click", event => {
+
+        if (event.target === readingModal) {
+            closeModal();
+        }
+
+    });
+
+    document.addEventListener("keydown", event => {
+
+        if (
+            event.key === "Escape" &&
+            readingModal.classList.contains("active")
+        ) {
+            closeModal();
+        }
+
+    });
 
 });

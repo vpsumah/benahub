@@ -191,17 +191,22 @@
 
                     <p>Série psycho-socio</p>
 
-                    <a href="https://www.patreon.com/collection/2124171" class="series-button" target="_blank" rel="noopener">
-                        Voir la série →
-                    </a>
+                   <button
+    type="button"
+    class="series-button"
+    id="openSeriesModal">
+
+    Voir la série →
+
+</button>
 
                 </div>
 
               
 
             </article>
-            <!---------
-
+           
+<!---------
             <article class="series-card green">
 
                 <div class="series-content">
@@ -219,6 +224,8 @@
                 <i data-lucide="users" class="series-icon"></i>
 
             </article>
+
+             
 
             <article class="series-card orange">
 
@@ -578,6 +585,352 @@
 
 
     </main>
+
+
+<!-- ======================================================
+     MODALE DE LA SÉRIE
+     Présente les extraits et les vidéos vendues à l'unité.
+======================================================= -->
+
+<div
+    class="series-modal-overlay"
+    id="seriesModal"
+    aria-hidden="true">
+
+    <div
+        class="series-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="seriesModalTitle">
+
+        <!-- Bouton pour fermer la fenêtre -->
+        <button
+            type="button"
+            class="series-modal-close"
+            id="closeSeriesModal"
+            aria-label="Fermer la fenêtre">
+
+            <i data-lucide="x"></i>
+
+        </button>
+
+        <!-- Introduction -->
+        <div class="series-modal-header">
+
+            <p class="series-modal-eyebrow">
+                Série Patreon
+            </p>
+
+            <h2 id="seriesModalTitle">
+                On t'a mal expliqué ça!
+            </h2>
+
+            <p>
+                Cette série est incluse avec le palier
+                <strong>EXPLORER</strong> sur Patreon.
+                Il est aussi possible d'acheter les vidéos individuellement,
+                sans abonnement.
+            </p>
+
+            <a
+                href="https://www.patreon.com/collection/2124171"
+                class="button button-primary"
+                target="_blank"
+                rel="noopener">
+
+                Voir toute la série sur Patreon
+
+            </a>
+
+        </div>
+
+        <!-- Grille des extraits -->
+        <div class="series-preview-grid">
+
+            <!-- ================= EXTRAIT 1 ================= -->
+
+            <article class="series-preview-card">
+
+                <div class="series-preview-video">
+
+                    <video
+                        controls
+                        playsinline
+                        preload="metadata">
+
+                        <source
+                            src="assets/videos/series/OTMEC-zoneconfort.mp4"
+                            type="video/mp4">
+
+                        Ton navigateur ne peut pas lire cette vidéo.
+
+                    </video>
+
+                </div>
+
+                <div class="series-preview-content">
+
+                    <h3>La zone de confort</h3>
+
+                    <a
+                        href="https://www.patreon.com/BENA_explique/posts/on-tas-mal-ca-la-163082186?source=storefront"
+                        class="button button-orange"
+                        target="_blank"
+                        rel="noopener">
+
+                        Regarder/Acheter sur Patreon
+
+                    </a>
+
+                </div>
+
+            </article>
+
+            <!-- ================= EXTRAIT 2 ================= -->
+
+           <article class="series-preview-card">
+
+                <div class="series-preview-video">
+
+                    <video
+                        controls
+                        playsinline
+                        preload="metadata">
+
+                        <source
+                            src="assets/videos/series/OTMEC-motivation.mp4"
+                            type="video/mp4">
+
+                        Ton navigateur ne peut pas lire cette vidéo.
+
+                    </video>
+
+                </div>
+
+                <div class="series-preview-content">
+
+                    <h3>La motivation</h3>
+
+                    <a
+                        href="https://www.patreon.com/BENA_explique/posts/on-tas-mal-ca-la-156978441?source=storefront"
+                        class="button button-orange"
+                        target="_blank"
+                        rel="noopener">
+
+                        Regarder/Acheter sur Patreon
+
+                    </a>
+
+                </div>
+
+            </article>
+
+            <!-- ================= EXTRAIT 3 ================= -->
+
+            <article class="series-preview-card">
+
+                <div class="series-preview-video">
+
+                    <video
+                        controls
+                        playsinline
+                        preload="metadata">
+
+                        <source
+                            src="assets/videos/series/OTMEC-effort.mp4"
+                            type="video/mp4">
+
+                        Ton navigateur ne peut pas lire cette vidéo.
+
+                    </video>
+
+                </div>
+
+                <div class="series-preview-content">
+
+                    <h3>L'effort</h3>
+
+                    <a
+                        href="https://www.patreon.com/BENA_explique/posts/on-tas-mal-ca-157619762?source=storefront"
+                        class="button button-orange"
+                        target="_blank"
+                        rel="noopener">
+
+                        Regarder/Acheter sur Patreon
+
+                    </a>
+
+                </div>
+
+            </article>
+
+              <!-- ================= EXTRAIT 4 ================= -->
+
+            <article class="series-preview-card">
+
+                <div class="series-preview-video">
+
+                    <video
+                        controls
+                        playsinline
+                        preload="metadata">
+
+                        <source
+                            src="assets/videos/series/OMTEC-paresse.mp4"
+                            type="video/mp4">
+
+                        Ton navigateur ne peut pas lire cette vidéo.
+
+                    </video>
+
+                </div>
+
+                <div class="series-preview-content">
+
+                    <h3>La paresse</h3>
+
+                    <a
+                        href="https://www.patreon.com/BENA_explique/posts/on-tas-mal-ca-159739130?source=storefront"
+                        class="button button-orange"
+                        target="_blank"
+                        rel="noopener">
+
+                        Regarder/Acheter sur Patreon
+
+                    </a>
+
+                </div>
+
+            </article>
+
+    <!-- ================= EXTRAIT 5 ================= -->
+
+            <article class="series-preview-card">
+
+                <div class="series-preview-video">
+
+                    <video
+                        controls
+                        playsinline
+                        preload="metadata">
+
+                        <source
+                            src="assets/videos/series/OTMEC-discipline.mp4"
+                            type="video/mp4">
+
+                        Ton navigateur ne peut pas lire cette vidéo.
+
+                    </video>
+
+                </div>
+
+                <div class="series-preview-content">
+
+                    <h3>La discpline</h3>
+
+                    <a
+                        href="https://www.patreon.com/BENA_explique/posts/on-tas-mal-ca-161140269?source=storefront"
+                        class="button button-orange"
+                        target="_blank"
+                        rel="noopener">
+
+                        Regarder/Acheter sur Patreon
+
+                    </a>
+
+                </div>
+
+            </article>
+ <!-- ================= EXTRAIT 6 ================= -->
+
+            <article class="series-preview-card">
+
+                <div class="series-preview-video">
+
+                    <video
+                        controls
+                        playsinline
+                        preload="metadata">
+
+                        <source
+                            src="assets/videos/series/OTMEC-gentillesse.mp4"
+                            type="video/mp4">
+
+                        Ton navigateur ne peut pas lire cette vidéo.
+
+                    </video>
+
+                </div>
+
+                <div class="series-preview-content">
+
+                    <h3>La gentillesse</h3>
+
+                    <a
+                        href="https://www.patreon.com/BENA_explique/posts/on-ta-mal-la-162159116?source=storefront"
+                        class="button button-orange"
+                        target="_blank"
+                        rel="noopener">
+
+                        Regarder/Acheter sur Patreon
+
+                    </a>
+
+                </div>
+
+            </article>
+ <!-- ================= EXTRAIT 7 ================= -->
+
+            <article class="series-preview-card">
+
+                <div class="series-preview-video">
+
+                    <video
+                        controls
+                        playsinline
+                        preload="metadata">
+
+                        <source
+                            src="assets/videos/series/OTMEC-gaslighting.mp4"
+                            type="video/mp4">
+
+                        Ton navigateur ne peut pas lire cette vidéo.
+
+                    </video>
+
+                </div>
+
+                <div class="series-preview-content">
+
+                    <h3>Le gaslithging</h3>
+
+                    <a
+                        href="https://www.patreon.com/BENA_explique/posts/on-tas-mal-le-163630268?source=storefront"
+                        class="button button-orange"
+                        target="_blank"
+                        rel="noopener">
+
+                        Regarder/Acheter sur Patreon
+
+                    </a>
+
+                </div>
+
+            </article>
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
 
     <footer class="site-footer">
 
