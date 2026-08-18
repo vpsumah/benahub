@@ -229,61 +229,8 @@ keywords: [
         title: "Pourquoi ton cerveau REFUSE de demander de l'aide",
         type: "video",
         formatLabel: "Vidéo YouTube",
-        category: "Neurodivergence",
-        description: "Pour une personne autiste, comprendre pourquoi est nécessaire.",
-keywords: [
-
-      "autisme",
-    "autiste",
-    "TSA",
-    "pourquoi",
-    "demander pourquoi",
-    "poser des questions",
-    "curiosité",
-    "besoin de comprendre",
-    "comprendre",
-    "explications",
-    "logique",
-    "raison",
-    "sens",
-    "cohérence",
-    "fonctionnement",
-    "communication",
-    "communication autiste",
-    "malentendus",
-    "incompréhension",
-    "apprentissage",
-    "traitement de l'information",
-    "prévisibilité",
-    "incertitude",
-    "anxiété",
-    "fonctionnement autistique",
-    "neurodiversité",
-    "pensée analytique",
-    "pensée logique",
-    "questionnement",
-    "raisonnement",
-    "vulgarisation",
-    "pourquoi je pose autant de questions",
-"pourquoi les autistes posent autant de questions",
-"pourquoi toujours demander pourquoi",
-"besoin de tout comprendre",
-"besoin d'explications",
-"j'ai besoin de comprendre",
-"ça n'a pas de sens",
-"ça doit avoir du sens"
-
-],
-        url: "https://youtu.be/2sCKFq8idPc"
-    },
-
-     {
-        id: "YT-pourquoi-pourquoi",
-        title: "Pourquoi les personnes autistes demandent autant pourquoi?",
-        type: "video",
-        formatLabel: "Vidéo YouTube",
-        category: "Développement personnel",
-        description: "On sait qu'on devrait, mais on ose pas.. pourquoi?",
+        category: "Relations Humaines",
+        description: "On sait que ça nous aiderais.. mais on ose pas... pourquoi?",
 keywords: [
     "Demander de l'aide",
     "Difficulté à demander de l'aide",
@@ -327,19 +274,18 @@ keywords: [
     "Pourquoi c'est difficile de demander de l'aide",
     "Pourquoi je refuse de demander de l'aide"
 ],
-        url: "https://youtu.be/asAJXchRzRc"
+        url: "https://youtu.be/2sCKFq8idPc"
     },
 
-  {
-        id: "YT-demande-aide",
-        title: "Pourquoi ton cerveau REFUSE de demander de l'aide",
+     {
+        id: "YT-pourquoi-pourquoi",
+        title: "Pourquoi les personnes autistes demandent autant pourquoi?",
         type: "video",
         formatLabel: "Vidéo YouTube",
         category: "Neurodivergence",
         description: "Pour une personne autiste, comprendre pourquoi est nécessaire.",
 keywords: [
-
-      "autisme",
+        "autisme",
     "autiste",
     "TSA",
     "pourquoi",
@@ -378,12 +324,9 @@ keywords: [
 "j'ai besoin de comprendre",
 "ça n'a pas de sens",
 "ça doit avoir du sens"
-
 ],
         url: "https://youtu.be/2sCKFq8idPc"
     },
-
-
 
       {
         id: "YT-reassurance",
