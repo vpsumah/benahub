@@ -1192,6 +1192,36 @@ document.addEventListener("DOMContentLoaded", () => {
             image: "assets/images/read/relation-chaine.png",
             url: "https://www.patreon.com/BENA_explique/posts/deep-dive-la-162429063",
             keywords: "dépendance affective relations attachement peur abandon réassurance"
+        },
+         {
+            title: "La culpabilité du repos",
+            description: "Pourquoi on se sent coupable ou faible de devoir se reposer?",
+            type: "Deep Dive",
+            filterType: "deepdive",
+            category: "selfcare",
+            image: "assets/images/read/amour_sad.png",
+            url: "https://www.patreon.com/BENA_explique/posts/deep-dive-la-du-166034555",
+            keywords: "repos culpabilité reposer honte machine self-care"
+        },
+         {
+            title: "Pourquoi une communauté peut devenir difficile à remettre en question",
+            description: "Reconnaître quand une communauté devient toxique",
+            type: "Deep Dive",
+            filterType: "deepdive",
+            category: "relations",
+            image: "assets/images/read/groupe.png",
+            url: "https://www.patreon.com/BENA_explique/posts/pourquoi-une-en-166668422",
+            keywords: "dépendance communauté toxique culte liberté autonomie"
+        },
+        {
+            title: "Pourquoi une communauté peut devenir difficile à remettre en question",
+            description: "Reconnaître quand une communauté devient toxique",
+            type: "Dossier",
+            filterType: "dossier",
+            category: "fonctioncerveau",
+            image: "assets/images/read/brain.png",
+            url: "https://www.patreon.com/BENA_explique/posts/dossier-les-165540133",
+            keywords: "tdah fonctions executives tâche fonctionnement motivation activation"
         }
     ];
 
@@ -1708,6 +1738,24 @@ const readingContent = {
         tier: "APPRENDRE",
         excerpt: "Je sais quoi faire. Pourquoi je le fais pas? On pense que de se mettre en action c’est aussi simple que ça. Je sais quoi faire, donc le corps et la tête se mettent en mouvement et la tâche se fait. Mais ça, c’est ce qu’on voit de l’extérieur. De l’intérieur, c’est beaucoup plus complexe. Si on image le corps et le cerveau comme une machine biologique (dans le sens que y’a le cerveau qui contrôle pas mal tout, qui envoie des informations à d’autres organes qui a leur tour font leur job selon les directives envoyées), comme un ordinateur, on ne sais pas comment il fonctionne. On ne voit que le résultat. Tu tappe sur une touche de clavier, et ça s’affiche sur l’écran. Tu pèses sur “sauvegarder” et ça sauvegarde, mais tout le processus derrière, les lignes de code qui fait en sorte que ton fichier est sauvegarder, ça on ne le voit pas. Ça ne signifie pas qu’il n’existe pas.",
         patreonUrl: "https://www.patreon.com/BENA_explique/posts/dossier-les-165540133?source=storefront"
+    },
+     reposguilt: {
+        type: "Deep Dive",
+        title: "La culpabilité du repos",
+        description: "Pourquoi on ressent autant de culpabilité à l'idée de devoir se reposer?",
+        readingTime: "Environ 15 minutes",
+        tier: "COMPRENDRE",
+        excerpt: "Je m’assois enfin, après une grosse journée de travail. Mon corps est fatigué, mon cerveau est en bouilli. Je sais que j’ai besoin d’une pause. Je sais que de se reposer c’est sain, mais y’a cette petite voix dans ma tête qui commence à se faire entendre… ”Le temps que tu prends là, tu avance pas tes tâches…” .. et on s’entend que quand y’a cette petite voix qui te culpabilise de prendre du repos.. ben ton repos il est pas 100% efficace. Pourquoi, donc, on peut SAVOIR qu’on a besoin de repos sans être capable de se l’accorder sans culpabilité?",
+        patreonUrl: "https://www.patreon.com/BENA_explique/posts/deep-dive-la-du-166034555"
+    },
+     commnuquest: {
+        type: "Deep Dive",
+        title: "Pourquoi une communauté peut devenir difficile à remettre en question",
+        description: "Le titre dit pas mal tout! on va expliquer pourquoi, quand on fait partie d'un groupe, ça peut devenir de plus en plus difficile de le remettre en question.",
+        readingTime: "Environ 15 minutes",
+        tier: "COMPRENDRE",
+        excerpt: "On imagine souvent que si une communauté comment à avoir des propos douteux, à tolérer des comportements problématiques ou commencer à avoir un peu trop de contrôle, ben ses membres devraient s’en rendre compte par eux-même et partir. Sauf qu’une communauté est rarement bâtie uniquement sur des idées qu’on partage… Ce groupe là peut être nos amis, ou des gens qui nous ont finalement compris. C’est un endroit où on a trouvé une nouvelle identité, parfois même un langage commun, une réponse ou sa place dans le monde.",
+        patreonUrl: "https://www.patreon.com/BENA_explique/posts/pourquoi-une-en-166668422"
     }
 };
 
@@ -1800,6 +1848,79 @@ document.addEventListener("DOMContentLoaded", () => {
             readingModal.classList.contains("active")
         ) {
             closeModal();
+        }
+
+    });
+
+});
+
+/* ==========================================================
+   RELATIONS SERIES MODAL
+   Ouvre et ferme la série "Être en relation sans se perdre".
+========================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const openRelationsModalButton =
+        document.getElementById("openRelationsModal");
+
+    const relationsModal =
+        document.getElementById("relationsModal");
+
+    const closeRelationsModalButton =
+        document.getElementById("closeRelationsModal");
+
+    if (
+        !openRelationsModalButton ||
+        !relationsModal ||
+        !closeRelationsModalButton
+    ) {
+        return;
+    }
+
+    function openRelationsModal() {
+        relationsModal.classList.add("active");
+        relationsModal.setAttribute("aria-hidden", "false");
+
+        document.body.classList.add("modal-open");
+
+        closeRelationsModalButton.focus();
+    }
+
+    function closeRelationsModal() {
+        relationsModal.classList.remove("active");
+        relationsModal.setAttribute("aria-hidden", "true");
+
+        document.body.classList.remove("modal-open");
+
+        openRelationsModalButton.focus();
+    }
+
+    openRelationsModalButton.addEventListener(
+        "click",
+        openRelationsModal
+    );
+
+    closeRelationsModalButton.addEventListener(
+        "click",
+        closeRelationsModal
+    );
+
+    relationsModal.addEventListener("click", event => {
+
+        if (event.target === relationsModal) {
+            closeRelationsModal();
+        }
+
+    });
+
+    document.addEventListener("keydown", event => {
+
+        if (
+            event.key === "Escape" &&
+            relationsModal.classList.contains("active")
+        ) {
+            closeRelationsModal();
         }
 
     });
