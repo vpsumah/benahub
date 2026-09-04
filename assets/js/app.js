@@ -1222,6 +1222,26 @@ document.addEventListener("DOMContentLoaded", () => {
             image: "assets/images/read/brain.png",
             url: "https://www.patreon.com/BENA_explique/posts/dossier-les-165540133",
             keywords: "tdah fonctions executives tâche fonctionnement motivation activation"
+        },
+        {
+            title: "Comment aider son partenaire autiste à se sentir plus en sécurité dans la relation?",
+            description: "Aider son/sa partenaire autiste dans son sentiment de sécurité",
+            type: "Deep Dive",
+            filterType: "Deepdive",
+            category: "neurodivergence",
+            image: "assets/images/read/amour.png",
+            url: "https://www.patreon.com/BENA_explique/posts/comment-aider-se-167744667",
+            keywords: "autisme autiste masking camouflage sécuritaire"
+        }, 
+         {
+            title: "Pourquoi je m’attache autant aux personnes qui me donnent si peu",
+            description: "Bob nous donne juste assez pour nous garder accroché..",
+            type: "Dossier",
+            filterType: "dossier",
+            category: "Relations Humaines",
+            image: "assets/images/read/amour_sad.png",
+            url: "https://www.patreon.com/BENA_explique/posts/pourquoi-je-aux-168098577",
+            keywords: "relations dépendance amour recherche validation compréhension"
         }
     ];
 
@@ -1756,6 +1776,24 @@ const readingContent = {
         tier: "COMPRENDRE",
         excerpt: "On imagine souvent que si une communauté comment à avoir des propos douteux, à tolérer des comportements problématiques ou commencer à avoir un peu trop de contrôle, ben ses membres devraient s’en rendre compte par eux-même et partir. Sauf qu’une communauté est rarement bâtie uniquement sur des idées qu’on partage… Ce groupe là peut être nos amis, ou des gens qui nous ont finalement compris. C’est un endroit où on a trouvé une nouvelle identité, parfois même un langage commun, une réponse ou sa place dans le monde.",
         patreonUrl: "https://www.patreon.com/BENA_explique/posts/pourquoi-une-en-166668422"
+    }, 
+    ddaiderpartnerautiste : {
+        type: "Deep Dive",
+        title: "Comment aider son partenaire autiste à se sentir plus en sécurité dans la relation?",
+        description: "Comment aider notre partenaire autiste à moins masquer avec nous? Pas si simple...",
+        readingTime: "Environ 15 minutes",
+        tier: "COMPRENDRE",
+        excerpt: "J’ai reçu une question d’une abonnée.. “Comment faire pour que mon mari se sente plus safe dans notre relation pour arrêter de masquer?” …Ça part d’une intention super noble et inclusive! Elle veut l’aider à se sentir libre d’être lui même, à exprimer ses besoins pis à arrêter de performer une version plus facile à recevoir. Mais il faut faire attention à un petit truc… parfois, on veut tellement que l’autre démasque et soit safe d’être authentique qu’iel comment à ressentir une nouvelle pression… celle de démasquer. Peut-être qu’il essayait déjà de performer ce qu’il pense qu’on attend de lui, ensuite il pourrait se demander s’il “performe” comme il faut le démasquing. Donc… Comment créer une relation plus sécurisante sans transformer l’authenticité de l’autre en nouveau projet à réussir?",
+        patreonUrl: "https://www.patreon.com/BENA_explique/posts/comment-aider-se-167744667"
+    },
+    attachebob : {
+        type: "Dossier",
+        title: "Pourquoi je m’attache autant aux personnes qui me donnent si peu",
+        description: "Pourquoi on reste accroché à Bob, même s'il nous donne si peu d'attention?",
+        readingTime: "Environ 35 minutes",
+        tier: "APPRENDRE",
+        excerpt: "Mise en situation… tu rencontre quelqu’un dans une sortie quelconque… (shh, dans cette histoire tu fais des sorties!).. Tu jases avec la personne (appelons-là Bob) toute la soirée, vous riez, vous avez ben du fun, pendant cette soirée là, y’a eu une petite étincelle.. tu te sens vu.e, compris.e… Vous échangez vos coordonnées de choix. Vous commencé à échanger online ça va bien, Bob veut te revoir.",
+        patreonUrl: "https://www.patreon.com/BENA_explique/posts/pourquoi-je-aux-168098577"
     }
 };
 
