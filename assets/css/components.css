@@ -5498,3 +5498,252 @@ body.modal-open {
     }
 
 }
+
+/* ==========================================================
+   BOÎTE À OUTILS BENA
+   Cartes réutilisables pour les outils interactifs.
+========================================================== */
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1.5rem;
+
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* ==========================================================
+   CARTE D’OUTIL
+========================================================== */
+
+.hub-tool-card {
+    --tool-color: var(--blue);
+    --tool-color-soft: rgba(66, 153, 157, .11);
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: 100%;
+    padding: 1.6rem;
+
+    overflow: hidden;
+    position: relative;
+
+    border: 1px solid rgba(9, 35, 57, .07);
+    border-radius: 26px;
+
+    background:
+        radial-gradient(
+            circle at 100% 0,
+            var(--tool-color-soft),
+            transparent 42%
+        ),
+        rgba(255, 255, 255, .92);
+
+    box-shadow: 0 16px 45px rgba(66, 153, 157, .09);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.hub-tool-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 22px 55px rgba(66, 153, 157, .15);
+}
+
+/* Variantes de couleur pour les futurs outils */
+
+.hub-tool-card-purple {
+    --tool-color: var(--purple);
+    --tool-color-soft: rgba(131, 105, 155, .13);
+}
+
+.hub-tool-card-green {
+    --tool-color: var(--green);
+    --tool-color-soft: rgba(78, 139, 95, .12);
+}
+
+.hub-tool-card-orange {
+    --tool-color: var(--orange);
+    --tool-color-soft: rgba(250, 126, 76, .12);
+}
+
+.hub-tool-card-blue {
+    --tool-color: var(--blue);
+    --tool-color-soft: rgba(66, 153, 157, .12);
+}
+
+/* ==========================================================
+   HAUT DE LA CARTE
+========================================================== */
+
+.hub-tool-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+
+    margin-bottom: 1.4rem;
+}
+
+.hub-tool-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 62px;
+    height: 62px;
+
+    border-radius: 50%;
+
+    background: var(--tool-color);
+    color: white;
+
+    box-shadow: 0 9px 24px var(--tool-color-soft);
+}
+
+.hub-tool-icon svg {
+    width: 29px;
+    height: 29px;
+    stroke-width: 2.2;
+}
+
+.hub-tool-status {
+    padding: .42rem .72rem;
+
+    border-radius: 999px;
+
+    background: var(--tool-color-soft);
+    color: var(--tool-color);
+
+    font-family: var(--font-menu);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+/* ==========================================================
+   CONTENU
+========================================================== */
+
+.hub-tool-category {
+    margin: 0 0 .4rem;
+
+    color: var(--tool-color);
+
+    font-family: var(--font-menu);
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.hub-tool-card h3 {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 1.8rem;
+    line-height: 1.2;
+}
+
+.hub-tool-description {
+    margin: 1rem 0 1.4rem;
+
+    color: var(--text-light);
+
+    line-height: 1.65;
+}
+
+.hub-tool-features {
+    display: grid;
+    gap: .75rem;
+
+    margin-bottom: 1.6rem;
+}
+
+.hub-tool-features span {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+
+    color: var(--text);
+    font-size: .92rem;
+    font-weight: 600;
+}
+
+.hub-tool-features svg {
+    width: 18px;
+    height: 18px;
+
+    flex-shrink: 0;
+
+    color: var(--tool-color);
+    stroke-width: 2.5;
+}
+
+/* ==========================================================
+   BAS DE LA CARTE
+========================================================== */
+
+.hub-tool-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    margin-top: auto;
+    padding-top: 1.2rem;
+
+    border-top: 1px solid rgba(9, 35, 57, .07);
+}
+
+.hub-tool-price {
+    color: var(--green);
+
+    font-family: var(--font-menu);
+    font-weight: 700;
+}
+
+.hub-tool-card-footer .button {
+    gap: .55rem;
+}
+
+.hub-tool-card-footer .button svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 650px) {
+
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hub-tool-card {
+        padding: 1.3rem;
+        border-radius: 22px;
+    }
+
+    .hub-tool-card-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hub-tool-card-footer .button {
+        width: 100%;
+    }
+
+    .hub-tool-price {
+        text-align: center;
+    }
+
+}

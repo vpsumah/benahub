@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lecteur RSVP intelligent</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f3eee7;
+      --panel: #ffffff;
+      --panel-2: #f8fbfa;
+      --text: #0c3045;
+      --muted: #607783;
+      --accent: #f4774e;
+      --focus: #3ca7a8;
+      --purple: #9270b5;
+      --green: #75a681;
+      --line: rgba(12,48,69,.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse 310px 430px at -4% 8%, #cfe3df 0 68%, transparent 69%),
+        radial-gradient(ellipse 260px 360px at 103% 88%, #c9e4df 0 67%, transparent 68%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button, textarea, input { font: inherit; }
+    button, input { touch-action: manipulation; }
+    .app { position: relative; width: min(980px, 100%); margin: auto; padding: clamp(18px, 4vw, 42px); }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+    .title-group { display: flex; align-items: center; gap: 13px; }
+    .brand-mark { position: relative; width: 42px; height: 42px; flex: 0 0 42px; }
+    .brand-mark i { position: absolute; width: 19px; height: 19px; border-radius: 50%; opacity: .92; }
+    .brand-mark i:nth-child(1) { left: 4px; top: 3px; background: var(--purple); }
+    .brand-mark i:nth-child(2) { right: 3px; top: 7px; background: var(--green); }
+    .brand-mark i:nth-child(3) { left: 5px; bottom: 2px; background: var(--focus); }
+    .brand-mark i:nth-child(4) { right: 2px; bottom: 1px; background: var(--accent); }
+    .brand { color: var(--focus); font-size: .78rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { margin: 1px 0 0; font-family: "Century Gothic", "Avenir Next", Arial, sans-serif; font-size: clamp(1.35rem, 3vw, 1.9rem); font-weight: 500; letter-spacing: .01em; }
+    .saved { color: var(--muted); font-size: .85rem; min-height: 1.2em; }
+    .reader {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: clamp(250px, 46vh, 430px);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 20px 55px rgba(20,62,76,.10);
+    }
+    .chapter-now { position: absolute; top: 17px; left: 20px; right: 20px; color: var(--muted); font-size: .86rem; font-weight: 700; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .reader::before, .reader::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      width: 1px;
+      height: 23%;
+      background: linear-gradient(transparent, var(--focus));
+      opacity: .55;
+    }
+    .reader::before { top: 0; }
+    .reader::after { bottom: 0; transform: rotate(180deg); }
+    .word {
+      width: 100%;
+      padding: 36px 24px;
+      text-align: center;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.6rem, 10vw, 6.8rem);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -.035em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .word .focus { color: var(--accent); }
+    .word .bionic { color: var(--accent); font-weight: 900; }
+    .empty { color: var(--muted); font-family: inherit; font-size: clamp(1rem, 2.8vw, 1.2rem); font-weight: 500; letter-spacing: 0; white-space: normal; }
+    .progress-wrap { margin: 18px 0 8px; }
+    input[type="range"] { width: 100%; accent-color: var(--accent); }
+    .meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 5px 14px; color: var(--muted); font-size: .9rem; margin-top: 5px; }
+    .screen-status { color: #2f8687; }
+    .controls { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; margin: 18px 0; }
+    button {
+      min-width: 48px;
+      min-height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: var(--panel-2);
+      color: var(--text);
+      cursor: pointer;
+    }
+    button:hover { filter: brightness(.97); transform: translateY(-1px); }
+    button:focus-visible, textarea:focus-visible, input:focus-visible { outline: 3px solid rgba(103,213,207,.45); outline-offset: 2px; }
+    .play { min-width: 76px; background: var(--focus); color: white; border: 0; font-size: 1.25rem; font-weight: 800; box-shadow: 0 8px 22px rgba(60,167,168,.24); }
+    .start-over { padding: 0 14px; color: var(--muted); }
+    .settings { display: grid; gap: 16px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,.88); box-shadow: 0 10px 30px rgba(20,62,76,.06); }
+    .setting-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 18px; }
+    .speed { display: grid; grid-template-columns: auto minmax(120px, 260px) auto; gap: 12px; align-items: center; }
+    .speed strong { color: var(--focus); min-width: 76px; text-align: right; }
+    .type-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
+    .font-picker { display: flex; align-items: center; gap: 10px; }
+    select { min-height: 42px; padding: 0 38px 0 12px; border: 1px solid var(--line); border-radius: 12px; background: white; color: var(--text); font: inherit; }
+    .font-size { display: grid; grid-template-columns: auto minmax(110px, 220px) auto; align-items: center; gap: 10px; }
+    .font-size strong { color: var(--focus); min-width: 44px; text-align: right; }
+    .pause-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 15px; border-top: 1px solid var(--line); }
+    .pause-control { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; }
+    .pause-control strong { color: var(--focus); min-width: 48px; text-align: right; }
+    .toggles { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px 18px; }
+    .toggle { display: flex; gap: 8px; align-items: center; color: var(--muted); white-space: nowrap; }
+    .toggle input { width: 19px; height: 19px; accent-color: var(--accent); }
+    details { margin-top: 18px; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,.88); box-shadow: 0 10px 30px rgba(20,62,76,.06); overflow: hidden; }
+    summary { cursor: pointer; padding: 16px 18px; font-weight: 700; }
+    .text-area { padding: 0 18px 18px; }
+    textarea { width: 100%; min-height: 210px; resize: vertical; padding: 15px; border: 1px solid var(--line); border-radius: 13px; background: #fbfcfb; color: var(--text); line-height: 1.55; }
+    .text-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
+    .import-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+    .file-button { display: inline-flex; min-height: 46px; padding: 0 17px; align-items: center; border-radius: 14px; background: var(--purple); color: white; font-weight: 800; cursor: pointer; box-shadow: 0 7px 18px rgba(146,112,181,.2); }
+    .file-button:hover { filter: brightness(.97); transform: translateY(-1px); }
+    .file-name { color: var(--muted); font-size: .9rem; overflow-wrap: anywhere; }
+    .file-error { color: #b84732; font-size: .9rem; }
+    .privacy-note { display: flex; align-items: flex-start; gap: 9px; margin: 13px 2px 0; padding: 11px 13px; border-radius: 12px; background: #edf7f5; color: #286f71; font-size: .88rem; line-height: 1.4; }
+    .privacy-note strong { color: var(--text); }
+    .toc-panel { margin: 0 0 18px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.88); box-shadow: 0 10px 30px rgba(20,62,76,.06); overflow: hidden; }
+    .toc-panel[hidden] { display: none; }
+    .toc-panel summary { display: flex; justify-content: space-between; gap: 12px; padding: 14px 18px; color: var(--text); }
+    .toc-count { color: var(--muted); font-size: .85rem; font-weight: 500; }
+    .toc-list { display: grid; max-height: 300px; overflow-y: auto; padding: 0 10px 10px; }
+    .toc-item { width: 100%; min-height: 42px; padding: 9px 12px; border: 0; border-radius: 11px; background: transparent; color: var(--text); text-align: left; }
+    .toc-item:hover { background: #edf7f5; }
+    .toc-item.current { background: #e0f2ef; color: #267b7c; font-weight: 800; }
+    .primary { padding: 0 18px; background: var(--focus); color: white; border: 0; font-weight: 800; }
+    .hint { margin: 12px 2px 0; color: var(--muted); font-size: .85rem; line-height: 1.45; }
+    @media (max-width: 650px) {
+      .setting-row { grid-template-columns: 1fr; }
+      .speed { grid-template-columns: auto 1fr auto; }
+      .toggles { justify-content: center; }
+      .type-controls { display: grid; }
+      .font-picker { display: grid; grid-template-columns: auto 1fr; }
+      .font-size { grid-template-columns: auto 1fr auto; }
+      .pause-controls { grid-template-columns: 1fr; }
+      .reader { min-height: 285px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div class="title-group">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <div><div class="brand">BENA HUB</div><h1>Lecteur RSVP</h1></div>
+      </div>
+      <div class="saved" id="saved" aria-live="polite"></div>
+    </header>
+
+    <details class="toc-panel" id="tocPanel" hidden>
+      <summary><span>Table des matières</span><span class="toc-count" id="tocCount"></span></summary>
+      <nav class="toc-list" id="tocList" aria-label="Chapitres"></nav>
+    </details>
+
+    <section class="reader" aria-label="Zone de lecture">
+      <div class="chapter-now" id="chapterNow"></div>
+      <div class="word empty" id="word">Ajoute un texte pour commencer</div>
+    </section>
+
+    <div class="progress-wrap">
+      <input id="progress" type="range" min="0" max="0" value="0" aria-label="Position dans le texte">
+      <div class="meta"><span id="position">0 / 0</span><span class="screen-status" id="screenStatus"></span><span id="remaining">0 min restante</span></div>
+    </div>
+
+    <div class="controls">
+      <button id="back" title="Reculer de 10 mots" aria-label="Reculer de 10 mots">−10</button>
+      <button id="previous" title="Mot précédent" aria-label="Mot précédent">‹</button>
+      <button class="play" id="play" aria-label="Lire">▶</button>
+      <button id="next" title="Mot suivant" aria-label="Mot suivant">›</button>
+      <button id="forward" title="Avancer de 10 mots" aria-label="Avancer de 10 mots">+10</button>
+      <button class="start-over" id="startOver" title="Revenir au début du livre">↶ Début</button>
+    </div>
+
+    <section class="settings" aria-label="Réglages">
+      <div class="setting-row">
+        <div class="speed">
+          <label for="wpm">Vitesse</label>
+          <input id="wpm" type="range" min="100" max="1000" step="25" value="350">
+          <strong id="wpmValue">350 MPM</strong>
+        </div>
+        <div class="toggles">
+          <label class="toggle"><input id="smart" type="checkbox" checked> Rythme intelligent</label>
+          <label class="toggle"><input id="bionic" type="checkbox"> Lecture bionic</label>
+          <label class="toggle"><input id="keepAwake" type="checkbox" checked> Garder l’écran allumé</label>
+        </div>
+      </div>
+      <div class="type-controls">
+        <label class="font-picker" for="fontFamily">Police
+          <select id="fontFamily">
+            <option value="century">Century Gothic</option>
+            <option value="verdana">Verdana</option>
+            <option value="trebuchet">Trebuchet MS</option>
+            <option value="georgia">Georgia</option>
+            <option value="garamond">Garamond</option>
+            <option value="times">Times New Roman</option>
+          </select>
+        </label>
+        <div class="font-size">
+          <label for="fontSize">Taille</label>
+          <input id="fontSize" type="range" min="32" max="120" step="2" value="76">
+          <strong id="fontSizeValue">76 px</strong>
+        </div>
+      </div>
+      <div class="pause-controls" id="pauseControls">
+        <div class="pause-control">
+          <label for="sentencePause">Fin de phrase</label>
+          <input id="sentencePause" type="range" min="200" max="1600" step="100" value="700">
+          <strong id="sentencePauseValue">0,7 s</strong>
+        </div>
+        <div class="pause-control">
+          <label for="paragraphPause">Nouveau paragraphe</label>
+          <input id="paragraphPause" type="range" min="500" max="3000" step="100" value="1200">
+          <strong id="paragraphPauseValue">1,2 s</strong>
+        </div>
+      </div>
+    </section>
+
+    <details id="editor" open>
+      <summary>Mon texte</summary>
+      <div class="text-area">
+        <div class="import-row">
+          <label class="file-button" for="fileInput">Importer un fichier</label>
+          <input id="fileInput" type="file" accept=".epub,.txt,.md,.html,.htm,text/plain,text/html,application/epub+zip" hidden>
+          <span class="file-name" id="fileName">Aucun fichier importé</span>
+        </div>
+        <div class="file-error" id="fileError" role="alert"></div>
+        <textarea id="text" placeholder="Colle ici le texte ou le chapitre que tu veux lire…"></textarea>
+        <div class="text-actions">
+          <button id="clear">Effacer</button>
+          <button class="primary" id="load">Préparer la lecture</button>
+        </div>
+        <p class="privacy-note"><span aria-hidden="true">🔒</span><span><strong>Ton document reste privé.</strong> Il est lu et sauvegardé uniquement sur ton appareil. Il n’est jamais envoyé sur un serveur.</span></p>
+        <p class="hint">Formats acceptés: EPUB, TXT, Markdown et HTML, jusqu’à 30 Mo. Le livre, tes réglages et ta position restent sauvegardés dans ce navigateur.</p>
+      </div>
+    </details>
+  </main>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const els = {
+      word: $('word'), progress: $('progress'), position: $('position'), remaining: $('remaining'),
+      play: $('play'), back: $('back'), previous: $('previous'), next: $('next'), forward: $('forward'),
+      wpm: $('wpm'), wpmValue: $('wpmValue'), smart: $('smart'), bionic: $('bionic'),
+      fontFamily: $('fontFamily'), fontSize: $('fontSize'), fontSizeValue: $('fontSizeValue'), text: $('text'), load: $('load'),
+      clear: $('clear'), editor: $('editor'), saved: $('saved'), fileInput: $('fileInput'),
+      fileName: $('fileName'), fileError: $('fileError'), tocPanel: $('tocPanel'),
+      tocList: $('tocList'), tocCount: $('tocCount'), chapterNow: $('chapterNow'),
+      sentencePause: $('sentencePause'), sentencePauseValue: $('sentencePauseValue'),
+      paragraphPause: $('paragraphPause'), paragraphPauseValue: $('paragraphPauseValue'), startOver: $('startOver'),
+      keepAwake: $('keepAwake'), screenStatus: $('screenStatus')
+    };
+
+    let tokens = [];
+    let index = 0;
+    let playing = false;
+    let timer = null;
+    let saveTimer = null;
+    let bookSaveTimer = null;
+    let currentFileName = '';
+    let chapters = [];
+    let wakeLock = null;
+    const MAX_FILE_SIZE = 30 * 1024 * 1024;
+    const MAX_TEXT_LENGTH = 12_000_000;
+    const fontFamilies = {
+      century: '"Century Gothic", "Avenir Next", Arial, sans-serif',
+      verdana: 'Verdana, Geneva, sans-serif',
+      trebuchet: '"Trebuchet MS", Arial, sans-serif',
+      georgia: 'Georgia, "Times New Roman", serif',
+      garamond: 'Garamond, "EB Garamond", Georgia, serif',
+      times: '"Times New Roman", Times, serif'
+    };
+
+    function applyTypography() {
+      els.word.style.fontFamily = fontFamilies[els.fontFamily.value] || fontFamilies.century;
+      els.word.style.fontSize = `${els.fontSize.value}px`;
+      els.fontSizeValue.textContent = `${els.fontSize.value} px`;
+    }
+
+    function formatSeconds(milliseconds) {
+      return `${(Number(milliseconds) / 1000).toLocaleString('fr-CA', { maximumFractionDigits: 1 })} s`;
+    }
+
+    function applyPauseLabels() {
+      els.sentencePauseValue.textContent = formatSeconds(els.sentencePause.value);
+      els.paragraphPauseValue.textContent = formatSeconds(els.paragraphPause.value);
+    }
+
+    async function requestWakeLock() {
+      if (!playing || !els.keepAwake.checked || document.visibilityState !== 'visible') return;
+      if (wakeLock) return;
+      if (!('wakeLock' in navigator)) {
+        els.screenStatus.textContent = 'Maintien de l’écran non disponible';
+        return;
+      }
+      try {
+        wakeLock = await navigator.wakeLock.request('screen');
+        els.screenStatus.textContent = 'Écran maintenu allumé';
+        wakeLock.addEventListener('release', () => {
+          wakeLock = null;
+          if (!playing) els.screenStatus.textContent = '';
+        });
+      } catch {
+        wakeLock = null;
+        els.screenStatus.textContent = 'Maintien refusé par l’appareil';
+      }
+    }
+
+    async function releaseWakeLock() {
+      if (wakeLock) {
+        try { await wakeLock.release(); } catch {}
+        wakeLock = null;
+      }
+      els.screenStatus.textContent = '';
+    }
+
+    function openBookDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open('bena-rsvp', 1);
+        request.onupgradeneeded = () => request.result.createObjectStore('books');
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    async function storeBook(text, name = '') {
+      const db = await openBookDB();
+      await new Promise((resolve, reject) => {
+        const transaction = db.transaction('books', 'readwrite');
+        transaction.objectStore('books').put({ text, name, chapters }, 'current');
+        transaction.oncomplete = resolve;
+        transaction.onerror = () => reject(transaction.error);
+      });
+      db.close();
+    }
+
+    async function getStoredBook() {
+      const db = await openBookDB();
+      const result = await new Promise((resolve, reject) => {
+        const request = db.transaction('books', 'readonly').objectStore('books').get('current');
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+      db.close();
+      return result;
+    }
+
+    async function deleteStoredBook() {
+      const db = await openBookDB();
+      await new Promise((resolve, reject) => {
+        const transaction = db.transaction('books', 'readwrite');
+        transaction.objectStore('books').delete('current');
+        transaction.oncomplete = resolve;
+        transaction.onerror = () => reject(transaction.error);
+      });
+      db.close();
+    }
+
+    function queueBookSave() {
+      clearTimeout(bookSaveTimer);
+      bookSaveTimer = setTimeout(async () => {
+        try { await storeBook(els.text.value, currentFileName); }
+        catch { els.saved.textContent = 'Impossible de sauvegarder le livre'; }
+      }, 600);
+    }
+
+    function cleanHtml(html) {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      doc.querySelectorAll('script,style,nav,svg').forEach(node => node.remove());
+      doc.querySelectorAll('p,h1,h2,h3,h4,h5,h6,li,blockquote,br').forEach(node => node.append('\n\n'));
+      return (doc.body?.textContent || '').replace(/\n[ \t]+/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+    }
+
+    function headingFromHtml(html) {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      return doc.querySelector('h1,h2,h3,title')?.textContent?.trim() || '';
+    }
+
+    function inferTextChapters(text) {
+      const found = [];
+      const lines = text.split('\n');
+      let tokenCursor = 0;
+      for (const line of lines) {
+        const trimmed = line.trim();
+        const markdown = trimmed.match(/^#{1,4}\s+(.+)$/);
+        const chapterLike = trimmed.match(/^(chapitre|chapter|partie|section)\s+.{0,80}$/i);
+        if ((markdown || chapterLike) && found.length < 200) {
+          found.push({ title: (markdown?.[1] || trimmed).trim(), index: tokenCursor });
+        }
+        tokenCursor += tokenize(`${line}\n`).length;
+      }
+      return found;
+    }
+
+    function currentChapter() {
+      let active = null;
+      for (const chapter of chapters) {
+        if (chapter.index <= index) active = chapter;
+        else break;
+      }
+      return active;
+    }
+
+    function renderToc() {
+      els.tocList.innerHTML = '';
+      els.tocPanel.hidden = chapters.length === 0;
+      els.tocCount.textContent = chapters.length ? `${chapters.length} section${chapters.length === 1 ? '' : 's'}` : '';
+      const active = currentChapter();
+      els.chapterNow.textContent = active?.title || '';
+      chapters.forEach((chapter, chapterIndex) => {
+        const button = document.createElement('button');
+        button.className = `toc-item${chapter === active ? ' current' : ''}`;
+        button.dataset.chapter = chapterIndex;
+        button.textContent = chapter.title;
+        button.addEventListener('click', () => {
+          stop();
+          index = Math.max(0, Math.min(tokens.length - 1, chapter.index));
+          renderWord();
+          els.tocPanel.open = false;
+        });
+        els.tocList.append(button);
+      });
+    }
+
+    function updateChapterDisplay() {
+      const active = currentChapter();
+      els.chapterNow.textContent = active?.title || '';
+      els.tocList.querySelectorAll('.toc-item').forEach((button, chapterIndex) => {
+        button.classList.toggle('current', chapters[chapterIndex] === active);
+      });
+    }
+
+    function resolveEpubPath(baseFile, relativePath) {
+      const base = new URL(baseFile, 'https://epub.local/');
+      return decodeURIComponent(new URL(relativePath.split('#')[0], base).pathname.slice(1));
+    }
+
+    async function unzipEpub(file) {
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+      const signatureAt = offset => offset >= 0 && offset + 4 <= bytes.length ? view.getUint32(offset, true) : 0;
+      let eocd = -1;
+      const searchStart = Math.max(0, bytes.length - 65557);
+      for (let offset = bytes.length - 22; offset >= searchStart; offset--) {
+        if (signatureAt(offset) === 0x06054b50) { eocd = offset; break; }
+      }
+      if (eocd < 0) throw new Error('EPUB_INVALID');
+      const entryCount = view.getUint16(eocd + 10, true);
+      let cursor = view.getUint32(eocd + 16, true);
+      const entries = new Map();
+      const decoder = new TextDecoder('utf-8');
+
+      for (let entryIndex = 0; entryIndex < entryCount; entryIndex++) {
+        if (signatureAt(cursor) !== 0x02014b50) throw new Error('EPUB_INVALID');
+        const flags = view.getUint16(cursor + 8, true);
+        const method = view.getUint16(cursor + 10, true);
+        const compressedSize = view.getUint32(cursor + 20, true);
+        const uncompressedSize = view.getUint32(cursor + 24, true);
+        const nameLength = view.getUint16(cursor + 28, true);
+        const extraLength = view.getUint16(cursor + 30, true);
+        const commentLength = view.getUint16(cursor + 32, true);
+        const localOffset = view.getUint32(cursor + 42, true);
+        const name = decoder.decode(bytes.subarray(cursor + 46, cursor + 46 + nameLength));
+        if ((flags & 1) !== 0) throw new Error('EPUB_ENCRYPTED');
+        if (uncompressedSize > MAX_FILE_SIZE) throw new Error('EPUB_TOO_LARGE');
+        entries.set(name.replace(/^\.\//, ''), { method, compressedSize, localOffset });
+        cursor += 46 + nameLength + extraLength + commentLength;
+      }
+
+      async function extract(entry) {
+        if (signatureAt(entry.localOffset) !== 0x04034b50) throw new Error('EPUB_INVALID');
+        const nameLength = view.getUint16(entry.localOffset + 26, true);
+        const extraLength = view.getUint16(entry.localOffset + 28, true);
+        const start = entry.localOffset + 30 + nameLength + extraLength;
+        const compressed = bytes.slice(start, start + entry.compressedSize);
+        if (entry.method === 0) return compressed;
+        if (entry.method !== 8 || typeof DecompressionStream === 'undefined') throw new Error('EPUB_COMPRESSION');
+        const stream = new Blob([compressed]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
+        return new Uint8Array(await new Response(stream).arrayBuffer());
+      }
+
+      return {
+        file(path) {
+          const entry = entries.get(path.replace(/^\.\//, ''));
+          if (!entry) return null;
+          return { async: async type => {
+            const content = await extract(entry);
+            return type === 'string' ? decoder.decode(content) : content;
+          }};
+        }
+      };
+    }
+
+    async function readEpub(file) {
+      const zip = await unzipEpub(file);
+      const containerFile = zip.file('META-INF/container.xml');
+      if (!containerFile) throw new Error('Ce fichier EPUB ne semble pas valide.');
+      const container = new DOMParser().parseFromString(await containerFile.async('string'), 'application/xml');
+      const opfPath = container.querySelector('rootfile')?.getAttribute('full-path');
+      if (!opfPath || !zip.file(opfPath)) throw new Error('Impossible de trouver le contenu de cet EPUB.');
+      const opf = new DOMParser().parseFromString(await zip.file(opfPath).async('string'), 'application/xml');
+      const manifest = {};
+      opf.querySelectorAll('manifest item').forEach(item => {
+        manifest[item.getAttribute('id')] = {
+          href: item.getAttribute('href'),
+          properties: item.getAttribute('properties') || '',
+          mediaType: item.getAttribute('media-type') || ''
+        };
+      });
+      const titleByPath = {};
+      const navItem = Object.values(manifest).find(item => item.properties.split(/\s+/).includes('nav'));
+      if (navItem) {
+        const navPath = resolveEpubPath(opfPath, navItem.href);
+        const navEntry = zip.file(navPath);
+        if (navEntry) {
+          const nav = new DOMParser().parseFromString(await navEntry.async('string'), 'text/html');
+          nav.querySelectorAll('nav a[href]').forEach(link => {
+            const path = resolveEpubPath(navPath, link.getAttribute('href'));
+            if (!titleByPath[path]) titleByPath[path] = link.textContent.trim();
+          });
+        }
+      }
+      const ncxItem = Object.values(manifest).find(item => item.mediaType === 'application/x-dtbncx+xml');
+      if (ncxItem) {
+        const ncxPath = resolveEpubPath(opfPath, ncxItem.href);
+        const ncxEntry = zip.file(ncxPath);
+        if (ncxEntry) {
+          const ncx = new DOMParser().parseFromString(await ncxEntry.async('string'), 'application/xml');
+          ncx.querySelectorAll('navPoint').forEach(point => {
+            const src = point.querySelector('content')?.getAttribute('src');
+            const title = point.querySelector('navLabel text')?.textContent?.trim();
+            if (src && title) titleByPath[resolveEpubPath(ncxPath, src)] = title;
+          });
+        }
+      }
+      const sections = [];
+      const epubChapters = [];
+      for (const itemref of opf.querySelectorAll('spine itemref')) {
+        const item = manifest[itemref.getAttribute('idref')];
+        if (!item?.href) continue;
+        const path = resolveEpubPath(opfPath, item.href);
+        const entry = zip.file(path);
+        if (entry) {
+          const html = await entry.async('string');
+          const text = cleanHtml(html);
+          if (text) {
+            const startIndex = tokenize(sections.join('\n\n') + (sections.length ? '\n\n' : '')).length;
+            const title = titleByPath[path] || headingFromHtml(html);
+            if (title && !/^(cover|couverture)$/i.test(title)) epubChapters.push({ title, index: startIndex });
+            sections.push(text);
+          }
+        }
+      }
+      if (!sections.length) throw new Error('Aucun texte lisible n’a été trouvé dans cet EPUB.');
+      return { text: sections.join('\n\n'), chapters: epubChapters };
+    }
+
+    async function importFile(file) {
+      if (file.size > MAX_FILE_SIZE) {
+        els.fileError.textContent = 'Ce fichier dépasse la limite de 30 Mo. Choisis une version plus légère du document.';
+        els.fileName.textContent = currentFileName || (els.text.value ? 'Texte collé' : 'Aucun fichier importé');
+        els.fileInput.value = '';
+        return;
+      }
+      stop();
+      els.fileError.textContent = '';
+      els.fileName.textContent = `Ouverture de ${file.name}…`;
+      try {
+        const extension = file.name.split('.').pop().toLowerCase();
+        let text;
+        if (extension === 'epub') {
+          const epub = await readEpub(file);
+          text = epub.text;
+          chapters = epub.chapters;
+        } else if (['html', 'htm'].includes(extension)) {
+          const html = await file.text();
+          text = cleanHtml(html);
+          chapters = inferTextChapters(text);
+        } else {
+          text = await file.text();
+          chapters = inferTextChapters(text);
+        }
+        if (!text.trim()) throw new Error('Ce fichier ne contient aucun texte lisible.');
+        if (text.length > MAX_TEXT_LENGTH) throw new Error('Le texte extrait est trop volumineux pour être lu sans risque de ralentissement.');
+        currentFileName = file.name;
+        els.text.value = text;
+        els.fileName.textContent = file.name;
+        prepare(true, true);
+        await storeBook(text, currentFileName);
+        saveState();
+        els.saved.textContent = 'Livre importé et sauvegardé';
+      } catch (error) {
+        els.fileName.textContent = currentFileName || (els.text.value ? 'Texte collé' : 'Aucun fichier importé');
+        const extension = file.name.split('.').pop().toLowerCase();
+        if (error.message?.startsWith('Le texte extrait est trop volumineux')) {
+          els.fileError.textContent = error.message;
+        } else if (extension === 'epub') {
+          els.fileError.textContent = 'Impossible d’ouvrir cet EPUB. Le fichier est peut-être endommagé ou utilise une structure non reconnue.';
+        } else {
+          els.fileError.textContent = 'Impossible de lire ce fichier. Essaie un autre document.';
+        }
+      } finally {
+        els.fileInput.value = '';
+      }
+    }
+
+    function tokenize(text) {
+      const result = text.replace(/\r\n?/g, '\n').trim().split(/(\n[ \t]*\n+)|[ \t\n]+/).filter(Boolean).map(value => ({
+        value: value.trim(),
+        paragraph: /^\n[ \t]*\n+$/.test(value)
+      }));
+      let previousWord = null;
+      for (const token of result) {
+        if (token.paragraph && previousWord) previousWord.paragraphAfter = true;
+        if (!token.paragraph) {
+          token.sentenceAfter = /[.!?…](?:[^\p{L}]*)$/u.test(token.value);
+          previousWord = token;
+        }
+      }
+      return result;
+    }
+
+    function visibleTokens() { return tokens.filter(t => !t.paragraph); }
+
+    function focusIndex(word) {
+      const clean = word.replace(/^[^\p{L}\p{N}]+/u, '');
+      const offset = word.indexOf(clean);
+      const len = [...clean.replace(/[^\p{L}\p{N}].*$/u, '')].length;
+      const point = len <= 1 ? 0 : len <= 5 ? 1 : len <= 9 ? 2 : len <= 13 ? 3 : 4;
+      return Math.max(0, offset + point);
+    }
+
+    function renderWord() {
+      while (tokens[index]?.paragraph && index < tokens.length - 1) index++;
+      const token = tokens[index];
+      if (!token || token.paragraph) {
+        els.word.className = 'word empty';
+        els.word.textContent = tokens.length ? 'Fin du texte' : 'Ajoute un texte pour commencer';
+      } else {
+        const chars = [...token.value];
+        const focus = Math.min(focusIndex(token.value), chars.length - 1);
+        els.word.className = 'word';
+        const leadingPunctuation = token.value.search(/[\p{L}\p{N}]/u);
+        const lexicalLength = [...token.value.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '')].length;
+        const bionicEnd = Math.max(1, leadingPunctuation + Math.ceil(lexicalLength * .48));
+        els.word.innerHTML = '';
+        chars.forEach((char, charIndex) => {
+          const span = document.createElement('span');
+          const classes = [];
+          if (els.bionic.checked && charIndex >= leadingPunctuation && charIndex < bionicEnd) classes.push('bionic');
+          if (!els.bionic.checked && charIndex === focus) classes.push('focus');
+          span.className = classes.join(' ');
+          span.textContent = char;
+          els.word.append(span);
+        });
+      }
+      els.progress.max = Math.max(0, tokens.length - 1);
+      els.progress.value = Math.min(index, Math.max(0, tokens.length - 1));
+      const read = tokens.slice(0, index + 1).filter(t => !t.paragraph).length;
+      const total = visibleTokens().length;
+      els.position.textContent = `${Math.min(read, total).toLocaleString('fr-CA')} / ${total.toLocaleString('fr-CA')}`;
+      const minutes = total ? Math.max(0, Math.ceil((total - read) / Number(els.wpm.value))) : 0;
+      els.remaining.textContent = `${minutes} min restante${minutes === 1 ? '' : 's'}`;
+      updateChapterDisplay();
+      saveState();
+    }
+
+    function wordDelay(token) {
+      const base = 60000 / Number(els.wpm.value);
+      if (!token) return base;
+      const cleanLength = [...token.value.replace(/[^\p{L}\p{N}'’-]/gu, '')].length;
+      let factor = 1;
+      if (els.smart.checked) {
+        factor = cleanLength <= 3 ? .78 : cleanLength <= 7 ? 1 : 1 + Math.min(.85, (cleanLength - 7) * .075);
+      }
+      if (els.smart.checked && /[:;](?:[”’"'»›)\]]+)?$/.test(token.value)) factor += .72;
+      else if (els.smart.checked && /,(?:[”’"'»›)\]]+)?$/.test(token.value)) factor += .38;
+      return Math.round(base * factor);
+    }
+
+    function boundaryPause(token) {
+      if (token?.paragraphAfter) return Number(els.paragraphPause.value);
+      if (token?.sentenceAfter) return Number(els.sentencePause.value);
+      return 0;
+    }
+
+    function scheduleNext() {
+      if (!playing) return;
+      if (index >= tokens.length - 1) { stop(); renderWord(); return; }
+      const token = tokens[index];
+      const delay = wordDelay(token);
+      const advance = () => {
+        index++;
+        renderWord();
+        scheduleNext();
+      };
+      timer = setTimeout(() => {
+        const pause = boundaryPause(token);
+        if (pause > 0) {
+          els.word.innerHTML = '&nbsp;';
+          timer = setTimeout(advance, pause);
+        } else {
+          advance();
+        }
+      }, delay);
+    }
+
+    function start() {
+      if (!tokens.length) { els.editor.open = true; els.text.focus(); return; }
+      if (index >= tokens.length - 1) index = 0;
+      playing = true;
+      requestWakeLock();
+      els.play.textContent = '❚❚';
+      els.play.setAttribute('aria-label', 'Mettre en pause');
+      els.editor.open = false;
+      renderWord();
+      scheduleNext();
+    }
+
+    function stop() {
+      playing = false;
+      clearTimeout(timer);
+      releaseWakeLock();
+      els.play.textContent = '▶';
+      els.play.setAttribute('aria-label', 'Lire');
+      saveState();
+    }
+
+    function move(amount) {
+      stop();
+      index = Math.max(0, Math.min(tokens.length - 1, index + amount));
+      renderWord();
+    }
+
+    function prepare(reset = true, preserveChapters = false) {
+      stop();
+      tokens = tokenize(els.text.value);
+      if (!preserveChapters) chapters = inferTextChapters(els.text.value);
+      if (reset) index = 0;
+      index = Math.min(index, Math.max(0, tokens.length - 1));
+      renderToc();
+      renderWord();
+      if (tokens.length) els.editor.open = false;
+      queueBookSave();
+    }
+
+    function saveState() {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        localStorage.setItem('rsvp-reader', JSON.stringify({
+          index, wpm: els.wpm.value, smart: els.smart.checked,
+          bionic: els.bionic.checked, fontFamily: els.fontFamily.value, fontSize: els.fontSize.value,
+          sentencePause: els.sentencePause.value, paragraphPause: els.paragraphPause.value,
+          keepAwake: els.keepAwake.checked
+        }));
+        els.saved.textContent = 'Sauvegardé';
+        setTimeout(() => els.saved.textContent = '', 1200);
+      }, 250);
+    }
+
+    async function restore() {
+      try {
+        const state = JSON.parse(localStorage.getItem('rsvp-reader') || '{}');
+        const storedBook = await getStoredBook();
+        els.text.value = storedBook?.text || state.text || '';
+        currentFileName = storedBook?.name || '';
+        chapters = Array.isArray(storedBook?.chapters) ? storedBook.chapters : inferTextChapters(els.text.value);
+        els.fileName.textContent = currentFileName || (els.text.value ? 'Texte collé' : 'Aucun fichier importé');
+        els.wpm.value = state.wpm || 350;
+        els.smart.checked = state.smart !== false;
+        els.bionic.checked = state.bionic === true;
+        els.fontFamily.value = state.fontFamily || 'century';
+        els.fontSize.value = state.fontSize || 76;
+        els.sentencePause.value = state.sentencePause || 700;
+        els.paragraphPause.value = state.paragraphPause || 1200;
+        els.keepAwake.checked = state.keepAwake !== false;
+        els.wpmValue.textContent = `${els.wpm.value} MPM`;
+        applyTypography();
+        applyPauseLabels();
+        tokens = tokenize(els.text.value);
+        index = Math.min(Number(state.index) || 0, Math.max(0, tokens.length - 1));
+        renderToc();
+        renderWord();
+        if (tokens.length) els.editor.open = false;
+        if (!storedBook && state.text) await storeBook(state.text, '');
+      } catch { renderWord(); }
+    }
+
+    els.play.addEventListener('click', () => playing ? stop() : start());
+    els.back.addEventListener('click', () => move(-10));
+    els.previous.addEventListener('click', () => move(-1));
+    els.next.addEventListener('click', () => move(1));
+    els.forward.addEventListener('click', () => move(10));
+    els.startOver.addEventListener('click', () => {
+      if (!tokens.length || index === 0) return;
+      if (confirm('Revenir au début du livre? Ta position actuelle sera remplacée.')) {
+        stop();
+        index = 0;
+        renderWord();
+      }
+    });
+    els.load.addEventListener('click', () => prepare(true));
+    els.clear.addEventListener('click', async () => {
+      stop(); tokens = []; chapters = []; index = 0; currentFileName = ''; els.text.value = ''; localStorage.removeItem('rsvp-reader');
+      await deleteStoredBook(); els.fileName.textContent = 'Aucun fichier importé'; els.fileError.textContent = ''; renderWord(); els.text.focus();
+    });
+    els.wpm.addEventListener('input', () => { els.wpmValue.textContent = `${els.wpm.value} MPM`; saveState(); });
+    els.smart.addEventListener('change', saveState);
+    els.bionic.addEventListener('change', () => { renderWord(); saveState(); });
+    els.fontFamily.addEventListener('change', () => { applyTypography(); saveState(); });
+    els.fontSize.addEventListener('input', () => { applyTypography(); saveState(); });
+    els.sentencePause.addEventListener('input', () => { applyPauseLabels(); saveState(); });
+    els.paragraphPause.addEventListener('input', () => { applyPauseLabels(); saveState(); });
+    els.keepAwake.addEventListener('change', () => {
+      if (els.keepAwake.checked) requestWakeLock(); else releaseWakeLock();
+      saveState();
+    });
+    els.progress.addEventListener('input', () => { stop(); index = Number(els.progress.value); renderWord(); });
+    els.text.addEventListener('input', () => { currentFileName = ''; els.fileName.textContent = 'Texte collé'; saveState(); queueBookSave(); });
+    els.fileInput.addEventListener('change', () => { if (els.fileInput.files[0]) importFile(els.fileInput.files[0]); });
+    document.addEventListener('keydown', event => {
+      if (event.target === els.text) return;
+      if (event.code === 'Space') { event.preventDefault(); playing ? stop() : start(); }
+      if (event.code === 'ArrowLeft') move(event.shiftKey ? -10 : -1);
+      if (event.code === 'ArrowRight') move(event.shiftKey ? 10 : 1);
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && playing && els.keepAwake.checked) requestWakeLock();
+    });
+
+    restore();
+  </script>
+</body>
+</html>
