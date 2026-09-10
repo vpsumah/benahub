@@ -150,7 +150,6 @@
   </style>
 </head>
 <body>
-  
   <main class="app">
     <header>
       <div class="title-group">
@@ -233,7 +232,7 @@
       <div class="text-area">
         <div class="import-row">
           <label class="file-button" for="fileInput">Importer un fichier</label>
-          <input id="fileInput" type="file" accept=".epub,.txt,.md,.html,.htm,text/plain,text/html,application/epub+zip" hidden>
+          <input id="fileInput" type="file" accept=".epub,.pdf,.txt,.md,.html,.htm,text/plain,text/html,application/epub+zip,application/pdf" hidden>
           <span class="file-name" id="fileName">Aucun fichier importé</span>
         </div>
         <div class="file-error" id="fileError" role="alert"></div>
@@ -243,7 +242,7 @@
           <button class="primary" id="load">Préparer la lecture</button>
         </div>
         <p class="privacy-note"><span aria-hidden="true">🔒</span><span><strong>Ton document reste privé.</strong> Il est lu et sauvegardé uniquement sur ton appareil. Il n’est jamais envoyé sur un serveur.</span></p>
-        <p class="hint">Formats acceptés: EPUB, TXT, Markdown et HTML, jusqu’à 30 Mo. Le livre, tes réglages et ta position restent sauvegardés dans ce navigateur.</p>
+        <p class="hint">Formats acceptés: EPUB, PDF avec texte, TXT, Markdown et HTML, jusqu’à 30 Mo. Le livre, tes réglages et ta position restent sauvegardés dans ce navigateur.</p>
       </div>
     </details>
   </main>
@@ -274,6 +273,7 @@
     let wakeLock = null;
     const MAX_FILE_SIZE = 30 * 1024 * 1024;
     const MAX_TEXT_LENGTH = 12_000_000;
+    let pdfEnginePromise = null;
     const fontFamilies = {
       century: '"Century Gothic", "Avenir Next", Arial, sans-serif',
       verdana: 'Verdana, Geneva, sans-serif',
@@ -567,6 +567,44 @@
       return { text: sections.join('\n\n'), chapters: epubChapters };
     }
 
+    async function loadPdfEngine() {
+      if (!pdfEnginePromise) {
+        pdfEnginePromise = import('./assets/js/vendor/pdf.min.mjs').then(pdfjs => {
+          pdfjs.GlobalWorkerOptions.workerSrc = './assets/js/vendor/pdf.worker.min.mjs';
+          return pdfjs;
+        });
+      }
+      return pdfEnginePromise;
+    }
+
+    async function readPdf(file) {
+      const pdfjs = await loadPdfEngine();
+      const data = new Uint8Array(await file.arrayBuffer());
+      const pdf = await pdfjs.getDocument({ data }).promise;
+      const pages = [];
+      const pdfChapters = [];
+
+      for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+        const page = await pdf.getPage(pageNumber);
+        const content = await page.getTextContent();
+        let pageText = '';
+        for (const item of content.items) {
+          if (!('str' in item)) continue;
+          pageText += item.str;
+          pageText += item.hasEOL ? '\n' : ' ';
+        }
+        pageText = pageText.replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+        if (!pageText) continue;
+        const startIndex = tokenize(pages.join('\n\n') + (pages.length ? '\n\n' : '')).length;
+        pdfChapters.push({ title: `Page ${pageNumber}`, index: startIndex });
+        pages.push(pageText);
+      }
+
+      const text = pages.join('\n\n');
+      if (text.replace(/\s/g, '').length < 40) throw new Error('PDF_NO_TEXT');
+      return { text, chapters: pdfChapters };
+    }
+
     async function importFile(file) {
       if (file.size > MAX_FILE_SIZE) {
         els.fileError.textContent = 'Ce fichier dépasse la limite de 30 Mo. Choisis une version plus légère du document.';
@@ -580,7 +618,11 @@
       try {
         const extension = file.name.split('.').pop().toLowerCase();
         let text;
-        if (extension === 'epub') {
+        if (extension === 'pdf') {
+          const pdf = await readPdf(file);
+          text = pdf.text;
+          chapters = pdf.chapters;
+        } else if (extension === 'epub') {
           const epub = await readEpub(file);
           text = epub.text;
           chapters = epub.chapters;
@@ -604,8 +646,12 @@
       } catch (error) {
         els.fileName.textContent = currentFileName || (els.text.value ? 'Texte collé' : 'Aucun fichier importé');
         const extension = file.name.split('.').pop().toLowerCase();
-        if (error.message?.startsWith('Le texte extrait est trop volumineux')) {
+        if (error.message === 'PDF_NO_TEXT') {
+          els.fileError.textContent = 'Ce PDF ne contient pas de texte lisible. Les documents scannés ne sont pas encore pris en charge.';
+        } else if (error.message?.startsWith('Le texte extrait est trop volumineux')) {
           els.fileError.textContent = error.message;
+        } else if (extension === 'pdf') {
+          els.fileError.textContent = 'Impossible d’ouvrir ce PDF. Le fichier est peut-être protégé, endommagé ou utilise une structure non reconnue.';
         } else if (extension === 'epub') {
           els.fileError.textContent = 'Impossible d’ouvrir cet EPUB. Le fichier est peut-être endommagé ou utilise une structure non reconnue.';
         } else {
