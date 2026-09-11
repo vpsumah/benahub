@@ -109,7 +109,7 @@
     select { min-height: 42px; padding: 0 38px 0 12px; border: 1px solid var(--line); border-radius: 12px; background: white; color: var(--text); font: inherit; }
     .font-size { display: grid; grid-template-columns: auto minmax(110px, 220px) auto; align-items: center; gap: 10px; }
     .font-size strong { color: var(--focus); min-width: 44px; text-align: right; }
-    .pause-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 15px; border-top: 1px solid var(--line); }
+    .pause-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; padding-top: 15px; border-top: 1px solid var(--line); }
     .pause-control { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; }
     .pause-control strong { color: var(--focus); min-width: 48px; text-align: right; }
     .toggles { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px 18px; }
@@ -215,6 +215,11 @@
       </div>
       <div class="pause-controls" id="pauseControls">
         <div class="pause-control">
+          <label for="syllableExtra" title="Temps ajouté pour chaque syllabe après les deux premières">Syllabe supplémentaire</label>
+          <input id="syllableExtra" type="range" min="0" max="500" step="50" value="200">
+          <strong id="syllableExtraValue">0,2 s</strong>
+        </div>
+        <div class="pause-control">
           <label for="sentencePause">Fin de phrase</label>
           <input id="sentencePause" type="range" min="200" max="1600" step="100" value="700">
           <strong id="sentencePauseValue">0,7 s</strong>
@@ -259,6 +264,7 @@
       tocList: $('tocList'), tocCount: $('tocCount'), chapterNow: $('chapterNow'),
       sentencePause: $('sentencePause'), sentencePauseValue: $('sentencePauseValue'),
       paragraphPause: $('paragraphPause'), paragraphPauseValue: $('paragraphPauseValue'), startOver: $('startOver'),
+      syllableExtra: $('syllableExtra'), syllableExtraValue: $('syllableExtraValue'),
       keepAwake: $('keepAwake'), screenStatus: $('screenStatus')
     };
 
@@ -294,6 +300,7 @@
     }
 
     function applyPauseLabels() {
+      els.syllableExtraValue.textContent = formatSeconds(els.syllableExtra.value);
       els.sentencePauseValue.textContent = formatSeconds(els.sentencePause.value);
       els.paragraphPauseValue.textContent = formatSeconds(els.paragraphPause.value);
     }
@@ -603,6 +610,31 @@
       return output;
     }
 
+    function trailingEntrySize(record, end) {
+      let size = 0;
+      let shift = 0;
+      for (let cursor = end - 1; cursor >= 0 && shift <= 28; cursor--, shift += 7) {
+        const byte = record[cursor];
+        size |= (byte & 0x7f) << shift;
+        if (byte & 0x80) return size;
+      }
+      throw new Error('MOBI_INVALID');
+    }
+
+    function trimMobiRecord(record, extraDataFlags) {
+      let trimLength = 0;
+      for (let flags = extraDataFlags >>> 1; flags; flags >>>= 1) {
+        if (flags & 1) trimLength += trailingEntrySize(record, record.length - trimLength);
+      }
+      if (extraDataFlags & 1) {
+        const markerIndex = record.length - trimLength - 1;
+        if (markerIndex < 0) throw new Error('MOBI_INVALID');
+        trimLength += (record[markerIndex] & 3) + 1;
+      }
+      if (trimLength > record.length) throw new Error('MOBI_INVALID');
+      return trimLength ? record.subarray(0, record.length - trimLength) : record;
+    }
+
     async function readMobi(file) {
       const bytes = new Uint8Array(await file.arrayBuffer());
       if (bytes.length < 100) throw new Error('MOBI_INVALID');
@@ -627,6 +659,10 @@
       const textRecordCount = view.getUint16(firstRecord + 8, false);
       const encryption = view.getUint16(firstRecord + 12, false);
       const encoding = view.getUint32(firstRecord + 28, false);
+      const mobiHeaderLength = view.getUint32(firstRecord + 20, false);
+      const extraDataFlags = mobiHeaderLength >= 228 && firstRecord + 244 <= bytes.length
+        ? view.getUint32(firstRecord + 240, false)
+        : 0;
       if (encryption !== 0) throw new Error('MOBI_DRM');
       if (![1, 2].includes(compression)) throw new Error('MOBI_COMPRESSION');
       if (!textRecordCount || textRecordCount >= offsets.length) throw new Error('MOBI_INVALID');
@@ -634,7 +670,7 @@
 
       const records = [];
       for (let recordIndex = 1; recordIndex <= textRecordCount; recordIndex++) {
-        const record = bytes.subarray(offsets[recordIndex], offsets[recordIndex + 1]);
+        const record = trimMobiRecord(bytes.subarray(offsets[recordIndex], offsets[recordIndex + 1]), extraDataFlags);
         records.push(compression === 2 ? decompressPalmDoc(record) : record);
       }
       const decodedBytes = concatByteArrays(records, textLength);
@@ -835,19 +871,20 @@
       const cleanWord = token.value.replace(/[^\p{L}\p{N}'’-]/gu, '');
       const cleanLength = [...cleanWord].length;
       let factor = 1;
+      let syllableBonus = 0;
       if (els.smart.checked) {
         const syllables = estimateSyllables(cleanWord);
         if (cleanLength <= 3 && syllables === 1) {
           factor = .78;
         } else {
-          const syllableTime = Math.max(0, syllables - 2) * .26;
-          const longWordTime = Math.max(0, cleanLength - 10) * .025;
-          factor = Math.min(2.15, 1 + syllableTime + longWordTime);
+          const longWordTime = Math.max(0, cleanLength - 10) * .035;
+          factor = Math.min(1.35, 1 + longWordTime);
+          syllableBonus = Math.max(0, syllables - 2) * Number(els.syllableExtra.value);
         }
       }
       if (els.smart.checked && /[:;](?:[”’"'»›)\]]+)?$/.test(token.value)) factor += .72;
       else if (els.smart.checked && /,(?:[”’"'»›)\]]+)?$/.test(token.value)) factor += .38;
-      return Math.round(base * factor);
+      return Math.round(base * factor + syllableBonus);
     }
 
     function boundaryPause(token) {
@@ -922,6 +959,7 @@
         localStorage.setItem('rsvp-reader', JSON.stringify({
           index, wpm: els.wpm.value, smart: els.smart.checked,
           bionic: els.bionic.checked, fontFamily: els.fontFamily.value, fontSize: els.fontSize.value,
+          syllableExtra: els.syllableExtra.value,
           sentencePause: els.sentencePause.value, paragraphPause: els.paragraphPause.value,
           keepAwake: els.keepAwake.checked
         }));
@@ -943,6 +981,7 @@
         els.bionic.checked = state.bionic === true;
         els.fontFamily.value = state.fontFamily || 'century';
         els.fontSize.value = state.fontSize || 76;
+        els.syllableExtra.value = state.syllableExtra ?? 200;
         els.sentencePause.value = state.sentencePause || 700;
         els.paragraphPause.value = state.paragraphPause || 1200;
         els.keepAwake.checked = state.keepAwake !== false;
@@ -981,6 +1020,7 @@
     els.bionic.addEventListener('change', () => { renderWord(); saveState(); });
     els.fontFamily.addEventListener('change', () => { applyTypography(); saveState(); });
     els.fontSize.addEventListener('input', () => { applyTypography(); saveState(); });
+    els.syllableExtra.addEventListener('input', () => { applyPauseLabels(); saveState(); });
     els.sentencePause.addEventListener('input', () => { applyPauseLabels(); saveState(); });
     els.paragraphPause.addEventListener('input', () => { applyPauseLabels(); saveState(); });
     els.keepAwake.addEventListener('change', () => {
