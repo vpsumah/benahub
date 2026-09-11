@@ -154,7 +154,7 @@
     <header>
       <div class="title-group">
         <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-        <div><div class="brand"><a href="index.html">BENA HUB</a></div><h1>Lecteur RSVP</h1></div>
+        <div><div class="brand">BENA HUB</div><h1>Lecteur RSVP</h1></div>
       </div>
       <div class="saved" id="saved" aria-live="polite"></div>
     </header>
@@ -191,7 +191,7 @@
           <strong id="wpmValue">350 MPM</strong>
         </div>
         <div class="toggles">
-          <label class="toggle"><input id="smart" type="checkbox" checked> Rythme intelligent</label>
+          <label class="toggle" title="Adapte le temps aux syllabes, à la longueur du mot et à la ponctuation"><input id="smart" type="checkbox" checked> Rythme intelligent</label>
           <label class="toggle"><input id="bionic" type="checkbox"> Lecture bionic</label>
           <label class="toggle"><input id="keepAwake" type="checkbox" checked> Garder l’écran allumé</label>
         </div>
@@ -232,7 +232,7 @@
       <div class="text-area">
         <div class="import-row">
           <label class="file-button" for="fileInput">Importer un fichier</label>
-          <input id="fileInput" type="file" accept=".epub,.pdf,.txt,.md,.html,.htm,text/plain,text/html,application/epub+zip,application/pdf" hidden>
+          <input id="fileInput" type="file" accept=".epub,.mobi,.pdf,.txt,.md,.html,.htm,text/plain,text/html,application/epub+zip,application/x-mobipocket-ebook,application/pdf" hidden>
           <span class="file-name" id="fileName">Aucun fichier importé</span>
         </div>
         <div class="file-error" id="fileError" role="alert"></div>
@@ -242,7 +242,7 @@
           <button class="primary" id="load">Préparer la lecture</button>
         </div>
         <p class="privacy-note"><span aria-hidden="true">🔒</span><span><strong>Ton document reste privé.</strong> Il est lu et sauvegardé uniquement sur ton appareil. Il n’est jamais envoyé sur un serveur.</span></p>
-        <p class="hint">Formats acceptés: EPUB, PDF avec texte, TXT, Markdown et HTML, jusqu’à 30 Mo. Le livre, tes réglages et ta position restent sauvegardés dans ce navigateur.</p>
+        <p class="hint">Formats acceptés: EPUB, MOBI non protégé, PDF avec texte, TXT, Markdown et HTML, jusqu’à 30 Mo. Le livre, tes réglages et ta position restent sauvegardés dans ce navigateur.</p>
       </div>
     </details>
   </main>
@@ -567,6 +567,86 @@
       return { text: sections.join('\n\n'), chapters: epubChapters };
     }
 
+    function decompressPalmDoc(record) {
+      const output = [];
+      for (let cursor = 0; cursor < record.length;) {
+        const byte = record[cursor++];
+        if (byte === 0 || (byte >= 9 && byte <= 127)) {
+          output.push(byte);
+        } else if (byte <= 8) {
+          const end = Math.min(record.length, cursor + byte);
+          while (cursor < end) output.push(record[cursor++]);
+        } else if (byte <= 191) {
+          if (cursor >= record.length) throw new Error('MOBI_INVALID');
+          const pair = (byte << 8) | record[cursor++];
+          const distance = (pair >> 3) & 0x7ff;
+          const length = (pair & 7) + 3;
+          if (!distance || distance > output.length) throw new Error('MOBI_INVALID');
+          for (let copied = 0; copied < length; copied++) output.push(output[output.length - distance]);
+        } else {
+          output.push(32, byte ^ 0x80);
+        }
+      }
+      return new Uint8Array(output);
+    }
+
+    function concatByteArrays(parts, maximumLength) {
+      const totalLength = Math.min(maximumLength, parts.reduce((sum, part) => sum + part.length, 0));
+      const output = new Uint8Array(totalLength);
+      let cursor = 0;
+      for (const part of parts) {
+        const remaining = totalLength - cursor;
+        if (remaining <= 0) break;
+        output.set(part.subarray(0, remaining), cursor);
+        cursor += Math.min(part.length, remaining);
+      }
+      return output;
+    }
+
+    async function readMobi(file) {
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      if (bytes.length < 100) throw new Error('MOBI_INVALID');
+      const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+      const ascii = (start, length) => String.fromCharCode(...bytes.subarray(start, start + length));
+      const recordCount = view.getUint16(76, false);
+      if (!recordCount || 78 + recordCount * 8 > bytes.length) throw new Error('MOBI_INVALID');
+
+      const offsets = [];
+      for (let recordIndex = 0; recordIndex < recordCount; recordIndex++) {
+        offsets.push(view.getUint32(78 + recordIndex * 8, false));
+      }
+      offsets.push(bytes.length);
+      if (offsets.some((offset, offsetIndex) => offset < 0 || offset > bytes.length || (offsetIndex && offset < offsets[offsetIndex - 1]))) {
+        throw new Error('MOBI_INVALID');
+      }
+
+      const firstRecord = offsets[0];
+      if (firstRecord + 32 > bytes.length || ascii(firstRecord + 16, 4) !== 'MOBI') throw new Error('MOBI_INVALID');
+      const compression = view.getUint16(firstRecord, false);
+      const textLength = view.getUint32(firstRecord + 4, false);
+      const textRecordCount = view.getUint16(firstRecord + 8, false);
+      const encryption = view.getUint16(firstRecord + 12, false);
+      const encoding = view.getUint32(firstRecord + 28, false);
+      if (encryption !== 0) throw new Error('MOBI_DRM');
+      if (![1, 2].includes(compression)) throw new Error('MOBI_COMPRESSION');
+      if (!textRecordCount || textRecordCount >= offsets.length) throw new Error('MOBI_INVALID');
+      if (textLength > MAX_TEXT_LENGTH * 4) throw new Error('MOBI_TOO_LARGE');
+
+      const records = [];
+      for (let recordIndex = 1; recordIndex <= textRecordCount; recordIndex++) {
+        const record = bytes.subarray(offsets[recordIndex], offsets[recordIndex + 1]);
+        records.push(compression === 2 ? decompressPalmDoc(record) : record);
+      }
+      const decodedBytes = concatByteArrays(records, textLength);
+      let decoder;
+      try { decoder = new TextDecoder(encoding === 65001 ? 'utf-8' : 'windows-1252'); }
+      catch { decoder = new TextDecoder('utf-8'); }
+      const html = decoder.decode(decodedBytes).replace(/\0/g, '');
+      const text = cleanHtml(html);
+      if (!text.trim()) throw new Error('MOBI_NO_TEXT');
+      return { text, chapters: inferTextChapters(text) };
+    }
+
     async function loadPdfEngine() {
       if (!pdfEnginePromise) {
         pdfEnginePromise = import('./assets/js/vendor/pdf.min.mjs').then(pdfjs => {
@@ -622,6 +702,10 @@
           const pdf = await readPdf(file);
           text = pdf.text;
           chapters = pdf.chapters;
+        } else if (extension === 'mobi') {
+          const mobi = await readMobi(file);
+          text = mobi.text;
+          chapters = mobi.chapters;
         } else if (extension === 'epub') {
           const epub = await readEpub(file);
           text = epub.text;
@@ -652,6 +736,12 @@
           els.fileError.textContent = error.message;
         } else if (extension === 'pdf') {
           els.fileError.textContent = 'Impossible d’ouvrir ce PDF. Le fichier est peut-être protégé, endommagé ou utilise une structure non reconnue.';
+        } else if (error.message === 'MOBI_DRM') {
+          els.fileError.textContent = 'Ce livre MOBI est protégé par un verrou numérique (DRM), donc le navigateur ne peut pas en extraire le texte.';
+        } else if (error.message === 'MOBI_COMPRESSION') {
+          els.fileError.textContent = 'Ce MOBI utilise une ancienne compression qui n’est pas encore prise en charge. Une conversion en EPUB devrait fonctionner.';
+        } else if (extension === 'mobi') {
+          els.fileError.textContent = 'Impossible d’ouvrir ce MOBI. Le fichier est peut-être endommagé, protégé ou utilise une version non reconnue.';
         } else if (extension === 'epub') {
           els.fileError.textContent = 'Impossible d’ouvrir cet EPUB. Le fichier est peut-être endommagé ou utilise une structure non reconnue.';
         } else {
@@ -723,13 +813,37 @@
       saveState();
     }
 
+    function estimateSyllables(word) {
+      const parts = word.toLocaleLowerCase('fr-CA')
+        .replace(/œ/g, 'oe')
+        .replace(/[^a-zàâäáãåæçéèêëíìîïóòôöõúùûüÿ'-]/g, '')
+        .split(/['’-]+/)
+        .filter(Boolean);
+      let total = 0;
+      for (let part of parts) {
+        if (part.length <= 3) { total += 1; continue; }
+        let count = (part.match(/[aeiouyàâäáãåæéèêëíìîïóòôöõúùûüÿ]+/g) || []).length;
+        if (/(?:e|es|ent)$/.test(part) && !/(?:ée|ées|er|ez|ère|ères)$/.test(part) && count > 1) count--;
+        total += Math.max(1, count);
+      }
+      return Math.max(1, total);
+    }
+
     function wordDelay(token) {
       const base = 60000 / Number(els.wpm.value);
       if (!token) return base;
-      const cleanLength = [...token.value.replace(/[^\p{L}\p{N}'’-]/gu, '')].length;
+      const cleanWord = token.value.replace(/[^\p{L}\p{N}'’-]/gu, '');
+      const cleanLength = [...cleanWord].length;
       let factor = 1;
       if (els.smart.checked) {
-        factor = cleanLength <= 3 ? .78 : cleanLength <= 7 ? 1 : 1 + Math.min(.85, (cleanLength - 7) * .075);
+        const syllables = estimateSyllables(cleanWord);
+        if (cleanLength <= 3 && syllables === 1) {
+          factor = .78;
+        } else {
+          const syllableTime = Math.max(0, syllables - 2) * .26;
+          const longWordTime = Math.max(0, cleanLength - 10) * .025;
+          factor = Math.min(2.15, 1 + syllableTime + longWordTime);
+        }
       }
       if (els.smart.checked && /[:;](?:[”’"'»›)\]]+)?$/.test(token.value)) factor += .72;
       else if (els.smart.checked && /,(?:[”’"'»›)\]]+)?$/.test(token.value)) factor += .38;
